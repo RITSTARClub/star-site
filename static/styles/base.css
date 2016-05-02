@@ -1,0 +1,68 @@
+@charset 'UTF-8';
+
+/*
+Fonts:
+- Headings: 'Roboto Condensed', 'Helvetica Neue Condensed', 'Helvetica Condensed', 'Arial Narrow', sans-serif;
+- Body: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+
+Colors:
+- Background (black): #080808
+- Headings (orange): #ff9900
+- Body (gray): #f0f0f0
+- Links (blue-gray): #9999cc
+- Active links (blue): #9999ff
+- Primary dividers (yellow): #ffcc99
+- Secondary dividers (purple): #cc99cc
+
+*/
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,700italic,400italic|Roboto+Condensed:400,400italic,700,700italic);
+
+body {
+	margin: 0;
+	padding: 0;
+	
+	background-color: #080808;
+	color: #f0f0f0;
+	font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	
+}
+
+a {
+	color: #9999cc;
+}
+	a:hover {
+		color: #9999ff;
+	}
+	a:active {
+		color: #cc99ff;
+	}
+
+h1,
+h2 {
+	color: #ff9900;
+	font-family: 'Roboto Condensed', 'Helvetica Neue Condensed', 'Helvetica Condensed', 'Arial Narrow', sans-serif;
+	font-weight: bold;
+}
+	h1 {
+		font-size: 200%;
+	}
+	h2 {
+		font-size: 175%;
+	}
+
+section {
+	display: block;
+	margin: 0 auto;
+	padding: 0 4px;
+	max-width: 720px;
+}
+	section.wide {
+		max-width: none;
+	}
+
+
+#footer {
+	font-size: 75%;
+	text-align: center;
+}

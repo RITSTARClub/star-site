@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% if title %}{{ title }} - {% endif %}Space-Time Adventures at RIT</title>
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		
+		<meta name="theme-color" content="#080808" />
+		
+		<link rel="stylesheet" type="text/css" href="/static/styles/base.css" />
+		<link rel="stylesheet" type="text/css" href="/static/styles/head.css" />
+		<link rel="stylesheet" type="text/css" href="/static/styles/tables.css" />
+		
+		<!--[if lte IE 6]>
+			<script>
+				document.createElement("header");
+				document.createElement("section");
+				document.createElement("footer");
+				document.createElement("abbr");
+			</script>
+		<![endif]-->
+	</head>
+	<body>
+		<header id="header">
+			<a href="/">
+				<abbr title="Space-Time Adventures at RIT">
+					<img src="/static/images/header_logo.png" alt="STAR" />
+				</abbr>
+			</a>
+		</header>
+		<nav id="nav">
+			<a href="/">Home</a>
+			<a href="/members">Members</a>
+		</nav>
