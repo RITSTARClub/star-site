@@ -16,7 +16,9 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class HomePage(webapp2.RequestHandler):
 	def get(self):
-		template_vals = {}
+		template_vals = {
+			'page': 'home'
+		}
 		
 		template_vals['user'] = users.get_current_user()
 		if template_vals['user']:

@@ -21,7 +21,10 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class MissionListPage(webapp2.RequestHandler):
 	def get(self, args):
-		template_vals = {}
+		template_vals = {
+			'title': 'Missions',
+			'page': 'missions'
+		}
 		
 		user = users.get_current_user()
 		if user:
@@ -62,7 +65,10 @@ class MissionEditPage(webapp2.RequestHandler):
 			return
 		
 		
-		template_vals = {}
+		template_vals = {
+			'title': 'Edit Mission',
+			'page': 'missions'
+		}
 		template_vals['user'] = users.get_current_user()
 		template_vals['logout_url'] = users.create_logout_url(self.request.uri)
 		

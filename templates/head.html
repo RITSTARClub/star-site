@@ -34,7 +34,7 @@
 			</a>
 		</header>
 		<nav id="nav">
-			<a href="/">Home</a>
-			<a href="/missions">Missions</a>
-			<a href="/members">Members</a>
+			<a href="/"{% if page == 'home' %} class="active"{% endif %}>Home</a>
+			<a href="/missions"{% if page == 'missions' %} class="active"{% endif %}>Missions</a>
+			<a href="/members"{% if page == 'members' %} class="active"{% endif %}>Members</a>
 		</nav>

@@ -60,7 +60,8 @@
 				right: -6px;
 			}
 		#nav a:focus,
-		#nav a:hover {
+		#nav a:hover,
+		#nav a.active {
 			border-bottom-color: #9999ff;
 		}
 		#nav a:active {
