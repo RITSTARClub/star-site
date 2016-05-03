@@ -1,0 +1,33 @@
+{% include 'head.html' %}
+
+<section>
+	<form action="" method="GET" id="semesterSelect" style="float: right;">
+		<select name="semester">
+			{% for semester in semesters %}
+				<option value="{{ semester['id'] }}"{% if semester['selected'] %} selected="selected"{% endif %}>{{ semester['pretty'] }}</option>
+			{% endfor %}
+		</select>	
+	</form>
+	<h1>Missions</h1>
+	<table class="bigListTable">
+		{% for mission in missions %}
+			<tr>
+				<td>{{ mission.type_name }}</td>
+				<td><a href="/missions/info?id={{ mission.id }}">{{ mission.title }}</a></td>
+				<td>{{ mission.pretty_date|safe }}</td>
+				<td>
+					{% if mission.fb_url %}
+						<a href="mission.fb_url" target="_blank">FB</a>
+					{% endif %}
+					{% if mission.gplus_url %}
+						<a href="mission.gplus_url" target="_blank">G+</a>
+					{% endif %}
+			</tr>
+		{% endfor %}
+	</table>
+	{% if admin %}
+		<p><a href="/missions/edit">Add mission</a></p>
+	{% endif %}
+</section>
+
+{% include 'foot.html' %}

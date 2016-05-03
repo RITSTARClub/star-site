@@ -116,9 +116,11 @@ class BridgeCrew(ndb.Model):
 
 
 class Mission(ndb.Model):
-	TYPE_WEEKLY = 0
-	TYPE_SPECIAL = 1
-	TYPE_AWAY = 2
+	TYPES = [
+		'Weekly', # 0
+		'Special', # 1
+		'Away', # 2
+	]
 	
 	id = ndb.StringProperty() # Mission number (or special identifier for non-standard mission)
 	type = ndb.IntegerProperty()
@@ -128,3 +130,32 @@ class Mission(ndb.Model):
 	end = ndb.DateTimeProperty()
 	location = ndb.StringProperty()
 	runners = ndb.StringProperty(repeated=True) # Member UUIDs
+	fb_url = ndb.StringProperty()
+	gplus_url = ndb.StringProperty()
+	
+	def get_start_str(self):
+		if self.start:
+			return self.start.strftime('%Y-%m-%dT%H:%M')
+		return ''
+	
+	def get_end_str(self):
+		if self.end:
+			return self.end.strftime('%Y-%m-%dT%H:%M')
+		return ''
+	
+	def get_pretty_date(self):
+		pretty_date = self.start.strftime('%B %d, %Y &middot; %I:%M %p')
+		# Do not show the date twice for single-day events.
+		if self.start.date() == self.end.date():
+			pretty_date += self.end.strftime('-%I:%M %p')
+		else:
+			pretty_date += self.end.strftime('-%B %d, %Y &middot; %I:%M %p')
+		return pretty_date
+	
+	def get_type_name(self):
+		return Mission.TYPES[self.type] + ' Mission'
+	
+	start_str = property(get_start_str)
+	end_str = property(get_end_str)
+	pretty_date = property(get_pretty_date)
+	type_name = property(get_type_name)

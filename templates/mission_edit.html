@@ -1,0 +1,120 @@
+{% include 'head.html' %}
+
+<section>
+	<h1>Edit Member</h1>
+	<form action="" method="POST">
+		<table class="simpleTable">
+			<tr>
+				<td>
+					<label for="id">
+						Mission number
+						<br />
+						<small>Or unique identifier for special mission</small>
+					</label>
+				</td>
+				<td>
+					<input type="text" name="id" value="{{ mission.id or '' }}" required="required" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="type">Type</label>
+				</td>
+				<td>
+					<select name="type">
+						<option value="0"{% if mission.type == 0 %} selected="selected"{% endif %}>Weekly (Standard)</option>
+						<option value="1"{% if mission.type == 1 %} selected="selected"{% endif %}>Special</option>
+						<option value="2"{% if mission.type == 2 %} selected="selected"{% endif %}>Away</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="title">Title</label>
+				</td>
+				<td>
+					<input type="text" name="title" value="{{ mission.title or '' }}" required="required" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="description">
+						Description
+						<br />
+						<small>Add formatting using <a href="http://support.mashery.com/docs/customizing_your_portal/Markdown_Cheat_Sheet" target="_blank">Markdown</a></small>
+					</label>
+				</td>
+				<td>
+					<textarea name="description">{{ mission.description or '' }}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="start">
+						Start date/time
+						<br />
+						<small>yyyy-mm-ddThh:mm</small>
+					</label>
+				</td>
+				<td>
+					<input type="datetime-local" name="start" value="{{ mission.start_str or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="end">
+						End date/time
+						<br />
+						<small>yyyy-mm-ddThh:mm</small>
+					</label>
+				</td>
+				<td>
+					<input type="datetime-local" name="end" value="{{ mission.end_str or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="location">Location</label>
+				</td>
+				<td>
+					<input type="text" name="location" value="{{ mission.location or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="runners">
+						Runners
+						<br />
+						<small>Use comma-separated UUIDs for now</small>
+					</label>
+				</td>
+				<td>
+					<textarea name="runners">{{ mission.runners or '' }}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="fb_url">Facebook event</label>
+				</td>
+				<td>
+					<input type="text" name="fb_url" value="{{ mission.fb_url or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="gplus_url">Google+ event</label>
+				</td>
+				<td>
+					<input type="text" name="gplus_url" value="{{ mission.gplus_url or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit">Save</button>
+				</td>
+		</table>
+	</form>
+</section>
+
+{% include 'foot.html' %}

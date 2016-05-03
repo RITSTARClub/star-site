@@ -40,7 +40,7 @@ class MemberListPage(webapp2.RequestHandler):
 		# Get all possible semesters to put in the menu.
 		semesters = []
 		for semester in get_all_semesters():
-			semester_pretty = semester[0].upper() + semester[1:].replace('_', ' ')
+			semester_pretty = semester.capitalize().replace('_', ' ')
 			semesters.append({
 				'id': semester,
 				'pretty': semester_pretty,
@@ -79,8 +79,7 @@ class MemberEditPage(webapp2.RequestHandler):
 			if member:
 				template_vals['member'] = member
 			else:
-				self.response.write(len(uuid4().hex))
-				#self.error(404)
+				self.error(404)
 				return
 		
 		template_vals['semesters'] = get_all_semesters()
@@ -106,6 +105,7 @@ class MemberEditPage(webapp2.RequestHandler):
 		for str_param in ['name', 'dce', 'email']:
 			req_val = self.request.get(str_param)
 			if req_val or req_val == '':
+				req_val = req_val.strip()
 				setattr(member, str_param, urllib2.unquote(req_val))
 		
 		# Update boolean values.

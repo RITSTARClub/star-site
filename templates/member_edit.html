@@ -3,7 +3,7 @@
 <section>
 	<h1>Edit Member</h1>
 	<form action="" method="POST">
-		<table class="formTable">
+		<table class="simpleTable">
 			<tr>
 				<td>
 					System ID
@@ -18,7 +18,7 @@
 					<label for="name">Name</label>
 				</td>
 				<td>
-					<input type="text" name="name" value="{{ member.name or '' }}" />
+					<input type="text" name="name" value="{{ member.name or '' }}" required="required" />
 				</td>
 			</tr>
 			<tr>
@@ -48,6 +48,8 @@
 			<tr>
 				<td>
 					Semesters paid
+					<br />
+					<small>Ctrl+click to multi-select</small>
 				</td>
 				<td>
 					<select name="semesters_paid" multiple="multiple" size="{{ semesters|length }}">

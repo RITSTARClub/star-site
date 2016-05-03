@@ -17,5 +17,8 @@ handlers:
 - url: /members(/.*)?
   script: members.app
 
+- url: /missions(/.*)?
+  script: missions.app
+
 - url: /.*
   script: main.app
