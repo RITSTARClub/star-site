@@ -1,9 +1,15 @@
 @charset 'UTF-8';
 
-.eventsTable {
+.eventsTable,
+.formTable,
+.memberTable {
 	margin: 0 auto;
 }
-	.eventsTable td:first-child {
+	.eventsTable td:first-child,
+	.formTable td:first-child {
 		text-align: right;
 		padding-right: 1em;
+	}
+	.memberTable td {
+		padding: 0.5em 1em;
 	}

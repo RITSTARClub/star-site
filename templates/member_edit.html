@@ -1,0 +1,78 @@
+{% include 'head.html' %}
+
+<section>
+	<h1>Edit Member</h1>
+	<form action="" method="POST">
+		<table class="formTable">
+			<tr>
+				<td>
+					System ID
+				</td>
+				<td>
+					<input type="text" value="{{ member.id }}" disabled="disabled" />
+					<input type="hidden" name="id" value="{{ member.id }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="name">Name</label>
+				</td>
+				<td>
+					<input type="text" name="name" value="{{ member.name or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="dce">DCE</label>
+				</td>
+				<td>
+					<input type="text" name="dce" value="{{ member.dce or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="email">Preferred e-mail address</label>
+				</td>
+				<td>
+					<input type="email" name="email" value="{{ member.email or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="current_student">Current student</label>
+				</td>
+				<td>
+					<input type="checkbox" name="current_student"{% if member.current_student %} checked="checked"{% endif %} />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Semesters paid
+				</td>
+				<td>
+					<select name="semesters_paid" multiple="multiple" size="{{ semesters|length }}">
+						{% for semester in semesters %}
+							<option value={{ semester }}{% if semester in member.semesters_paid %} selected="selected"{% endif %}>{{ semester }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Awarded special ranks
+				</td>
+				<td>
+					<input type="checkbox" name="special_rank1"{% if member.special_rank1 %} checked="checked"{% endif %} />
+					<input type="checkbox" name="special_rank2"{% if member.special_rank2 %} checked="checked"{% endif %} />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit">Save</button>
+				</td>
+		</table>
+	</form>
+</section>
+
+{% include 'foot.html' %}

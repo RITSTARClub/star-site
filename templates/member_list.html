@@ -1,0 +1,24 @@
+{% include 'head.html' %}
+
+<section>
+	<form action="" method="GET" id="semesterSelect">
+		<select name="semester">
+			{% for semester in semesters %}
+				<option value="{{ semester['id'] }}"{% if semester['selected'] %} selected="selected"{% endif %}>{{ semester['pretty'] }}</option>
+			{% endfor %}
+		</select>
+	<h1>Members</h1>
+	<table class="memberTable">
+		{% for member in members %}
+			<tr>
+				<td><a href="/members/info?id={{ member.id }}">{{ member.name }}</a></td>
+				<td>{{ member.rank_disp }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+	{% if admin %}
+		<p><a href="/members/edit">Add member</a></p>
+	{% endif %}
+</section>
+
+{% include 'foot.html' %}
