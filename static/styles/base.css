@@ -10,7 +10,8 @@ Colors:
 - Headings (orange): #ff9900
 - Body (gray): #f0f0f0
 - Links (blue-gray): #9999cc
-- Active links (blue): #9999ff
+- Hover links (blue): #9999ff
+- Active links (blue-purple): #cc99ff
 - Primary dividers (yellow): #ffcc99
 - Secondary dividers (purple): #cc99cc
 
@@ -60,9 +61,3 @@ section {
 	section.wide {
 		max-width: none;
 	}
-
-
-#footer {
-	font-size: 75%;
-	text-align: center;
-}
