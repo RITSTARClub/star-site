@@ -59,6 +59,7 @@
 			#nav a::after {
 				right: -6px;
 			}
+		#nav a:focus,
 		#nav a:hover {
 			border-bottom-color: #9999ff;
 		}
