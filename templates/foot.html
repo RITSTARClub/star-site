@@ -10,6 +10,11 @@
 			{% if engi %}
 				<p>Currently maintained by {{ engi }}.</p>
 			{% endif %}
+			{% if login_url %}
+				<p><a href="{{ login_url }}">Admin sign in</a></p>
+			{% elif logout_url %}
+				<p>{{ user.email() }} &middot; <a href="{{ logout_url }}">Sign out</a></p>
+			{% endif %}
 		</footer>
 	</body>
 </html>
