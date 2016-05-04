@@ -38,7 +38,11 @@ class HomePage(webapp2.RequestHandler):
 		template = JINJA_ENVIRONMENT.get_template('home.html')
 		self.response.write(template.render(template_vals))
 
+class GPlusRedirect(webapp2.RequestHandler):
+	def get(self):
+		self.redirect('https://plus.google.com/111596425090423212471', code=301)
 
 app = webapp2.WSGIApplication([
+	('/\+', GPlusRedirect),
 	('/', HomePage)
 ])
