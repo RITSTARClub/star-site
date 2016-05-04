@@ -20,6 +20,10 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class MemberListPage(webapp2.RequestHandler):
 	def get(self, args):
+		# Temporarily protect the list.
+		if not users.is_current_user_admin():
+			self.redirect(users.create_login_url(self.request.uri))
+		
 		template_vals = {
 			'title': 'Members',
 			'page': 'members'
