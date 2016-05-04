@@ -1,6 +1,6 @@
 <form action="" method="GET" id="semesterPicker" style="float: right;">
 	{% if prev_semester %}
-		<a href="/missions?semester={{ prev_semester }}" role="button">&lt;&lt;</a>
+		<a href="?semester={{ prev_semester }}" role="button">&lt;&lt;</a>
 	{% endif %}
 	<select name="semester">
 		{% for semester in semesters %}
@@ -8,6 +8,6 @@
 		{% endfor %}
 	</select>
 	{% if next_semester %}
-		<a href="/missions?semester={{ next_semester }}" role="button">&gt;&gt;</a>
+		<a href="?semester={{ next_semester }}" role="button">&gt;&gt;</a>
 	{% endif %}
 </form>
