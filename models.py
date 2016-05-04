@@ -63,24 +63,24 @@ class Member(ndb.Model):
 		return Mission.query(Mission.runners == self.id).order(-Mission.date).fetch(limit=None)
 	
 	def get_rank(self):
-		rank = 0
-		if len(self.semesters_paid) == 0:
+		if len(self.semesters_paid) == 0: # Cadets cannot earn ranks
 			return 0
-		elif len(self.semesters_paid) >= 4: # Longevity
-			rank = 2
-		else:
-			rank = 1
 		
-		if Mission.query(Mission.runners == self.id, Mission.type == Mission.TYPE_WEEKLY).count(limit=1) != 0: # Led weekly mission
+		rank = 1
+		
+		if len(self.semesters_paid) >= 4: # Longevity
 			rank += 1
 		
-		if Mission.query(Mission.runners == self.id, Mission.type == Mission.TYPE_SPECIAL).count(limit=1) != 0: # Volunteered with special mission
+		if Mission.query(Mission.runners == self.id, Mission.type == 0).count(limit=1) != 0: # Led weekly mission
+			rank += 1
+		
+		if Mission.query(Mission.runners == self.id, Mission.type == 1).count(limit=1) != 0: # Volunteered with special mission
 			rank += 1
 		
 		if self.special_rank1:
-			rank +=1
+			rank += 1
 		if self.special_rank2:
-			rank +=1
+			rank += 1
 		
 		if not self.current_student:
 			if rank == 6: # Captains become rear admirals
