@@ -3,6 +3,7 @@
 
 import os
 from datetime import datetime
+from random import choice
 
 from google.appengine.api import users
 
@@ -34,6 +35,13 @@ class HomePage(webapp2.RequestHandler):
 			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
 		else:
 			template_vals['login_url'] = users.create_login_url(self.request.uri)
+		
+		# Pick an end quote.
+		template_vals['end_quote'] = choice([
+			'Live long and prosper.',
+			'May the Force be with you.',
+			'Never give up!  Never surrender!'
+		])
 		
 		template = JINJA_ENVIRONMENT.get_template('home.html')
 		self.response.write(template.render(template_vals))
