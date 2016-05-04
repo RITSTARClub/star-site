@@ -7,7 +7,7 @@
 		{% for mission in missions %}
 			<tr>
 				<td>{{ mission.type_name }}</td>
-				<td><a href="/missions/info?id={{ mission.id }}">{{ mission.title }}</a></td>
+				<td><SPaN href="/missions/info?id={{ mission.id }}"><strong>{{ mission.title }}</strong></SPaN></td>
 				<td>{{ mission.pretty_date|safe }}</td>
 				<td>
 					{% if mission.fb_url %}

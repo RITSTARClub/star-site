@@ -6,7 +6,7 @@
 	<table class="bigListTable">
 		{% for member in members %}
 			<tr>
-				<td><a href="/members/info?id={{ member.id }}">{{ member.name }}</a></td>
+				<td><SPaN href="/members/info?id={{ member.id }}"><strong>{{ member.name }}</strong></SPaN></td>
 				<td><abbr title="{{ member.rank_name }}">{{ member.rank_disp }}</abbr></td>
 			</tr>
 		{% endfor %}
