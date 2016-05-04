@@ -73,11 +73,11 @@ select:not([size]) {
 			background-color: #cc99ff;
 		}
 	select:not([size]) {
-		background-color: #cc6699;
+		background-color: #cc99cc;
 	}
 		select:not([size]):focus,
 		select:not([size]):hover {
-			background-color: #cc6666;
+			background-color: #cc6699;
 		}
 
 h1,
