@@ -3,7 +3,24 @@
 #footer {
 	font-size: 75%;
 	text-align: center;
+	
+	border-top: 12px solid #ffcc99;
+	position: relative;
 }
+	/* Secondary stripe */
+	#footer::before {
+		content: '';
+		display: block;
+		position: absolute;
+		left: 40%;
+		right: 20%;
+		top: -12px;
+		height: 12px;
+		background-color: #cc6699;
+		border-width: 0 6px;
+		border-style: solid;
+		border-color: black;
+	}
 
 .socialIcon {
 	display: inline-block;
