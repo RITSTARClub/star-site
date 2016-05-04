@@ -31,8 +31,7 @@ def get_all_semesters():
 	# Create the list of semesters.
 	semesters = [format_semester('fall', FIRST_YEAR)]
 	
-	# Start at STAR's first year.
-	year = FIRST_YEAR
+	year = FIRST_YEAR + 1
 	now = datetime.now()
 	
 	while year <= now.year:
