@@ -11,7 +11,7 @@ import jinja2
 import webapp2
 
 from models import Member
-from utils import get_current_semester, get_all_semesters
+from utils import get_current_semester, get_all_semesters, prev_semester, next_semester
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -38,6 +38,10 @@ class MemberListPage(webapp2.RequestHandler):
 		if not selected_semester:
 			selected_semester = get_current_semester()
 		
+		prev_semester_str = prev_semester(selected_semester)
+		current_semester_str = get_current_semester()
+		next_semester_str = next_semester(selected_semester)
+		
 		template_vals['members'] = Member.query(Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
 		
 		# Get all possible semesters to put in the menu.
@@ -50,6 +54,8 @@ class MemberListPage(webapp2.RequestHandler):
 				'selected': semester == selected_semester
 			})
 		template_vals['semesters'] = semesters
+		template_vals['prev_semester'] = prev_semester_str if selected_semester != 'fall_2013' else None
+		template_vals['next_semester'] = next_semester_str if selected_semester != current_semester_str else None
 		
 		template = JINJA_ENVIRONMENT.get_template('member_list.html')
 		self.response.write(template.render(template_vals))

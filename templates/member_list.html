@@ -1,13 +1,7 @@
 {% include 'head.html' %}
 
 <section>
-	<form action="" method="GET" id="semesterSelect" style="float: right;">
-		<select name="semester">
-			{% for semester in semesters %}
-				<option value="{{ semester['id'] }}"{% if semester['selected'] %} selected="selected"{% endif %}>{{ semester['pretty'] }}</option>
-			{% endfor %}
-		</select>
-	</form>
+	{% include 'semester_picker.html' %}
 	<h1>Members</h1>
 	<table class="bigListTable">
 		{% for member in members %}

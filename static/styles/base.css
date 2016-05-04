@@ -42,7 +42,8 @@ a {
 	}
 
 button,
-a[role="button"] {
+a[role="button"],
+select:not([size]) {
 	-webkit-border-radius: 1em;
 	   -moz-border-radius: 1em;
 	        border-radius: 1em;
@@ -53,20 +54,31 @@ a[role="button"] {
 	font-weight: bold;
 	text-transform: uppercase;
 	color: black;
-	background-color: #9999cc;
 	cursor: pointer;
+	text-decoration: none;
 	outline: 0 none;
 }
-	button:focus,
-	a[role="button"]:focus,
-	button:hover,
-	a[role="button"]:hover {
-		background-color: #9999ff;
+	button,
+	a[role="button"] {
+		background-color: #9999cc;
 	}
-	button:active,
-	a[role="button"]:active {
-		background-color: #cc99ff;
+		button:focus,
+		a[role="button"]:focus,
+		button:hover,
+		a[role="button"]:hover {
+			background-color: #9999ff;
+		}
+		button:active,
+		a[role="button"]:active {
+			background-color: #cc99ff;
+		}
+	select:not([size]) {
+		background-color: #cc6699;
 	}
+		select:not([size]):focus,
+		select:not([size]):hover {
+			background-color: #cc6666;
+		}
 
 h1,
 h2 {
