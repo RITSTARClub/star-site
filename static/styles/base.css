@@ -41,6 +41,33 @@ a {
 		color: #cc99ff;
 	}
 
+button,
+a[role="button"] {
+	-webkit-border-radius: 1em;
+	   -moz-border-radius: 1em;
+	        border-radius: 1em;
+	border: 0 none;
+	padding: 0.25em 1em;
+	font-family: 'Roboto Condensed', 'Helvetica Neue Condensed', 'Helvetica Condensed', 'Arial Narrow', sans-serif;
+	font-size: 110%;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: black;
+	background-color: #9999cc;
+	cursor: pointer;
+	outline: 0 none;
+}
+	button:focus,
+	a[role="button"]:focus,
+	button:hover,
+	a[role="button"]:hover {
+		background-color: #9999ff;
+	}
+	button:active,
+	a[role="button"]:active {
+		background-color: #cc99ff;
+	}
+
 h1,
 h2 {
 	color: #ff9900;
