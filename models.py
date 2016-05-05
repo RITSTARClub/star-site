@@ -147,9 +147,9 @@ class Mission(ndb.Model):
 		pretty_date = self.start.strftime('%B %d, %Y &middot; %I:%M %p')
 		# Do not show the date twice for single-day events.
 		if self.start.date() == self.end.date():
-			pretty_date += self.end.strftime('-%I:%M %p')
+			pretty_date += self.end.strftime(' - %I:%M %p')
 		else:
-			pretty_date += self.end.strftime('-%B %d, %Y &middot; %I:%M %p')
+			pretty_date += self.end.strftime(' - %B %d, %Y &middot; %I:%M %p')
 		return pretty_date
 	
 	def get_runners_str(self):
