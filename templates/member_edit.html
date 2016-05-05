@@ -15,6 +15,14 @@
 			</tr>
 			<tr>
 				<td>
+					<label for="show">Show publicly?</label>
+				</td>
+				<td>
+					<input type="checkbox" name="show"{% if member.show %} checked="checked"{% endif %} />
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<label for="name">Name</label>
 				</td>
 				<td>

@@ -51,6 +51,7 @@ class Member(ndb.Model):
 	]
 	
 	id = ndb.StringProperty() # UUID
+	show = ndb.BooleanProperty() # Show the user on the public site?
 	name = ndb.StringProperty()
 	dce = ndb.StringProperty() # None for people who were never RIT students
 	current_student = ndb.BooleanProperty()

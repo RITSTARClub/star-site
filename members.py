@@ -46,7 +46,7 @@ class MemberListPage(webapp2.RequestHandler):
 		current_semester_str = get_current_semester()
 		next_semester_str = next_semester(selected_semester)
 		
-		template_vals['members'] = Member.query(Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
+		template_vals['members'] = Member.query(Member.show == True, Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
 		
 		# Get all possible semesters to put in the menu.
 		semesters = []
@@ -125,7 +125,7 @@ class MemberEditPage(webapp2.RequestHandler):
 				setattr(member, str_param, urllib2.unquote(req_val))
 		
 		# Update boolean values.
-		for bool_param in ['current_student', 'special_rank1', 'special_rank2']:
+		for bool_param in ['show', 'current_student', 'special_rank1', 'special_rank2']:
 			req_val = self.request.get(bool_param)
 			setattr(member, bool_param, not not req_val)
 		
