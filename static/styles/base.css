@@ -100,5 +100,5 @@ section {
 	max-width: 720px;
 }
 	section.wide {
-		max-width: none;
+		max-width: 800px;
 	}

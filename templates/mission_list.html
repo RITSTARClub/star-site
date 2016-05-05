@@ -1,14 +1,14 @@
 {% include 'head.html' %}
 
-<section>
+<section class="wide">
 	{% include 'semester_picker.html' %}
 	<h1>Missions</h1>
 	<table class="bigListTable">
 		{% for mission in missions %}
 			<tr>
 				<td class="missionTypeCol">{{ mission.type_name }}</td>
-				<td><SPaN href="/missions/info?id={{ mission.id }}"><strong>{{ mission.title }}</strong></SPaN></td>
-				<td>{{ mission.pretty_date|safe }}</td>
+				<td class="missionTitleCol"><SPaN href="/missions/info?id={{ mission.id }}"><strong>{{ mission.title }}</strong></SPaN></td>
+				<td class="missionDateCol">{{ mission.pretty_date|safe }}</td>
 				<td class="missionSocialCol">
 					{% if mission.fb_url %}
 						<a href="mission.fb_url" target="_blank">FB</a>
