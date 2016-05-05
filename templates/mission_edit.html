@@ -13,7 +13,12 @@
 					</label>
 				</td>
 				<td>
-					<input type="text" name="id" value="{{ mission.id or '' }}" required="required" pattern="[a-z0-9\-]+" />
+					{% if mission.id %}
+						<input type="hidden" name="id" value="{{ mission.id }}" />
+						<input type="text" name="id" value="{{ mission.id }}" disabled="disabled" />
+					{% else %}
+						<input type="text" name="id" required="required" pattern="[a-z0-9\-]+" />
+					{% endif %}
 				</td>
 			</tr>
 			<tr>
