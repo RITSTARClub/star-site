@@ -6,10 +6,10 @@
 	<table class="bigListTable">
 		{% for mission in missions %}
 			<tr>
-				<td>{{ mission.type_name }}</td>
+				<td class="missionTypeCol">{{ mission.type_name }}</td>
 				<td><SPaN href="/missions/info?id={{ mission.id }}"><strong>{{ mission.title }}</strong></SPaN></td>
 				<td>{{ mission.pretty_date|safe }}</td>
-				<td>
+				<td class="missionSocialCol">
 					{% if mission.fb_url %}
 						<a href="mission.fb_url" target="_blank">FB</a>
 					{% endif %}
