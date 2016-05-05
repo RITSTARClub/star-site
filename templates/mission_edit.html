@@ -9,11 +9,11 @@
 					<label for="id">
 						Mission number
 						<br />
-						<small>Or unique identifier for special mission</small>
+						<small>Or unique identifier (numbers and lowercase letters) for special missions</small>
 					</label>
 				</td>
 				<td>
-					<input type="text" name="id" value="{{ mission.id or '' }}" required="required" />
+					<input type="text" name="id" value="{{ mission.id or '' }}" required="required" pattern="[a-z0-9\-]+" />
 				</td>
 			</tr>
 			<tr>

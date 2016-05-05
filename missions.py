@@ -109,6 +109,7 @@ class MissionEditPage(webapp2.RequestHandler):
 		mission = Mission.query(Mission.id == req_id).get()
 		if not mission:
 			mission = Mission()
+			req_id = req_id.strip().lower().replace(' ', '-')
 			mission.id = req_id
 		
 		# Update int values.
