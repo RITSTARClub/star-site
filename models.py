@@ -152,10 +152,14 @@ class Mission(ndb.Model):
 			pretty_date += self.end.strftime('-%B %d, %Y &middot; %I:%M %p')
 		return pretty_date
 	
+	def get_runners_str(self):
+		return ','.join(self.runners)
+	
 	def get_type_name(self):
 		return Mission.TYPES[self.type] + ' Mission'
 	
 	start_str = property(get_start_str)
 	end_str = property(get_end_str)
 	pretty_date = property(get_pretty_date)
+	runners_str = property(get_runners_str)
 	type_name = property(get_type_name)

@@ -1,7 +1,7 @@
 {% include 'head.html' %}
 
 <section>
-	<h1>Edit Member</h1>
+	<h1>Edit Mission</h1>
 	<form action="" method="POST">
 		<table class="simpleTable">
 			<tr>
@@ -89,7 +89,7 @@
 					</label>
 				</td>
 				<td>
-					<textarea name="runners">{{ mission.runners or '' }}</textarea>
+					<textarea name="runners">{{ mission.runners_str or '' }}</textarea>
 				</td>
 			</tr>
 			<tr>

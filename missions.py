@@ -81,7 +81,6 @@ class MissionEditPage(webapp2.RequestHandler):
 		
 		if not req_id:
 			new_mission = Mission()
-			new_mission.id = 'FILL THIS IN'
 			new_mission.name = 'New Mission'
 			template_vals['mission'] = new_mission
 		else:
@@ -96,6 +95,7 @@ class MissionEditPage(webapp2.RequestHandler):
 		
 		template = JINJA_ENVIRONMENT.get_template('mission_edit.html')
 		self.response.write(template.render(template_vals))
+		
 	def post(self, args):
 		if not users.is_current_user_admin():
 			self.error(403)
