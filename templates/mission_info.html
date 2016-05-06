@@ -30,16 +30,19 @@
 		<a href="{{ mission.gplus_url }}" target="_blank" class="socialIcon gplus small">Google+ event</a>
 	{% endif %}
 	
-	{% if mission.type == 0 %}
-		<h3>Run by:</h3>
-	{% else %}
-		<h3>Volunteers:</h3>
+	{% if mission.runners %}
+		{% if mission.type == 0 %}
+			<h3>Run by:</h3>
+		{% else %}
+			<h3>Volunteers:</h3>
+		{% endif %}
+		<ul style="list-style-type: none;">
+			{% for runner in mission.runners_list %}
+				<li>{{ runner.name or runner.id }}</li>
+			{% endfor %}
+		</ul>
 	{% endif %}
-	<ul style="list-style-type: none;">
-		{% for runner in mission.runners_list %}
-			<li>{{ runner.name or runner.id }}</li>
-		{% endfor %}
-	</ul>
+	
 	{% if admin %}
 		<br />
 		<a role="button" href="/missions/edit?id={{ mission.id }}">&#x270e; Edit mission</a>
