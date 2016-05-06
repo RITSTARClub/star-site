@@ -63,6 +63,40 @@ class MissionListPage(webapp2.RequestHandler):
 		template = JINJA_ENVIRONMENT.get_template('mission_list.html')
 		self.response.write(template.render(template_vals))
 
+class MissionInfoPage(webapp2.RequestHandler):
+	def get(self, args):
+		template_vals = {
+			'page': 'missions'
+		}
+		
+		req_id = self.request.get('id')
+		
+		if not req_id:
+			# Redirect to the missions page if no mission is specified.
+			self.redirect('/missions')
+			return
+		
+		mission = Mission.query(Mission.id == req_id).get()
+		if not mission:
+			# 404 if a nonexistent mission is specified
+			self.error(404)
+			return
+		
+		template_vals['mission'] = mission
+		template_vals['title'] = mission.title
+		
+		# Get user data for the footer and admin controls.
+		user = users.get_current_user()
+		if user:
+			template_vals['user'] = user
+			template_vals['admin'] = users.is_current_user_admin()
+			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
+		else:
+			template_vals['login_url'] = users.create_login_url(self.request.uri)
+		
+		template = JINJA_ENVIRONMENT.get_template('mission_info.html')
+		self.response.write(template.render(template_vals))
+
 class MissionEditPage(webapp2.RequestHandler):
 	def get(self, args):
 		if not users.is_current_user_admin():
@@ -148,9 +182,10 @@ class MissionEditPage(webapp2.RequestHandler):
 		# Save the updated mission.
 		mission.put()
 		
-		self.get(args)
+		self.redirect('/missions/info?id=' + mission.id, code=303)
 
 app = webapp2.WSGIApplication([
 	('/missions(\?.*)?', MissionListPage),
+	('/missions/info(\?.*)?', MissionInfoPage),
 	('/missions/edit(\?.*)?', MissionEditPage)
 ])

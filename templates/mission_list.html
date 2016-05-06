@@ -7,7 +7,7 @@
 		{% for mission in missions %}
 			<tr>
 				<td class="missionTypeCol">{{ mission.type_name }}</td>
-				<td class="missionTitleCol"><SPaN href="/missions/info?id={{ mission.id }}"><strong>{{ mission.title }}</strong></SPaN></td>
+				<td class="missionTitleCol"><a href="/missions/info?id={{ mission.id }}"><strong>{{ mission.title }}</strong></a></td>
 				<td class="missionDateCol">{{ mission.pretty_date|safe }}</td>
 				<td class="missionSocialCol">
 					{% if mission.fb_url %}
@@ -20,7 +20,7 @@
 		{% endfor %}
 	</table>
 	{% if admin %}
-		<p><a href="/missions/edit">Add mission</a></p>
+		<p><a role="button" href="/missions/edit">&#x2795; Add mission</a></p>
 	{% endif %}
 </section>
 

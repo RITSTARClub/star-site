@@ -102,3 +102,13 @@ section {
 	section.wide {
 		max-width: 800px;
 	}
+
+aside {
+	font-size: smaller;
+	float: right;
+}
+@media (max-width: 600px) {
+	aside.minor {
+		display: none;
+	}
+}

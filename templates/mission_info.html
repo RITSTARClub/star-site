@@ -1,0 +1,50 @@
+{% include 'head.html' %}
+
+<section>
+	<aside class="minor" style="margin-top: 0.75em;">{{ mission.type_name }}</aside>
+	<h1>{{ mission.title }}</h1>
+	
+	<table class="simpleTable" style="margin-left: 0;">
+		<tr>
+			<td><strong>Time</strong></td>
+			<td>{{ mission.pretty_date|safe }}</td>
+		</tr>
+		<tr>
+			<td><strong>Location</strong></td>
+			<td>{{ mission.location }}</td>
+		</tr>
+	</table>
+	
+	<p>
+		{% if mission.description %}
+			{{ mission.html_description|safe }}
+		{% else %}
+			<em>No mission details.</em>
+		{% endif %}
+	</p>
+	
+	{% if mission.fb_url %}
+		<a href="{{ mission.fb_url }}" target="_blank" class="socialIcon fb small">Facebook event</a>
+	{% endif %}
+	{% if mission.gplus_url %}
+		<a href="{{ mission.gplus_url }}" target="_blank" class="socialIcon gplus small">Google+ event</a>
+	{% endif %}
+	
+	{% if mission.type == 0 %}
+		<h3>Run by:</h3>
+	{% else %}
+		<h3>Volunteers:</h3>
+	{% endif %}
+	<ul style="list-style-type: none;">
+		{% for runner in mission.runners_list %}
+			<li>{{ runner.name or runner.id }}</li>
+		{% endfor %}
+	</ul>
+	{% if admin %}
+		<br />
+		<a role="button" href="/missions/edit?id={{ mission.id }}">&#x270e; Edit mission</a>
+	{% endif %}
+</section>
+<br />
+
+{% include 'foot.html' %}

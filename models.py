@@ -4,9 +4,9 @@
 from google.appengine.ext import ndb
 
 # The Python Markdown implementation by Waylan Limberg
-import markdown
+from markdown import markdown
 # The GitHub-Flavored Markdown
-import gfm
+from gfm import gfm
 
 
 class Member(ndb.Model):
@@ -126,7 +126,7 @@ class Mission(ndb.Model):
 	id = ndb.StringProperty() # Mission number (or special identifier for non-standard mission)
 	type = ndb.IntegerProperty()
 	title = ndb.StringProperty()
-	descripiton = ndb.TextProperty()
+	description = ndb.TextProperty()
 	start = ndb.DateTimeProperty()
 	end = ndb.DateTimeProperty()
 	location = ndb.StringProperty()
@@ -156,11 +156,25 @@ class Mission(ndb.Model):
 	def get_runners_str(self):
 		return ','.join(self.runners)
 	
+	def get_runners_list(self):
+		runners_list = []
+		for runner_id in self.runners:
+			runner = Member.query(Member.id == runner_id).get()
+			if runner:
+				runners_list.append(runner)
+		return runners_list
+	
 	def get_type_name(self):
 		return Mission.TYPES[self.type] + ' Mission'
+	
+	def get_html_description(self):
+		# Convert the description from Markdown to HTML.
+		return markdown(text=gfm(self.description),safe_mode='escape').replace('<a href="', '<a target="_blank" href="')
 	
 	start_str = property(get_start_str)
 	end_str = property(get_end_str)
 	pretty_date = property(get_pretty_date)
 	runners_str = property(get_runners_str)
+	runners_list = property(get_runners_list)
 	type_name = property(get_type_name)
+	html_description = property(get_html_description)
