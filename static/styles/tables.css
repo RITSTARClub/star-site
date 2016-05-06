@@ -20,6 +20,13 @@
 		padding-right: 1em;
 	}
 
+.bigListTable .missionSocialCol {
+	white-space: nowrap;
+}
+	.bigListTable .missionSocialCol a {
+		vertical-align: middle;
+	}
+
 table textarea {
 	width: 100%;
 	height: 100%;

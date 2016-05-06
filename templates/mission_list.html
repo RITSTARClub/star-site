@@ -11,10 +11,10 @@
 				<td class="missionDateCol">{{ mission.pretty_date|safe }}</td>
 				<td class="missionSocialCol">
 					{% if mission.fb_url %}
-						<a href="mission.fb_url" target="_blank">FB</a>
+						<a href="{{ mission.fb_url }}" target="_blank" class="socialIcon fb tiny">FB</a>
 					{% endif %}
 					{% if mission.gplus_url %}
-						<a href="mission.gplus_url" target="_blank">G+</a>
+						<a href="{{ mission.gplus_url }}" target="_blank" class="socialIcon gplus tiny">G+</a>
 					{% endif %}
 			</tr>
 		{% endfor %}
