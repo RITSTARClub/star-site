@@ -1,0 +1,159 @@
+.socialIcon {
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+	
+	font-size: 1px;
+	color: transparent !important;
+	text-decoration: none;
+	
+	background-image: url('/static/images/social_icons.png');
+	background-size: 144px 240px;
+}
+	.socialIcon.fb {
+		background-position: 0 0;
+	}
+		.socialIcon.fb:hover {
+			background-position: -48px 0;
+		}
+		.socialIcon.fb:active {
+			background-position: -96px 0;
+		}
+	.socialIcon.gplus {
+		background-position: 0 -48px;
+	}
+		.socialIcon.gplus:hover {
+			background-position: -48px -48px;
+		}
+		.socialIcon.gplus:active {
+			background-position: -96px -48px;
+		}
+	.socialIcon.twitter {
+		background-position: 0 -96px;
+	}
+		.socialIcon.twitter:hover {
+			background-position: -48px -96px;
+		}
+		.socialIcon.twitter:active {
+			background-position: -96px -96px;
+		}
+	.socialIcon.slack {
+		background-position: 0 -144px;
+	}
+		.socialIcon.slack:hover {
+			background-position: -48px -144px;
+		}
+		.socialIcon.slack:active {
+			background-position: -96px -144px;
+		}
+	.socialIcon.youtube {
+		background-position: 0 -192px;
+	}
+		.socialIcon.youtube:hover {
+			background-position: -48px -192px;
+		}
+		.socialIcon.youtube:active {
+			background-position: -96px -192px;
+		}
+
+.socialIcon.small {
+	width: 36px;
+	height: 36px;
+	background-size: 108px 180px;
+}
+	.socialIcon.small.fb {
+		background-position: 0 0;
+	}
+		.socialIcon.small.fb:hover {
+			background-position: -36px 0;
+		}
+		.socialIcon.small.fb:active {
+			background-position: -72px 0;
+		}
+	.socialIcon.small.gplus {
+		background-position: 0 -36px;
+	}
+		.socialIcon.small.gplus:hover {
+			background-position: -36px -36px;
+		}
+		.socialIcon.small.gplus:active {
+			background-position: -72px -36px;
+		}
+	.socialIcon.small.twitter {
+		background-position: 0 -72px;
+	}
+		.socialIcon.small.twitter:hover {
+			background-position: -36px -72px;
+		}
+		.socialIcon.small.twitter:active {
+			background-position: -72px -72px;
+		}
+	.socialIcon.small.slack {
+		background-position: 0 -108px;
+	}
+		.socialIcon.small.slack:hover {
+			background-position: -36px -108px;
+		}
+		.socialIcon.small.slack:active {
+			background-position: -72px -108px;
+		}
+	.socialIcon.small.youtube {
+		background-position: 0 -144px;
+	}
+		.socialIcon.small.youtube:hover {
+			background-position: -36px -144px;
+		}
+		.socialIcon.small.youtube:active {
+			background-position: -72px -144px;
+		}
+
+.socialIcon.tiny {
+	width: 24px;
+	height: 24px;
+	background-size: 72px 120px;
+}
+	.socialIcon.tiny.fb {
+		background-position: 0 0;
+	}
+		.socialIcon.tiny.fb:hover {
+			background-position: -24px 0;
+		}
+		.socialIcon.tiny.fb:active {
+			background-position: -48px 0;
+		}
+	.socialIcon.tiny.gplus {
+		background-position: 0 -24px;
+	}
+		.socialIcon.tiny.gplus:hover {
+			background-position: -24px -24px;
+		}
+		.socialIcon.tiny.gplus:active {
+			background-position: -48px -24px;
+		}
+	.socialIcon.tiny.twitter {
+		background-position: 0 -48px;
+	}
+		.socialIcon.tiny.twitter:hover {
+			background-position: -24px -48px;
+		}
+		.socialIcon.tiny.twitter:active {
+			background-position: -48px -48px;
+		}
+	.socialIcon.tiny.slack {
+		background-position: 0 -72px;
+	}
+		.socialIcon.tiny.slack:hover {
+			background-position: -24px -72px;
+		}
+		.socialIcon.tiny.slack:active {
+			background-position: -48px -72px;
+		}
+	.socialIcon.tiny.youtube {
+		background-position: 0 -96px;
+	}
+		.socialIcon.tiny.youtube:hover {
+			background-position: -24px -96px;
+		}
+		.socialIcon.tiny.youtube:active {
+			background-position: -48px -96px;
+		}
