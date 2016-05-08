@@ -60,12 +60,29 @@ class MemberListPage(webapp2.RequestHandler):
 		template = JINJA_ENVIRONMENT.get_template('member_list.html')
 		self.response.write(template.render(template_vals))
 
+class MailingList(webapp2.RequestHandler):
+	def get(self):
+		if not users.is_current_user_admin():
+			self.error(403)
+			return
+		
+		members = Member.query(Member.mailing_list == True).fetch(limit=None)
+		mailing_list = []
+		
+		for member in members:
+			if member.email:
+				mailing_list.append(member.name + ' <' + member.email + '>')
+			else:
+				mailing_list.append(member.name + ' <' + member.dce + '@rit.edu>')
+		
+		self.response.headers['Content-Type'] = 'text/plain'
+		self.response.write(','.join(mailing_list))
+
 class MemberEditPage(webapp2.RequestHandler):
 	def get(self, args):
 		if not users.is_current_user_admin():
 			self.error(403)
 			return
-		
 		
 		template_vals = {
 			'title': 'Edit Member',
@@ -135,5 +152,6 @@ class MemberEditPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/members(\?.*)?', MemberListPage),
+	('/members/mailinglist', MailingList),
 	('/members/edit(\?.*)?', MemberEditPage)
 ])
