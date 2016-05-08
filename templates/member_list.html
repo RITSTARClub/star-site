@@ -7,9 +7,9 @@
 		{% for member in members %}
 			<tr>
 				{% if admin %}
-					<td><a href="/members/edit?id={{ member.id }}"><strong>{{ member.name }}</strong></a></td>
+					<td><a href="/members/edit?id={{ member.id }}"><strong>{{ member.name_with_rank }}</strong></a></td>
 				{% else %}
-					<td><SPaN href="/members/info?id={{ member.id }}"><strong>{{ member.name }}</strong></SPaN></td>
+					<td><SPaN href="/members/info?id={{ member.id }}"><strong>{{ member.name_with_rank }}</strong></SPaN></td>
 				{% endif %}
 				<td><abbr title="{{ member.rank_name }}">{{ member.rank_disp }}</abbr></td>
 			</tr>

@@ -13,39 +13,51 @@ class Member(ndb.Model):
 	RANKS = [
 		{
 			'name': 'Cadet', # 0
+			'abbr': 'Cdt.',
 			'disp': ''
 		}, {
 			'name': 'Ensign', # 1
+			'abbr': 'Ens.',
 			'disp': unichr(9679) # ●
 		}, {
 			'name': 'Lieutenant, Junior Grade', # 2
+			'abbr': 'Lt.',
 			'disp': unichr(9675) + unichr(9679) # ○●
 		}, {
 			'name': 'Lieutenant', # 3
+			'abbr': 'Lt.',
 			'disp': unichr(9679) + unichr(9679) # ●●
 		}, {
 			'name': 'Lieutenant Commander', # 4
+			'abbr': 'Lt. Cmdr.',
 			'disp': unichr(9675) + unichr(9679) + unichr(9679) # ○●●
 		}, {
 			'name': 'Commander', # 5
+			'abbr': 'Cmdr.',
 			'disp': unichr(9679) + unichr(9679) + unichr(9679) # ●●●
 		}, {
 			'name': 'Captain', # 6
+			'abbr': 'Capt.',
 			'disp': unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) # ●●●●
 		}, {
 			'name': 'Commodore', # 7
+			'abbr': 'Cmdre.',
 			'disp': '[' + unichr(9679) + ']' # [●]
 		}, {
 			'name': 'Rear Admiral', # 8
+			'abbr': 'Adm.',
 			'disp': '[' + unichr(9679) + unichr(9679) + ']' # [●●]
 		}, {
 			'name': 'Vice Admiral', #9
+			'abbr': 'Adm.',
 			'disp': '[' + unichr(9679) + unichr(9679) + unichr(9679) + ']' # [●●●]
 		}, {
 			'name': 'Admiral', # 10
+			'abbr': 'Adm.',
 			'disp': '[' + unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) + ']' # [●●●●]
 		}, {
 			'name': 'Fleet Admiral', # 11
+			'abbr': 'Adm.',
 			'disp': '[' + unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) + ']' # [●●●●●]
 		}
 	]
@@ -102,10 +114,14 @@ class Member(ndb.Model):
 	def get_rank_name(self):
 		return Member.RANKS[self.rank]['name']
 	
+	def get_name_with_rank(self):
+		return Member.RANKS[self.rank]['abbr'] + ' ' + self.name
+	
 	missions = property(get_missions)
 	rank = property(get_rank)
 	rank_disp = property(get_rank_disp)
 	rank_name = property(get_rank_name)
+	name_with_rank = property(get_name_with_rank)
 
 
 class BridgeCrew(ndb.Model):
