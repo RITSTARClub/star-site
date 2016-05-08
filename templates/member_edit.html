@@ -47,6 +47,14 @@
 			</tr>
 			<tr>
 				<td>
+					<label for="mailing_list">On the maliing list?</label>
+				</td>
+				<td>
+					<input type="checkbox" name="mailing_list"{% if member.mailing_list %} checked="checked"{% endif %} />
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<label for="current_student">Current student</label>
 				</td>
 				<td>
