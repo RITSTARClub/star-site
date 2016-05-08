@@ -69,11 +69,19 @@
 			</tr>
 			<tr>
 				<td>
-					Awarded special ranks
+					Volunteer rank for committee service?
 				</td>
 				<td>
-					<input type="checkbox" name="special_rank1"{% if member.special_rank1 %} checked="checked"{% endif %} />
-					<input type="checkbox" name="special_rank2"{% if member.special_rank2 %} checked="checked"{% endif %} />
+					<input type="checkbox" name="committee_rank"{% if member.committee_rank %} checked="checked"{% endif %} />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Awarded merit ranks?
+				</td>
+				<td>
+					<input type="checkbox" name="merit_rank1"{% if member.merit_rank1 %} checked="checked"{% endif %} />
+					<input type="checkbox" name="merit_rank2"{% if member.merit_rank2 %} checked="checked"{% endif %} />
 				</td>
 			</tr>
 			<tr>

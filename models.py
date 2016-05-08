@@ -57,8 +57,9 @@ class Member(ndb.Model):
 	current_student = ndb.BooleanProperty()
 	email = ndb.StringProperty() # Member's preferred e-mail
 	semesters_paid = ndb.StringProperty(repeated=True)
-	special_rank1 = ndb.BooleanProperty()
-	special_rank2 = ndb.BooleanProperty()
+	committee_rank = ndb.BooleanProperty()
+	merit_rank1 = ndb.BooleanProperty()
+	merit_rank2 = ndb.BooleanProperty()
 	
 	def get_missions(self):
 		return Mission.query(Mission.runners == self.id).order(-Mission.date).fetch(limit=None)
@@ -75,12 +76,12 @@ class Member(ndb.Model):
 		if Mission.query(Mission.runners == self.id, Mission.type == 0).count(limit=1) != 0: # Led weekly mission
 			rank += 1
 		
-		if Mission.query(Mission.runners == self.id, Mission.type == 1).count(limit=1) != 0: # Volunteered with special mission
+		if self.committee_rank or Mission.query(Mission.runners == self.id, Mission.type == 1).count(limit=1) != 0: # Volunteered with special mission
 			rank += 1
 		
-		if self.special_rank1:
+		if self.merit_rank1:
 			rank += 1
-		if self.special_rank2:
+		if self.merit_rank2:
 			rank += 1
 		
 		if not self.current_student:
