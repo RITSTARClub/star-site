@@ -38,7 +38,7 @@
 		{% endif %}
 		<ul style="list-style-type: none;">
 			{% for runner in mission.runners_list %}
-				<li>{{ runner.name or runner.id }}</li>
+				{% if runner.show %}<li>{{ runner.name or runner.id }}</li>{% endif %}
 			{% endfor %}
 		</ul>
 	{% endif %}
