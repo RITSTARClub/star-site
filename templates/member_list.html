@@ -6,14 +6,18 @@
 	<table class="bigListTable">
 		{% for member in members %}
 			<tr>
-				<td><SPaN href="/members/info?id={{ member.id }}"><strong>{{ member.name }}</strong></SPaN></td>
+				{% if admin %}
+					<td><a href="/members/edit?id={{ member.id }}"><strong>{{ member.name }}</strong></a></td>
+				{% else %}
+					<td><SPaN href="/members/info?id={{ member.id }}"><strong>{{ member.name }}</strong></SPaN></td>
+				{% endif %}
 				<td><abbr title="{{ member.rank_name }}">{{ member.rank_disp }}</abbr></td>
 			</tr>
 		{% endfor %}
 	</table>
 	<p style="text-align: center;">Members may opt out of being publicly listed.</p>
 	{% if admin %}
-		<p><a href="/members/edit">Add member</a></p>
+		<p><a role="button" href="/members/edit">&#x2795; Add member</a></p>
 	{% endif %}
 </section>
 
