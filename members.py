@@ -148,7 +148,10 @@ class MemberEditPage(webapp2.RequestHandler):
 		# Save the updated member.
 		member.put()
 		
-		self.redirect('/members?semester=' + (member.semesters_paid[-1] or get_current_semester()))
+		if len(member.semesters_paid) > 0:
+			self.redirect('/members?semester=' + member.semesters_paid[-1])
+		else:
+			self.redirect('/members?semester=' + get_current_semester())
 
 app = webapp2.WSGIApplication([
 	('/members(\?.*)?', MemberListPage),
