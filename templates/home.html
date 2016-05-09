@@ -12,7 +12,7 @@
 	<table class="simpleTable">
 		{% for mission in missions %}
 			<tr>
-				<td><a href="/missions/info?id={{ mission.id }}"><strong>{{ mission.title }}</strong></a></td>
+				<td><a href="/missions/{{ mission.id }}"><strong>{{ mission.title }}</strong></a></td>
 				<td>{{ mission.pretty_date|safe }}</td>
 			</tr>
 		{% else %}
