@@ -18,6 +18,7 @@
 	.simpleTable td:first-child {
 		text-align: right;
 		padding-right: 1em;
+		max-width: 6em;
 	}
 
 .bigListTable .missionSocialCol {

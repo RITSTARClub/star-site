@@ -3,7 +3,7 @@
 <section>
 	<h1>Edit Member</h1>
 	<form action="" method="POST">
-		<table class="simpleTable">
+		<table class="simpleTable" style="width: 100%;">
 			<tr>
 				<td>
 					System ID
@@ -55,7 +55,7 @@
 			</tr>
 			<tr>
 				<td>
-					<label for="current_student">Current student</label>
+					<label for="current_student">Current student?</label>
 				</td>
 				<td>
 					<input type="checkbox" name="current_student"{% if member.current_student %} checked="checked"{% endif %} />
