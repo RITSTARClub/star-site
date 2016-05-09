@@ -184,6 +184,6 @@ class MissionEditPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/missions(\?.*)?', MissionListPage),
-	('/missions/([a-z0-9\-]+)', MissionInfoPage),
-	('/missions/edit(\?.*)?', MissionEditPage)
+	('/missions/edit(\?.*)?', MissionEditPage),
+	('/missions/([a-z0-9\-]+)', MissionInfoPage)
 ])
