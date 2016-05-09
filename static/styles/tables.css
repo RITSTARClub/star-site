@@ -1,6 +1,7 @@
 @charset 'UTF-8';
 
 .simpleTable,
+.formTable,
 .bigListTable {
 	margin: 0 auto;
 }
@@ -8,14 +9,20 @@
 		padding: 0.5em 1em;
 	}
 	.simpleTable td:first-child,
+	.formTable td:first-child,
 	.bigListTable td:first-child {
 		padding-left: 0;
 	}
 	.simpleTable td:last-child,
+	.formTable td:last-child,
 	.bigListTable td:last-child {
 		padding-right: 0;
 	}
 	.simpleTable td:first-child {
+		text-align: right;
+		padding-right: 1em;
+	}
+	.formTable td:first-child {
 		text-align: right;
 		padding-right: 1em;
 		max-width: 6em;
