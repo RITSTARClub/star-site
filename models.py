@@ -97,6 +97,9 @@ class Member(ndb.Model):
 		if self.merit_rank2:
 			rank += 1
 		
+		if BridgeCrew.query(BridgeCrew.captain == self.id).count(limit=1) != 0: # Voted captain
+			rank = 6
+		
 		if not self.current_student:
 			if rank == 6: # Captains become rear admirals
 				rank = 8
