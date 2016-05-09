@@ -21,7 +21,7 @@ class Member(ndb.Model):
 			'disp': unichr(9679) # ●
 		}, {
 			'name': 'Lieutenant, Junior Grade', # 2
-			'abbr': 'Lt.',
+			'abbr': 'Lt. J.G.',
 			'disp': unichr(9675) + unichr(9679) # ○●
 		}, {
 			'name': 'Lieutenant', # 3
