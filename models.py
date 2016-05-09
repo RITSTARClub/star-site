@@ -149,6 +149,7 @@ class Mission(ndb.Model):
 	end = ndb.DateTimeProperty()
 	location = ndb.StringProperty()
 	runners = ndb.StringProperty(repeated=True) # Member UUIDs
+	wave_url = ndb.StringProperty()
 	fb_url = ndb.StringProperty()
 	gplus_url = ndb.StringProperty()
 	

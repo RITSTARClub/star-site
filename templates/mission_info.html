@@ -23,6 +23,10 @@
 		{% endif %}
 	</p>
 	
+	{% if mission.wave_url and admin %}
+		<p style="font-size: larger;"><a href="{{ mission.wave_url }}" target="_blank">Mission wave</a></p>
+	{% endif %}
+	
 	{% if mission.fb_url %}
 		<a href="{{ mission.fb_url }}" target="_blank" class="socialIcon fb small">Facebook event</a>
 	{% endif %}
