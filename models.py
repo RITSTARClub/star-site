@@ -125,14 +125,45 @@ class Member(ndb.Model):
 
 
 class BridgeCrew(ndb.Model):
-	year = ndb.StringProperty() # The ○FALL○ semester the bridge crew started
+	start = ndb.DateTimeProperty()
+	end = ndb.DateTimeProperty()
 	admiral = ndb.StringProperty() # Bridge crew member entries are member UUIDs
 	captain = ndb.StringProperty()
 	first_officer = ndb.StringProperty()
 	ops = ndb.StringProperty()
 	comms = ndb.StringProperty()
 	engi = ndb.StringProperty()
-
+	
+	def get_admiral_name(self):
+		admiral_member = Member.query(Member.id == self.admiral).get()
+		return admiral_member.name
+	
+	def get_captain_name(self):
+		captain_member = Member.query(Member.id == self.captain).get()
+		return captain_member.name
+	
+	def get_first_officer_name(self):
+		first_officer_member = Member.query(Member.id == self.first_officer).get()
+		return first_officer_member.name
+	
+	def get_ops_name(self):
+		ops_member = Member.query(Member.id == self.ops).get()
+		return ops_member.name
+	
+	def get_comms_name(self):
+		comms_member = Member.query(Member.id == self.comms).get()
+		return comms_member.name
+	
+	def get_engi_name(self):
+		engi_member = Member.query(Member.id == self.engi).get()
+		return engi_member.name
+	
+	admiral_name = property(get_admiral_name)
+	captain_name = property(get_captain_name)
+	first_officer_name = property(get_first_officer_name)
+	ops_name = property(get_ops_name)
+	comms_name = property(get_comms_name)
+	engi_name = property(get_engi_name)
 
 class Mission(ndb.Model):
 	TYPES = [

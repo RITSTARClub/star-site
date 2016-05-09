@@ -1,0 +1,34 @@
+{% include 'head.html' %}
+
+<section>
+	<h1>Bridge Crew</h1>
+	<table class="simpleTable">
+		<tr>
+			<td><strong>Admiral</strong></td>
+			<td>{{ current_crew.admiral_name }}</td>
+		</tr>
+		<tr>
+			<td><strong>Captain</strong></td>
+			<td>{{ current_crew.captain_name }}</td>
+		</tr>
+		<tr>
+			<td><strong>First Officer</strong></td>
+			<td>{{ current_crew.first_officer_name }}</td>
+		</tr>
+		<tr>
+			<td><strong>Operations Officer</strong></td>
+			<td>{{ current_crew.ops_name }}</td>
+		</tr>
+		<tr>
+			<td><strong>Chief Communications Officer</strong></td>
+			<td>{{ current_crew.comms_name }}</td>
+		</tr>
+		<tr>
+			<td><strong>Chief Engineer</strong></td>
+			<td>{{ current_crew.engi_name }}</td>
+		</tr>
+	</table>
+</section>
+<br />
+
+{% include 'foot.html' %}

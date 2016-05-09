@@ -14,6 +14,9 @@ handlers:
 - url: /static
   static_dir: static
 
+- url: /bridgecrew(/.*)?
+  script: bridgecrew.app
+
 - url: /members(/.*)?
   script: members.app
 
