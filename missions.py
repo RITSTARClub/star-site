@@ -64,12 +64,10 @@ class MissionListPage(webapp2.RequestHandler):
 		self.response.write(template.render(template_vals))
 
 class MissionInfoPage(webapp2.RequestHandler):
-	def get(self, args):
+	def get(self, req_id):
 		template_vals = {
 			'page': 'missions'
 		}
-		
-		req_id = self.request.get('id')
 		
 		if not req_id:
 			# Redirect to the missions page if no mission is specified.
@@ -182,10 +180,10 @@ class MissionEditPage(webapp2.RequestHandler):
 		# Save the updated mission.
 		mission.put()
 		
-		self.redirect('/missions/info?id=' + mission.id, code=303)
+		self.redirect('/missions/' + mission.id, code=303)
 
 app = webapp2.WSGIApplication([
 	('/missions(\?.*)?', MissionListPage),
-	('/missions/info(\?.*)?', MissionInfoPage),
+	('/missions/([a-z0-9\-]+)', MissionInfoPage),
 	('/missions/edit(\?.*)?', MissionEditPage)
 ])
