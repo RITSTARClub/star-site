@@ -6,6 +6,7 @@ import urllib2
 from uuid import uuid4
 
 from google.appengine.api import users
+from google.appengine.ext import ndb
 
 import jinja2
 import webapp2
@@ -59,6 +60,31 @@ class MemberListPage(webapp2.RequestHandler):
 		
 		template = JINJA_ENVIRONMENT.get_template('member_list.html')
 		self.response.write(template.render(template_vals))
+
+class HiddenListPage(webapp2.RequestHandler):
+	def get(self):
+		if not users.is_current_user_admin():
+			self.error(403)
+			return
+		
+		template_vals = {
+			'title': 'Hidden Users',
+			'page': 'members'
+		}
+		
+		user = users.get_current_user()
+		if user:
+			template_vals['user'] = user
+			template_vals['admin'] = users.is_current_user_admin()
+			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
+		else:
+			template_vals['login_url'] = users.create_login_url(self.request.uri)
+		
+		template_vals['members'] = Member.query(ndb.OR(Member.show == False, Member.never_paid == True)).order(Member.name).fetch(limit=None)
+		
+		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
+		self.response.write(template.render(template_vals))
+		
 
 class MailingList(webapp2.RequestHandler):
 	def get(self):
@@ -155,6 +181,7 @@ class MemberEditPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/members(\?.*)?', MemberListPage),
-	('/members/mailinglist', MailingList),
+	('/members/hidden/?', HiddenListPage),
+	('/members/mailinglist/?', MailingList),
 	('/members/edit(\?.*)?', MemberEditPage)
 ])

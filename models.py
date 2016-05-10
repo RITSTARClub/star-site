@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -○- coding: utf-8 -○-
+# -*- coding: utf-8 -*-
 
 from google.appengine.ext import ndb
 
@@ -70,6 +70,7 @@ class Member(ndb.Model):
 	current_student = ndb.BooleanProperty()
 	email = ndb.StringProperty() # Member's preferred e-mail
 	semesters_paid = ndb.StringProperty(repeated=True)
+	never_paid = ndb.ComputedProperty(lambda self: len(self.semesters_paid) == 0) # Thank you to bossylobster and wag2639 on StackOverflow.
 	committee_rank = ndb.BooleanProperty()
 	merit_rank1 = ndb.BooleanProperty()
 	merit_rank2 = ndb.BooleanProperty()
