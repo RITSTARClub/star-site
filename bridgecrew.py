@@ -31,7 +31,7 @@ class BridgeCrewViewPage(webapp2.RequestHandler):
 			template_vals['login_url'] = users.create_login_url(self.request.uri)
 		
 		# Get the bridge crew.
-		template_vals['current_crew'] = BridgeCrew.query().get()
+		template_vals['current_crew'] = BridgeCrew.query().order(-BridgeCrew.start).get()
 		
 		template = JINJA_ENVIRONMENT.get_template('bridge_crew_view.html')
 		self.response.write(template.render(template_vals))
