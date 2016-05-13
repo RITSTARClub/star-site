@@ -187,6 +187,7 @@ class Mission(ndb.Model):
 	wave_url = ndb.StringProperty()
 	fb_url = ndb.StringProperty()
 	gplus_url = ndb.StringProperty()
+	the_link_url = ndb.StringProperty()
 	youtube_url = ndb.StringProperty()
 	
 	def get_start_str(self):

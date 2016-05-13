@@ -8,7 +8,7 @@
 	text-decoration: none;
 	
 	background-image: url('/static/images/social_icons.png');
-	background-size: 144px 288px;
+	background-size: 144px 336px;
 }
 	.socialIcon.email {
 		background-position: 0 0;
@@ -64,11 +64,20 @@
 		.socialIcon.youtube:active {
 			background-position: -96px -240px;
 		}
+	.socialIcon.thelink {
+		background-position: 0 -288px;
+	}
+		.socialIcon.thelink:hover {
+			background-position: -48px -288px;
+		}
+		.socialIcon.thelink:active {
+			background-position: -96px -288px;
+		}
 
 .socialIcon.small {
 	width: 36px;
 	height: 36px;
-	background-size: 108px 216px;
+	background-size: 108px 252px;
 }
 	.socialIcon.small.email {
 		background-position: 0 0;
@@ -124,11 +133,20 @@
 		.socialIcon.small.youtube:active {
 			background-position: -72px -180px;
 		}
+	.socialIcon.small.thelink {
+		background-position: 0 -216px;
+	}
+		.socialIcon.small.thelink:hover {
+			background-position: -36px -216px;
+		}
+		.socialIcon.small.thelink:active {
+			background-position: -72px -216px;
+		}
 
 .socialIcon.tiny {
 	width: 24px;
 	height: 24px;
-	background-size: 72px 144px;
+	background-size: 72px 168px;
 }
 	.socialIcon.tiny.email {
 		background-position: 0 0;
@@ -183,4 +201,13 @@
 		}
 		.socialIcon.tiny.youtube:active {
 			background-position: -48px -120px;
+		}
+	.socialIcon.tiny.thelink {
+		background-position: 0 -144px;
+	}
+		.socialIcon.tiny.thelink:hover {
+			background-position: -24px -144px;
+		}
+		.socialIcon.tiny.thelink:active {
+			background-position: -48px -144px;
 		}
