@@ -8,6 +8,11 @@
 	.bigListTable td {
 		padding: 0.5em 1em;
 	}
+	.bigListTable th {
+		font-weight: bold;
+		text-align: left;
+		padding: 0.1em 1em;
+	}
 	.simpleTable td:first-child,
 	.formTable td:first-child,
 	.bigListTable td:first-child {
