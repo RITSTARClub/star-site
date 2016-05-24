@@ -162,12 +162,19 @@ class BridgeCrew(ndb.Model):
 		engi_member = Member.query(Member.id == self.engi).get()
 		return engi_member.name
 	
+	def get_year_str(self):
+		if self.start.year == self.end.year:
+			return str(self.start.year)
+		else:
+			return str(self.start.year) + '-' + str(self.end.year)
+	
 	admiral_name = property(get_admiral_name)
 	captain_name = property(get_captain_name)
 	first_officer_name = property(get_first_officer_name)
 	ops_name = property(get_ops_name)
 	comms_name = property(get_comms_name)
 	engi_name = property(get_engi_name)
+	year_str = property(get_year_str)
 
 class Mission(ndb.Model):
 	TYPES = [

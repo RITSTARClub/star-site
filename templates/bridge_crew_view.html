@@ -1,7 +1,7 @@
 {% include 'head.html' %}
 
 <section>
-	<h1>Bridge Crew</h1>
+	<h1 style="text-align: center;">Bridge Crew</h1>
 	<table class="simpleTable">
 		<tr>
 			<td><strong>Admiral</strong></td>
@@ -16,7 +16,7 @@
 			<td>{{ current_crew.first_officer_name }}</td>
 		</tr>
 		<tr>
-			<td><strong>Operations Officer</strong></td>
+			<td><strong>Chief Operations Officer</strong></td>
 			<td>{{ current_crew.ops_name }}</td>
 		</tr>
 		<tr>
@@ -27,6 +27,31 @@
 			<td><strong>Chief Engineer</strong></td>
 			<td>{{ current_crew.engi_name }}</td>
 		</tr>
+	</table>
+</section>
+<section style="max-width: 1024px;">
+	<h2>Past Bridge Crews</h2>
+	<table class="bigListTable" style="width: 100%;">
+		<tr>
+			<th>Year</th>
+			<th>Admiral</th>
+			<th>Captain</th>
+			<th>First Officer</th>
+			<th>Operations</th>
+			<th>Communications</th>
+			<th>Engineer</th>
+		</tr>
+		{% for crew in past_crews %}
+			<tr>
+				<td>{{ crew.year_str }}</td>
+				<td>{{ crew.admiral_name }}</td>
+				<td>{{ crew.captain_name }}</td>
+				<td>{{ crew.first_officer_name }}</td>
+				<td>{{ crew.ops_name }}</td>
+				<td>{{ crew.comms_name }}</td>
+				<td>{{ crew.engi_name }}</td>
+			</tr>
+		{% endfor %}
 	</table>
 </section>
 <br />

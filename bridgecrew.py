@@ -33,6 +33,9 @@ class BridgeCrewViewPage(webapp2.RequestHandler):
 		# Get the bridge crew.
 		template_vals['current_crew'] = BridgeCrew.query().order(-BridgeCrew.start).get()
 		
+		# Get past bridge crews.
+		template_vals['past_crews'] = BridgeCrew.query().order(-BridgeCrew.start).fetch(limit=None)[1:]
+		
 		template = JINJA_ENVIRONMENT.get_template('bridge_crew_view.html')
 		self.response.write(template.render(template_vals))
 
