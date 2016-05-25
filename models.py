@@ -230,6 +230,11 @@ class Mission(ndb.Model):
 	def get_type_name(self):
 		return Mission.TYPES[self.type] + ' Mission'
 	
+	def get_youtube_embed_url(self):
+		if not self.youtube_url:
+			return None
+		return self.youtube_url.replace('watch?v=', 'embed/').replace('playlist?list=', 'embed/videoseries?list=')
+	
 	def get_html_description(self):
 		# Convert the description from Markdown to HTML.
 		return markdown(text=gfm(self.description),safe_mode='escape').replace('<a href="', '<a target="_blank" href="')
@@ -240,4 +245,5 @@ class Mission(ndb.Model):
 	runners_str = property(get_runners_str)
 	runners_list = property(get_runners_list)
 	type_name = property(get_type_name)
+	youtube_embed_url = property(get_youtube_embed_url)
 	html_description = property(get_html_description)
