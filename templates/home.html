@@ -8,7 +8,9 @@
 	<p>
 		STAR runs weekly missions Monday nights from 7:00-9:00 PM in Campus Center room 2510/2560, as well as various other special missions throughout the school year.  Weekly missions are always free and open to the public, while certain special missions are only free for STAR members.  Upcoming missions include:
 	</p>
+</section>
 
+<section>
 	<table class="simpleTable">
 		{% for mission in missions %}
 			<tr>
@@ -28,8 +30,15 @@
 			<td><a href="https://www.google.com/calendar/embed?src=b08se0bscqlp87h4voj32to710%40group.calendar.google.com" target="_blank">Full event calendar &rarr;</a></td>
 		</tr>
 	</table>
-	
-	<h2 style="text-align: center;">{{ end_quote }}</h2>
 </section>
+
+<section style="text-align: center;">
+	<h2 style="margin-bottom: 0;">Join our groups</h2>
+	<a href="https://www.facebook.com/groups/STARIT" target="_blank" class="socialIcon large fb">Facebook Group</a>
+	<a href="https://plus.google.com/communities/110072898262170035107" target="_blank" class="socialIcon large gplus">Google+ Community</a>
+	<a href="https://ritstar.slack.com" target="_blank" class="socialIcon large slack">Slack team</a>
+</section>
+
+<h2 style="text-align: center;">{{ end_quote }}</h2>
 
 {% include 'foot.html' %}
