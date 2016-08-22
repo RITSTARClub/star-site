@@ -66,7 +66,7 @@ class GPlusRedirect(webapp2.RequestHandler):
 		self.redirect('https://plus.google.com/111596425090423212471', code=301)
 
 app = webapp2.WSGIApplication([
-	('/avtest', AVTestPage),
+	('/avtest/?', AVTestPage),
 	('/\+', GPlusRedirect),
-	('/', HomePage)
+	('/?', HomePage)
 ])

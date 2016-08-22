@@ -50,6 +50,6 @@ class BridgeCrewEditPage(webapp2.RequestHandler):
 		new_crew.put()
 
 app = webapp2.WSGIApplication([
-	('/bridgecrew', BridgeCrewViewPage),
-	('/bridgecrew/edit(\?.*)?', BridgeCrewEditPage)
+	('/bridgecrew/?', BridgeCrewViewPage),
+	('/bridgecrew/edit/?(\?.*)?', BridgeCrewEditPage)
 ])

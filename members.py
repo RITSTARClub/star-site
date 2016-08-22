@@ -180,8 +180,8 @@ class MemberEditPage(webapp2.RequestHandler):
 			self.redirect('/members/hidden')
 
 app = webapp2.WSGIApplication([
-	('/members(\?.*)?', MemberListPage),
+	('/members/?(\?.*)?', MemberListPage),
 	('/members/hidden/?', HiddenListPage),
 	('/members/mailinglist/?', MailingList),
-	('/members/edit(\?.*)?', MemberEditPage)
+	('/members/edit/?(\?.*)?', MemberEditPage)
 ])

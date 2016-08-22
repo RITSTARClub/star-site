@@ -183,7 +183,7 @@ class MissionEditPage(webapp2.RequestHandler):
 		self.redirect('/missions/' + mission.id, code=303)
 
 app = webapp2.WSGIApplication([
-	('/missions(\?.*)?', MissionListPage),
-	('/missions/edit(\?.*)?', MissionEditPage),
+	('/missions/?(\?.*)?', MissionListPage),
+	('/missions/edit/?(\?.*)?', MissionEditPage),
 	('/missions/([a-z0-9\-]+)', MissionInfoPage)
 ])
