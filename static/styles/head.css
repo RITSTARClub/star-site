@@ -71,8 +71,19 @@
 		#nav a:active {
 			border-bottom-color: #cc99ff;
 		}
+		
+	#nav #starfestLink {
+		float: right;
+		text-transform: none;
+	}
 
-@media (max-width: 500px) {
+@media (max-width: 660px) {
+	#nav #starfestLink {
+		display: none;
+	}
+}
+
+@media (max-width: 560px) {
 	#nav {
 		text-align: center;
 	}
