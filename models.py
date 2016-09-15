@@ -12,51 +12,63 @@ from gfm import gfm
 class Member(ndb.Model):
 	RANKS = [
 		{
-			'name': 'Cadet', # 0
+			# 0
+			'name': 'Cadet',
 			'abbr': 'Cdt.',
 			'disp': ''
 		}, {
-			'name': 'Ensign', # 1
+			# 1
+			'name': 'Ensign',
 			'abbr': 'Ens.',
 			'disp': unichr(9679) # ●
 		}, {
-			'name': 'Lieutenant, Junior Grade', # 2
+			# 2
+			'name': 'Lieutenant, Junior Grade',
 			'abbr': 'Lt. J.G.',
 			'disp': unichr(9675) + unichr(9679) # ○●
 		}, {
-			'name': 'Lieutenant', # 3
+			# 3
+			'name': 'Lieutenant',
 			'abbr': 'Lt.',
 			'disp': unichr(9679) + unichr(9679) # ●●
 		}, {
-			'name': 'Lieutenant Commander', # 4
+			# 4
+			'name': 'Lieutenant Commander',
 			'abbr': 'Lt. Cmdr.',
 			'disp': unichr(9675) + unichr(9679) + unichr(9679) # ○●●
 		}, {
-			'name': 'Commander', # 5
+			# 5
+			'name': 'Commander',
 			'abbr': 'Cmdr.',
 			'disp': unichr(9679) + unichr(9679) + unichr(9679) # ●●●
 		}, {
-			'name': 'Captain', # 6
+			# 6
+			'name': 'Captain',
 			'abbr': 'Capt.',
 			'disp': unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) # ●●●●
 		}, {
-			'name': 'Commodore', # 7
+			# 7
+			'name': 'Commodore',
 			'abbr': 'Cmdre.',
 			'disp': '[' + unichr(9679) + ']' # [●]
 		}, {
-			'name': 'Rear Admiral', # 8
+			# 8
+			'name': 'Rear Admiral',
 			'abbr': 'Adm.',
 			'disp': '[' + unichr(9679) + unichr(9679) + ']' # [●●]
 		}, {
-			'name': 'Vice Admiral', #9
+			# 9
+			'name': 'Vice Admiral',
 			'abbr': 'Adm.',
 			'disp': '[' + unichr(9679) + unichr(9679) + unichr(9679) + ']' # [●●●]
 		}, {
-			'name': 'Admiral', # 10
+			# 10
+			'name': 'Admiral',
 			'abbr': 'Adm.',
 			'disp': '[' + unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) + ']' # [●●●●]
 		}, {
-			'name': 'Fleet Admiral', # 11
+			# 11
+			'name': 'Fleet Admiral',
 			'abbr': 'Adm.',
 			'disp': '[' + unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) + ']' # [●●●●●]
 		}
