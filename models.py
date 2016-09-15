@@ -79,34 +79,44 @@ class Member(ndb.Model):
 		return Mission.query(Mission.runners == self.id).order(-Mission.date).fetch(limit=None)
 	
 	def get_rank(self):
-		if len(self.semesters_paid) == 0: # Cadets cannot earn ranks
+		# Cadets cannot earn ranks
+		if len(self.semesters_paid) == 0:
 			return 0
 		
 		rank = 1
 		
-		if len(self.semesters_paid) >= 4: # Longevity
+		# Longevity
+		if len(self.semesters_paid) >= 4:
 			rank += 1
 		
-		if Mission.query(Mission.runners == self.id, Mission.type == 0).count(limit=1) != 0: # Led weekly mission
+		# Led weekly mission
+		if Mission.query(Mission.runners == self.id, Mission.type == 0).count(limit=1) != 0:
 			rank += 1
 		
-		if self.committee_rank or Mission.query(Mission.runners == self.id, Mission.type == 1).count(limit=1) != 0: # Volunteered with special mission
+		# Volunteered with special mission
+		if self.committee_rank or Mission.query(Mission.runners == self.id, Mission.type == 1).count(limit=1) != 0:
 			rank += 1
 		
+		# Merit ranks
 		if self.merit_rank1:
 			rank += 1
 		if self.merit_rank2:
 			rank += 1
 		
-		if BridgeCrew.query(BridgeCrew.captain == self.id).count(limit=1) != 0: # Voted captain
+		# Voted captain
+		if BridgeCrew.query(BridgeCrew.captain == self.id).count(limit=1) != 0:
 			rank = 6
 		
+		# Alumni ranks
 		if not self.current_student:
-			if rank == 6: # Captains become rear admirals
+			if rank == 6:
+				# Captains become rear admirals
 				rank = 8
-			else: # Non-captains become commodores
+			else:
+				# Non-captains become commodores
 				rank = 7
 		
+		# Was an admiral (advisor)
 		if BridgeCrew.query(BridgeCrew.admiral == self.id).count(limit=1) != 0:
 			rank = 10
 		
