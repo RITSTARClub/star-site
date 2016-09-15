@@ -93,7 +93,7 @@ class Member(ndb.Model):
 		if Mission.query(Mission.runners == self.id, Mission.type == 0).count(limit=1) != 0:
 			rank += 1
 		
-		# Volunteered with special mission
+		# Volunteered with special mission or committee
 		if self.committee_rank or Mission.query(Mission.runners == self.id, Mission.type == 1).count(limit=1) != 0:
 			rank += 1
 		
