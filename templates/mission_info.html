@@ -26,8 +26,15 @@
 		{% endif %}
 	</p>
 	
-	{% if mission.wave_url and admin %}
-		<p style="font-size: larger;"><a href="{{ mission.wave_url }}" target="_blank">Mission wave</a></p>
+	{% if admin %}
+		<p style="font-size: larger;">
+			{% if mission.wave_url %}
+				<a href="{{ mission.wave_url }}" target="_blank">Mission wave</a>
+			{% endif %}
+			{% if mission.drive_url %}
+				<a href="{{ mission.drive_url }}" target="_blank">Google Drive folder</a>
+			{% endif %}
+		</p>
 	{% endif %}
 	
 	{% if mission.fb_url %}
@@ -57,7 +64,7 @@
 	{% endif %}
 	
 	{% if admin %}
-		<br />
+		<br /><br />
 		<a role="button" href="/missions/edit?id={{ mission.id }}">&#x270e; Edit mission</a>
 	{% endif %}
 </section>
