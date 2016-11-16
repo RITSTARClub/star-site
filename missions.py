@@ -7,6 +7,7 @@ import urllib2
 from uuid import uuid4
 
 from google.appengine.api import users
+from google.appengine.ext import ndb
 
 import jinja2
 import webapp2
@@ -60,7 +61,31 @@ class MissionListPage(webapp2.RequestHandler):
 		template_vals['prev_semester'] = prev_semester_str if selected_semester != 'fall_2013' else None
 		template_vals['next_semester'] = next_semester_str if selected_semester != current_semester_str else None
 		
-		template = JINJA_ENVIRONMENT.get_template('mission_list.html')
+		template = JINJA_ENVIRONMENT.get_template('missions_list.html')
+		self.response.write(template.render(template_vals))
+
+class HiddenListPage(webapp2.RequestHandler):
+	def get(self):
+		if not users.is_current_user_admin():
+			self.error(403)
+			return
+		
+		template_vals = {
+			'title': 'Hidden Missions',
+			'page': 'missions'
+		}
+		
+		user = users.get_current_user()
+		if user:
+			template_vals['user'] = user
+			template_vals['admin'] = users.is_current_user_admin()
+			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
+		else:
+			template_vals['login_url'] = users.create_login_url(self.request.uri)
+		
+		template_vals['missions'] = Mission.query(ndb.OR(Mission.start == None)).order(Mission.id).fetch(limit=None)
+		
+		template = JINJA_ENVIRONMENT.get_template('missions_hidden.html')
 		self.response.write(template.render(template_vals))
 
 class MissionInfoPage(webapp2.RequestHandler):
@@ -180,10 +205,15 @@ class MissionEditPage(webapp2.RequestHandler):
 		# Save the updated mission.
 		mission.put()
 		
-		self.redirect('/missions/' + mission.id, code=303)
+		if not mission.start:
+			self.redirect('/missions/hidden', code=303)
+			return
+		
+		self.redirect('/missions/' + mission.id, code=303)	
 
 app = webapp2.WSGIApplication([
 	('/missions/?(\?.*)?', MissionListPage),
+	('/missions/hidden/?', HiddenListPage),
 	('/missions/edit/?(\?.*)?', MissionEditPage),
 	('/missions/([a-z0-9\-]+)', MissionInfoPage)
 ])
