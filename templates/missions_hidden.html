@@ -1,0 +1,31 @@
+{% include 'head.html' %}
+
+<section class="wide">
+	{% include 'semester_picker.html' %}
+	<h1>Missions</h1>
+	<table class="bigListTable">
+		{% for mission in missions %}
+			<tr>
+				<td class="missionTypeCol">{{ mission.type_name }}</td>
+				<td class="missionTitleCol"><a href="/missions/edit?id={{ mission.id }}"><strong>{{ mission.title or '[Untitled]' }}</strong></a></td>
+				<td class="missionSocialCol">
+					{% if mission.fb_url %}
+						<a href="{{ mission.fb_url }}" target="_blank" class="socialIcon fb tiny">Facebook</a>
+					{% endif %}
+					{% if mission.gplus_url %}
+						<a href="{{ mission.gplus_url }}" target="_blank" class="socialIcon gplus tiny">Google+</a>
+					{% endif %}
+					{% if mission.the_link_url %}
+						<a href="{{ mission.the_link_url }}" target="_blank" class="socialIcon thelink tiny">The Link</a>
+					{% endif %}
+			</tr>
+		{% endfor %}
+	</table>
+	{% if admin %}
+		<div style="margin: 2em 0;">
+			<a role="button" href="/missions/edit">&#x2795; Add mission</a>
+		</div>
+	{% endif %}
+</section>
+
+{% include 'foot.html' %}

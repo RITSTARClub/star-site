@@ -7,7 +7,7 @@
 		{% for mission in missions %}
 			<tr>
 				<td class="missionTypeCol">{{ mission.type_name }}</td>
-				<td class="missionTitleCol"><a href="/missions/{{ mission.id }}"><strong>{{ mission.title }}</strong></a></td>
+				<td class="missionTitleCol"><a href="/missions/{{ mission.id }}"><strong>{{ mission.title or '[Untitled]' }}</strong></a></td>
 				<td class="missionDateCol">{{ mission.pretty_date|safe }}</td>
 				<td class="missionSocialCol">
 					{% if mission.fb_url %}
@@ -23,7 +23,10 @@
 		{% endfor %}
 	</table>
 	{% if admin %}
-		<p><a role="button" href="/missions/edit">&#x2795; Add mission</a></p>
+		<div style="margin: 2em 0;">
+			<a role="button" href="/missions/edit">&#x2795; Add mission</a>
+			<a role="button" href="/missions/hidden">&#x1f441; Unscheduled missions</a>
+		</div>
 	{% endif %}
 </section>
 
