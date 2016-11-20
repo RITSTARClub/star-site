@@ -83,6 +83,8 @@ class HiddenListPage(webapp2.RequestHandler):
 		
 		template_vals['members'] = Member.query(ndb.OR(Member.show == False, Member.never_paid == True)).order(Member.name).fetch(limit=None)
 		
+		template_vals['current_semester'] = get_current_semester()
+		
 		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
 		self.response.write(template.render(template_vals))
 		
