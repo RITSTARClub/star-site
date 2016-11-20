@@ -57,6 +57,7 @@ class MemberListPage(webapp2.RequestHandler):
 		template_vals['semesters'] = semesters
 		template_vals['prev_semester'] = prev_semester_str if selected_semester != 'fall_2013' else None
 		template_vals['next_semester'] = next_semester_str if selected_semester != current_semester_str else None
+		template_vals['selected_semester'] = selected_semester
 		
 		template = JINJA_ENVIRONMENT.get_template('members_list.html')
 		self.response.write(template.render(template_vals))
