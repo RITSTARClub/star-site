@@ -98,7 +98,7 @@ class Member(ndb.Model):
 	def get_rank(self, semester):
 		semester_num = semester_to_num(semester)
 		num_semesters_paid_to_date = 0
-		for semester_paid in self.semesters_paid.map(semester_to_num):
+		for semester_paid in map(semester_to_num, self.semesters_paid):
 			if semester_paid < semester_num:
 				num_semesters_paid_to_date += 1
 		
