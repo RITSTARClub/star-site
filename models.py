@@ -8,7 +8,7 @@ from markdown import markdown
 # The GitHub-Flavored Markdown
 from gfm import gfm
 
-from utils import semester_date
+from utils import get_current_semester, semester_date
 
 def semester_to_num(semester_str):
 	# spring = YEAR.1; false = YEAR.2
@@ -95,7 +95,7 @@ class Member(ndb.Model):
 	def get_missions(self):
 		return Mission.query(Mission.runners == self.id).order(-Mission.date).fetch(limit=None)
 	
-	def get_rank(self, semester):
+	def get_rank(self, semester=get_current_semester()):
 		semester_num = semester_to_num(semester)
 		num_semesters_paid_to_date = 0
 		for semester_paid in map(semester_to_num, self.semesters_paid):
@@ -145,13 +145,13 @@ class Member(ndb.Model):
 		
 		return rank
 	
-	def get_rank_disp(self, semester):
+	def get_rank_disp(self, semester=get_current_semester()):
 		return Member.RANKS[self.get_rank(semester)]['disp']
 	
-	def get_rank_name(self, semester):
+	def get_rank_name(self, semester=get_current_semester()):
 		return Member.RANKS[self.get_rank(semester)]['name']
 	
-	def get_name_with_rank(self, semester):
+	def get_name_with_rank(self, semester=get_current_semester()):
 		return Member.RANKS[self.get_rank(semester)]['abbr'] + ' ' + self.name
 	
 	missions = property(get_missions)
