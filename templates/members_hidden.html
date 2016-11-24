@@ -4,6 +4,7 @@
 	<h1>Hidden Users (Admin Only)</h1>
 	<table class="bigListTable">
 		<tr>
+			<td></td>
 			<th>Name</th>
 			<th>Rank</th>
 			<th>Mailing list?</th>
@@ -11,7 +12,8 @@
 		</tr>
 		{% for member in members %}
 			<tr>
-				<td><a href="/members/edit?id={{ member.id }}"><strong>{{ member.name_with_rank }}</strong></a></td>
+				<td><a href="/members/edit?id={{ member.id }}" style="text-decoration: none;">&#x270e;</a></td>
+				<td><a href="/members/{{ member.id }}"><strong>{{ member.name_with_rank }}</strong></a></td>
 				<td><abbr title="{{ member.rank_name }}">{{ member.rank_disp }}</abbr></td>
 				<td>{% if member.mailing_list %}&#x2611;{% else %}&#x2610;{% endif %}</td>
 				<td>{% if not member.never_paid %}&#x2611;{% else %}&#x2610;{% endif %}</td>

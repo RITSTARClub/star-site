@@ -104,6 +104,38 @@ class MailingList(webapp2.RequestHandler):
 		self.response.headers['Content-Type'] = 'text/plain'
 		self.response.write(','.join(mailing_list))
 
+class MemberInfoPage(webapp2.RequestHandler):
+	def get(self, req_id):
+		template_vals = {
+			'page': 'members'
+		}
+		
+		if not req_id:
+			# Redirect to the members list if no member is specified.
+			self.redirect('/members')
+			return
+		
+		member = Member.query(Member.id == req_id).get()
+		if not member:
+			# 404 if a nonexistent member is specified.
+			self.error(404)
+			return
+		
+		template_vals['member'] = member
+		template_vals['title'] = member.name
+		
+		# Get user data for the footer and admin controls.
+		user = users.get_current_user()
+		if user:
+			template_vals['user'] = user
+			template_vals['admin'] = users.is_current_user_admin()
+			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
+		else:
+			template_vals['login_url'] = users.create_login_url(self.request.uri)
+		
+		template = JINJA_ENVIRONMENT.get_template('member_info.html')
+		self.response.write(template.render(template_vals))
+
 class MemberEditPage(webapp2.RequestHandler):
 	def get(self, args):
 		if not users.is_current_user_admin():
@@ -174,14 +206,16 @@ class MemberEditPage(webapp2.RequestHandler):
 		# Save the updated member.
 		member.put()
 		
-		if len(member.semesters_paid) > 0 and member.show:
-			self.redirect('/members?semester=' + member.semesters_paid[-1])
-		else:
-			self.redirect('/members/hidden')
+		if member.never_paid:
+			self.redirect('/members/hidden', code=303)
+			return
+		
+		self.redirect('/members/' + member.id, code=303)
 
 app = webapp2.WSGIApplication([
 	('/members/?(\?.*)?', MemberListPage),
 	('/members/hidden/?', HiddenListPage),
 	('/members/mailinglist/?', MailingList),
-	('/members/edit/?(\?.*)?', MemberEditPage)
+	('/members/edit/?(\?.*)?', MemberEditPage),
+	('/members/([a-z0-9]+)', MemberInfoPage)
 ])

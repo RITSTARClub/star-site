@@ -88,7 +88,7 @@ class Member(ndb.Model):
 	merit_rank2 = ndb.BooleanProperty()
 	
 	def get_missions(self):
-		return Mission.query(Mission.runners == self.id).order(-Mission.date).fetch(limit=None)
+		return Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
 	
 	def get_rank(self):
 		# Cadets cannot earn ranks
@@ -142,6 +142,9 @@ class Member(ndb.Model):
 	
 	def get_name_with_rank(self):
 		return Member.RANKS[self.rank]['abbr'] + ' ' + self.name
+	
+	def get_semesters_paid_pretty(self):
+		return ((semester[0].upper() + semester[1:].replace('_', ' ')) for semester in self.semesters_paid)
 	
 	missions = property(get_missions)
 	rank = property(get_rank)

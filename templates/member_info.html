@@ -1,0 +1,34 @@
+{% include 'head.html' %}
+
+<section>
+	<h1>{{ member.name }}</h1>
+	Current rank: {{ member.get_rank_name() }}
+	
+	{% if member.missions %}
+		<h3>Missions run:</h3>
+		<ul>
+			{% for mission in member.missions %}
+				<li>
+					<a href="/mission/{{ mission.id }}">{{ mission.title }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	
+	<h3>Was a member:</h3>
+	<ul>
+	{% for semester in member.get_semesters_paid_pretty() %}
+		<li>
+			{{ semester }}
+		</li>
+	{% endfor %}
+	</ul>
+	
+	{% if admin %}
+		<br /><br />
+		<a role="button" href="/members/edit?id={{ member.id }}">&#x270e; Edit member</a>
+	{% endif %}
+</section>
+<br />
+
+{% include 'foot.html' %}
