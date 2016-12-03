@@ -57,6 +57,7 @@ class MemberListPage(webapp2.RequestHandler):
 		template_vals['semesters'] = semesters
 		template_vals['prev_semester'] = prev_semester_str if selected_semester != 'fall_2013' else None
 		template_vals['next_semester'] = next_semester_str if selected_semester != current_semester_str else None
+		template_vals['selected_semester'] = selected_semester
 		
 		template = JINJA_ENVIRONMENT.get_template('members_list.html')
 		self.response.write(template.render(template_vals))
@@ -81,6 +82,8 @@ class HiddenListPage(webapp2.RequestHandler):
 			template_vals['login_url'] = users.create_login_url(self.request.uri)
 		
 		template_vals['members'] = Member.query(ndb.OR(Member.show == False, Member.never_paid == True)).order(Member.name).fetch(limit=None)
+		
+		template_vals['current_semester'] = get_current_semester()
 		
 		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
 		self.response.write(template.render(template_vals))
