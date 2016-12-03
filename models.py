@@ -8,6 +8,11 @@ from markdown import markdown
 # The GitHub-Flavored Markdown
 from gfm import gfm
 
+from utils import get_current_semester, semester_date
+
+def semester_to_num(semester_str):
+	# spring = YEAR.1; false = YEAR.2
+	return int(semester_str[-4:]) + (0.1 if semester_str[:7] == 'spring_' else 0.2 if semester_str[:5] == 'fall_' else 0.3)
 
 class Member(ndb.Model):
 	RANKS = [
@@ -90,23 +95,29 @@ class Member(ndb.Model):
 	def get_missions(self):
 		return Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
 	
-	def get_rank(self):
+	def get_rank(self, semester=get_current_semester()):
+		semester_num = semester_to_num(semester)
+		num_semesters_paid_to_date = 0
+		for semester_paid in map(semester_to_num, self.semesters_paid):
+			if semester_paid < semester_num:
+				num_semesters_paid_to_date += 1
+		
 		# Cadets cannot earn ranks
-		if len(self.semesters_paid) == 0:
+		if num_semesters_paid_to_date == 0:
 			return 0
 		
 		rank = 1
 		
 		# Longevity
-		if len(self.semesters_paid) >= 4:
+		if num_semesters_paid_to_date >= 4:
 			rank += 1
 		
 		# Led weekly mission
-		if Mission.query(Mission.runners == self.id, Mission.type == 0).count(limit=1) != 0:
+		if Mission.query(Mission.runners == self.id, Mission.type == 0, Mission.start < semester_date(semester)).count(limit=1) != 0:
 			rank += 1
 		
 		# Volunteered with special mission or committee
-		if self.committee_rank or Mission.query(Mission.runners == self.id, Mission.type == 1).count(limit=1) != 0:
+		if self.committee_rank or Mission.query(Mission.runners == self.id, Mission.type == 1, Mission.start < semester_date(semester)).count(limit=1) != 0:
 			rank += 1
 		
 		# Merit ranks
@@ -116,7 +127,7 @@ class Member(ndb.Model):
 			rank += 1
 		
 		# Voted captain
-		if BridgeCrew.query(BridgeCrew.captain == self.id).count(limit=1) != 0:
+		if BridgeCrew.query(BridgeCrew.captain == self.id, BridgeCrew.start < semester_date(semester)).count(limit=1) != 0:
 			rank = 6
 		
 		# Alumni ranks
@@ -129,28 +140,24 @@ class Member(ndb.Model):
 				rank = 7
 		
 		# Was an admiral (advisor)
-		if BridgeCrew.query(BridgeCrew.admiral == self.id).count(limit=1) != 0:
+		if BridgeCrew.query(BridgeCrew.admiral == self.id, BridgeCrew.start < semester_date(semester)).count(limit=1) != 0:
 			rank = 10
 		
 		return rank
 	
-	def get_rank_disp(self):
-		return Member.RANKS[self.rank]['disp']
+	def get_rank_disp(self, semester=get_current_semester()):
+		return Member.RANKS[self.get_rank(semester)]['disp']
 	
-	def get_rank_name(self):
-		return Member.RANKS[self.rank]['name']
+	def get_rank_name(self, semester=get_current_semester()):
+		return Member.RANKS[self.get_rank(semester)]['name']
 	
-	def get_name_with_rank(self):
-		return Member.RANKS[self.rank]['abbr'] + ' ' + self.name
+	def get_name_with_rank(self, semester=get_current_semester()):
+		return Member.RANKS[self.get_rank(semester)]['abbr'] + ' ' + self.name
 	
 	def get_semesters_paid_pretty(self):
 		return ((semester[0].upper() + semester[1:].replace('_', ' ')) for semester in self.semesters_paid)
 	
 	missions = property(get_missions)
-	rank = property(get_rank)
-	rank_disp = property(get_rank_disp)
-	rank_name = property(get_rank_name)
-	name_with_rank = property(get_name_with_rank)
 
 
 class BridgeCrew(ndb.Model):
