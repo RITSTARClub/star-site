@@ -101,7 +101,7 @@ class MissionInfoPage(webapp2.RequestHandler):
 		
 		mission = Mission.query(Mission.id == req_id).get()
 		if not mission:
-			# 404 if a nonexistent mission is specified
+			# 404 if a nonexistent mission is specified.
 			self.error(404)
 			return
 		
