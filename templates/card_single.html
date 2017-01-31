@@ -1,0 +1,7 @@
+<div class="card">
+	<img src="/static/images/cards/bgs/{{ member.card_color }}.png" class="bg" alt="{{ member.card_color }} ID background with rank {{ member.get_rank_name() }}" />
+	<div class="year">{{ semester }}</div>
+	<div class="name">{{ member.name }}</div>
+	<img class="qrCode" src="{{ member.get_qr_code() }}" />
+	<img class="qrEmblem" src="/static/images/cards/emblems/{{ member.card_emblem }}.svg" alt="{{ member.card_emblem }} emblem" />
+</div>

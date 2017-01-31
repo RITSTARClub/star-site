@@ -1,0 +1,60 @@
+@charset 'UTF-8';
+
+@import url('https://fonts.googleapis.com/css?family=Orbitron:500|Teko:300,400');
+
+.card {
+	position: relative;
+	width: 53.98mm;
+	height: 85.6mm;
+	
+	background-color: #6d6f71;
+	overflow: hidden;
+}
+
+	.card .bg {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.card .year {
+		position: absolute;
+		left: 10.5%;
+		top: 20.25%;
+		
+		font-size: 3.25mm;
+		font-family: Orbitron, sans-serif;
+		font-weight: 500;
+	}
+	.card .name {
+		position: absolute;
+		left: 10.5%;
+		top: 27%;
+		width: 70%;
+		
+		line-height: 115%;
+		font-size: 5mm;
+		font-family: Teko, sans-serif;
+		font-weight: 300;
+	}
+	.card .qrCode {
+		position: absolute;
+		left: 15.5%;
+		top: 45%;
+		width: 55%;
+		
+		background-color: white;
+		box-shadow: 0 0 8px 8px white;
+	}
+	.card .qrEmblem {
+		position: absolute;
+		left: 33%;
+		top: 56%;
+		width: 20%;
+		
+		background-color: black;
+		border: 1mm solid white;
+		border-radius: 50%;
+		box-sizing: border-box;
+	}

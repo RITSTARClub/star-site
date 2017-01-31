@@ -1,12 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import logging
 from google.appengine.ext import ndb
 
 # The Python Markdown implementation by Waylan Limberg
 from markdown import markdown
 # The GitHub-Flavored Markdown
 from gfm import gfm
+
+import base64
+import sys
+# GAE Python QR code generator by Bernard Kobos
+sys.path.append('PyQRNativeGAE')
+from PyQRNative import QRErrorCorrectLevel
+from PyQRNativeGAE import QRCode
 
 from utils import get_current_semester, semester_date
 
@@ -92,6 +100,9 @@ class Member(ndb.Model):
 	merit_rank1 = ndb.BooleanProperty()
 	merit_rank2 = ndb.BooleanProperty()
 	
+	card_color = ndb.StringProperty()
+	card_emblem = ndb.StringProperty()
+	
 	def get_missions(self):
 		return Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
 	
@@ -156,6 +167,15 @@ class Member(ndb.Model):
 	
 	def get_semesters_paid_pretty(self):
 		return ((semester[0].upper() + semester[1:].replace('_', ' ')) for semester in self.semesters_paid)
+	
+	def get_qr_code(self):
+		url = 'http://ritstar.com/members/' + self.id
+		qr = QRCode(QRCode.get_type_for_string(url * 2), QRErrorCorrectLevel.Q) # Pass URL * 2 to get a larger QR code.
+		qr.addData(url)
+		qr.make()
+		
+		return 'data:image/png;base64,' + base64.b64encode(qr.make_image())
+		#return 'data:image/svg+xml;base64,' + base64.b64encode(qr.make_svg())
 	
 	missions = property(get_missions)
 

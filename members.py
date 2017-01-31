@@ -192,7 +192,7 @@ class MemberEditPage(webapp2.RequestHandler):
 			member.id = req_id
 		
 		# Update string values.
-		for str_param in ['name', 'dce', 'email']:
+		for str_param in ['name', 'dce', 'email', 'card_color', 'card_emblem']:
 			req_val = self.request.get(str_param)
 			if req_val or req_val == '':
 				req_val = req_val.strip()

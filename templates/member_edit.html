@@ -38,6 +38,12 @@
 				</td>
 			</tr>
 			<tr>
+				<td></td>
+				<td>
+					<hr />
+				</td>
+			</tr>
+			<tr>
 				<td>
 					<label for="email">Preferred e-mail address</label>
 				</td>
@@ -51,6 +57,12 @@
 				</td>
 				<td>
 					<input type="checkbox" name="mailing_list"{% if member.mailing_list %} checked="checked"{% endif %} />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<hr />
 				</td>
 			</tr>
 			<tr>
@@ -95,8 +107,45 @@
 			<tr>
 				<td></td>
 				<td>
+					<hr />
+				</td>
+			</tr>
+			<tr>
+				<td>ID card color</td>
+				<td>
+					<select name="card_color">
+						<option value="blue">Blue</option>
+						<option value="green">Green</option>
+						<option value="purple">Purple</option>
+						<option value="red">Red</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>ID card emblem</td>
+				<td>
+					<select name="card_emblem">
+						<option value="aperture">Aperture Science</option>
+						<option value="green_lantern">Green Lantern</option>
+						<option value="rebel_alliance">Rebel Alliance</option>
+						<option value="shield">S.H.I.E.L.D.</option>
+						<option value="starfleet">Starfleet</option>
+						<option value="tardis">TARDIS</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<hr />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
 					<button type="submit">Save</button>
 				</td>
+			</tr>
 		</table>
 	</form>
 </section>

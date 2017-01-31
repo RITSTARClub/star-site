@@ -9,6 +9,8 @@ libraries:
   version: latest
 - name: jinja2
   version: latest
+- name: PIL
+  version: latest
 
 handlers:
 - url: /static
@@ -16,6 +18,9 @@ handlers:
 
 - url: /bridgecrew(/.*)?
   script: bridgecrew.app
+
+- url: /cards(/.*)?
+  script: cards.app
 
 - url: /members(/.*)?
   script: members.app
