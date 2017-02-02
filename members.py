@@ -192,14 +192,14 @@ class MemberEditPage(webapp2.RequestHandler):
 			member.id = req_id
 		
 		# Update string values.
-		for str_param in ['name', 'dce', 'email']:
+		for str_param in ['name', 'dce', 'email', 'card_color', 'card_emblem']:
 			req_val = self.request.get(str_param)
 			if req_val or req_val == '':
 				req_val = req_val.strip()
 				setattr(member, str_param, urllib2.unquote(req_val))
 		
 		# Update boolean values.
-		for bool_param in ['show','mailing_list', 'current_student', 'committee_rank', 'merit_rank1', 'merit_rank2']:
+		for bool_param in ['show','mailing_list', 'current_student', 'committee_rank', 'merit_rank1', 'merit_rank2', 'card_printed']:
 			req_val = self.request.get(bool_param)
 			setattr(member, bool_param, not not req_val)
 		
@@ -220,5 +220,5 @@ app = webapp2.WSGIApplication([
 	('/members/hidden/?', HiddenListPage),
 	('/members/mailinglist/?', MailingList),
 	('/members/edit/?(\?.*)?', MemberEditPage),
-	('/members/([a-z0-9]+)', MemberInfoPage)
+	('/members/([a-z0-9]+)/?', MemberInfoPage)
 ])

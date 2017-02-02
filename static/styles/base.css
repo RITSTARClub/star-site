@@ -45,6 +45,8 @@ button,
 a[role="button"],
 select:not([size]) {
 	-webkit-tap-highlight-color: transparent !important;
+	
+	display: inline-block;
 	-webkit-border-radius: 1em;
 	   -moz-border-radius: 1em;
 	        border-radius: 1em;

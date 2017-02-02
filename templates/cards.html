@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<link rel="stylesheet" type="text/css" href="/static/styles/cards.css" />
+	</head>
+	<body>
+		{% for member in members %}
+			{% include 'card_single.html' %}
+		{% endfor %}
+	</body>
+</html>
