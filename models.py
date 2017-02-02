@@ -102,6 +102,7 @@ class Member(ndb.Model):
 	
 	card_color = ndb.StringProperty()
 	card_emblem = ndb.StringProperty()
+	card_printed = ndb.BooleanProperty()
 	
 	def get_missions(self):
 		return Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
