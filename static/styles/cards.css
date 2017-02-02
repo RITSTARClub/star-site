@@ -2,10 +2,18 @@
 
 @import url('https://fonts.googleapis.com/css?family=Orbitron:500|Teko:300,400');
 
+body {
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+}
+
 .card {
+	display: inline-block;
 	position: relative;
 	width: 53.98mm;
 	height: 85.6mm;
+	margin: 5mm;
 	
 	background-color: #6d6f71;
 	overflow: hidden;
