@@ -11,7 +11,7 @@ import jinja2
 import webapp2
 
 from models import Member
-from utils import get_current_semester, get_all_semesters, prev_semester, next_semester
+from utils import get_current_semester
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -44,7 +44,7 @@ class SingleCardPage(webapp2.RequestHandler):
 
 class AllCardsPage(webapp2.RequestHandler):
 	def get(self):
-		members = Member.query(Member.card_printed == False, Member.current_student == True).order(Member.name).fetch(limit=None)
+		members = Member.query(Member.card_printed == False, Member.current_student == True, Member.semesters_paid == get_current_semester()).order(Member.name).fetch(limit=None)
 		
 		# TODO: Replace with fetching the current semester once semester formatting functions are merged in.
 		semester = 'Spring 2017'
