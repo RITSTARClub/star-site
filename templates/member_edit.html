@@ -114,10 +114,10 @@
 				<td>ID card color</td>
 				<td>
 					<select name="card_color">
-						<option value="blue">Blue</option>
-						<option value="green">Green</option>
-						<option value="purple">Purple</option>
-						<option value="red">Red</option>
+						<option value="blue"{% if member.card_color == 'blue' %} selected="selected"{% endif %}>Blue</option>
+						<option value="green"{% if member.card_color == 'green' %} selected="selected"{% endif %}>Green</option>
+						<option value="purple"{% if member.card_color == 'purple' %} selected="selected"{% endif %}>Purple</option>
+						<option value="red"{% if member.card_color == 'red' %} selected="selected"{% endif %}>Red</option>
 					</select>
 				</td>
 			</tr>
@@ -125,12 +125,12 @@
 				<td>ID card emblem</td>
 				<td>
 					<select name="card_emblem">
-						<option value="aperture">Aperture Science</option>
-						<option value="green_lantern">Green Lantern</option>
-						<option value="rebel_alliance">Rebel Alliance</option>
-						<option value="shield">S.H.I.E.L.D.</option>
-						<option value="starfleet">Starfleet</option>
-						<option value="tardis">TARDIS</option>
+						<option value="aperture"{% if member.card_emblem == 'aperture' %} selected="selected"{% endif %}>Aperture Science</option>
+						<option value="green_lantern"{% if member.card_emblem == 'green_lantern' %} selected="selected"{% endif %}>Green Lantern</option>
+						<option value="rebel_alliance"{% if member.card_emblem == 'rebel_alliance' %} selected="selected"{% endif %}>Rebel Alliance</option>
+						<option value="shield"{% if member.card_emblem == 'shield' %} selected="selected"{% endif %}>S.H.I.E.L.D.</option>
+						<option value="starfleet"{% if member.card_emblem == 'starfleet' %} selected="selected"{% endif %}>Starfleet</option>
+						<option value="tardis"{% if member.card_emblem == 'tardis' %} selected="selected"{% endif %}>TARDIS</option>
 					</select>
 				</td>
 			</tr>
