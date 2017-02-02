@@ -8,6 +8,7 @@
 			<th>Name</th>
 			<th>Rank</th>
 			<th>Mailing list?</th>
+			<th>Card printed?</th>
 			<th>Paid?</th>
 		</tr>
 		{% for member in members %}
@@ -16,6 +17,7 @@
 				<td><a href="/members/{{ member.id }}"><strong>{{ member.get_name_with_rank(current_semester) }}</strong></a></td>
 				<td><abbr title="{{ member.get_rank_name(current_semester) }}">{{ member.get_rank_disp(current_semester) }}</abbr></td>
 				<td>{% if member.mailing_list %}&#x2611;{% else %}&#x2610;{% endif %}</td>
+				<td>{% if member.card_printed %}&#x2611;{% else %}&#x2610;{% endif %}</td>
 				<td>{% if not member.never_paid %}&#x2611;{% else %}&#x2610;{% endif %}</td>
 			</tr>
 		{% endfor %}

@@ -12,6 +12,7 @@
 			<th>Rank <a href="#ranks" style="vertical-align: top; font-size: 75%;">?</a></th>
 			{% if admin %}
 				<th>Mailing list?</th>
+				<th>Card printed?</th>
 			{% endif %}
 		</tr>
 		{% for member in members %}
@@ -23,6 +24,7 @@
 				<td><abbr title="{{ member.get_rank_name(selected_semester) }}">{{ member.get_rank_disp(selected_semester) }}</abbr></td>
 				{% if admin %}
 					<td>{% if member.mailing_list %}&#x2611;{% else %}&#x2610;{% endif %}</td>
+					<td>{% if member.card_printed %}&#x2611;{% else %}&#x2610;{% endif %}</td>
 				{% endif %}
 			</tr>
 		{% endfor %}
