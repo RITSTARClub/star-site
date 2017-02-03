@@ -111,13 +111,16 @@ class Member(ndb.Model):
 	
 	def get_rank(self, semester=get_current_semester()):
 		semester_num = semester_to_num(semester)
+		paid = False
 		num_semesters_paid_to_date = 0
 		for semester_paid in map(semester_to_num, self.semesters_paid):
 			if semester_paid <= semester_num:
+				paid = True
+			if semester_paid < semester_num:
 				num_semesters_paid_to_date += 1
 		
 		# Cadets cannot earn ranks
-		if num_semesters_paid_to_date == 0:
+		if not paid:
 			return 0
 		
 		rank = 1
