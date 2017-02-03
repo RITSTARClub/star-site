@@ -100,6 +100,8 @@ class Member(ndb.Model):
 	merit_rank1 = ndb.BooleanProperty()
 	merit_rank2 = ndb.BooleanProperty()
 	
+	qr_code = ndb.BlobProperty()
+	
 	card_color = ndb.StringProperty()
 	card_emblem = ndb.StringProperty()
 	card_printed = ndb.BooleanProperty()
@@ -175,10 +177,16 @@ class Member(ndb.Model):
 		qr.addData(url)
 		qr.make()
 		
-		return 'data:image/png;base64,' + base64.b64encode(qr.make_image())
+		return qr.make_image()
+		#return 'data:image/png;base64,' + base64.b64encode(qr.make_image())
 		#return 'data:image/svg+xml;base64,' + base64.b64encode(qr.make_svg())
 	
 	missions = property(get_missions)
+	
+	def _post_put_hook(self, future):
+		if not self.qr_code:
+			self.qr_code = self.get_qr_code()
+			self.put()
 
 
 class BridgeCrew(ndb.Model):

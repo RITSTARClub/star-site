@@ -18,6 +18,23 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 	extensions=['jinja2.ext.autoescape'],
 	autoescape=True)
 
+
+class QRCodePage(webapp2.RequestHandler):
+	def get(self, id):
+		member = Member.query(Member.id == id).get()
+		
+		if not member:
+			# 404 if a nonexistent member is specified.
+			self.error(404)
+			return
+		
+		if not member.qr_code:
+			member.qr_code = member.get_qr_code()
+			member.put()
+		
+		self.response.headers['Content-Type'] = 'image/png'
+		self.response.write(member.qr_code)
+
 class SingleCardPage(webapp2.RequestHandler):
 	def get(self, id):
 		member = Member.query(Member.id == id).get()
@@ -61,6 +78,7 @@ class AllCardsPage(webapp2.RequestHandler):
 		self.response.write(template.render(template_vals))
 
 app = webapp2.WSGIApplication([
+	('/cards/qrcode/([a-z0-9]+)\.png', QRCodePage),
 	('/cards/single/([a-z0-9]+)/?', SingleCardPage),
 	('/cards/all/?', AllCardsPage)
 ])
