@@ -113,7 +113,7 @@ class Member(ndb.Model):
 		semester_num = semester_to_num(semester)
 		num_semesters_paid_to_date = 0
 		for semester_paid in map(semester_to_num, self.semesters_paid):
-			if semester_paid < semester_num:
+			if semester_paid <= semester_num:
 				num_semesters_paid_to_date += 1
 		
 		# Cadets cannot earn ranks
