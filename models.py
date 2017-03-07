@@ -16,7 +16,7 @@ sys.path.append('PyQRNativeGAE')
 from PyQRNative import QRErrorCorrectLevel
 from PyQRNativeGAE import QRCode
 
-from utils import get_current_semester, semester_date
+from semesters import get_current_semester, semester_date
 
 def semester_to_num(semester_str):
 	# spring = YEAR.1; false = YEAR.2
@@ -94,7 +94,8 @@ class Member(ndb.Model):
 	mailing_list = ndb.BooleanProperty()
 	current_student = ndb.BooleanProperty()
 	email = ndb.StringProperty() # Member's preferred e-mail
-	semesters_paid = ndb.StringProperty(repeated=True)
+	semesters_paid = ndb.FloatProperty(repeated=True)
+	semesters_paid_new = ndb.FloatProperty(repeated=True)
 	never_paid = ndb.ComputedProperty(lambda self: len(self.semesters_paid) == 0) # Thank you to bossylobster and wag2639 on StackOverflow.
 	committee_rank = ndb.BooleanProperty()
 	merit_rank1 = ndb.BooleanProperty()
@@ -110,13 +111,12 @@ class Member(ndb.Model):
 		return Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
 	
 	def get_rank(self, semester=get_current_semester()):
-		semester_num = semester_to_num(semester)
 		paid = False
 		num_semesters_paid_to_date = 0
-		for semester_paid in map(semester_to_num, self.semesters_paid):
-			if semester_paid <= semester_num:
+		for semester_paid_new in self.semesters_paid:
+			if semester_paid <= semester:
 				paid = True
-			if semester_paid < semester_num:
+			if semester_paid < semester:
 				num_semesters_paid_to_date += 1
 		
 		# Cadets cannot earn ranks

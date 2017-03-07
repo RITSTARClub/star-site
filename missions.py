@@ -13,7 +13,7 @@ import jinja2
 import webapp2
 
 from models import Mission
-from utils import get_current_semester, get_all_semesters, prev_semester, next_semester, semester_date
+from semesters import FIRST_SEMESTER, get_current_semester, get_all_semesters, prev_semester, next_semester, semester_date, semester_pretty
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -36,30 +36,28 @@ class MissionListPage(webapp2.RequestHandler):
 			template_vals['login_url'] = users.create_login_url(self.request.uri)
 		
 		# Get all users from the given semester
-		selected_semester = self.request.get('semester')
-		if not selected_semester:
+		try:
+			selected_semester = float(self.request.get('semester'))
+		except Exception:
 			selected_semester = get_current_semester()
 		
 		prev_semester_str = prev_semester(selected_semester)
-		current_semester_str = get_current_semester()
-		next_semester_str = next_semester(selected_semester)
-		next_semester_date = semester_date(next_semester_str)
+		next_semester_date = semester_date(next_semester())
 		selected_semester_date = semester_date(selected_semester)
 		
-		template_vals['missions'] = Mission.query(Mission.start >= selected_semester_date, Mission.start < next_semester_date).order(Mission.start).fetch(limit=None)
+		template_vals['missions'] = Mission.query(Mission.start >= semester_date(selected_semester), Mission.start < next_semester_date).order(Mission.start).fetch(limit=None)
 		
 		# Get all possible semesters to put in the menu.
 		semesters = []
 		for semester in get_all_semesters():
-			semester_pretty = semester[0].upper() + semester[1:].replace('_', ' ')
 			semesters.append({
 				'id': semester,
-				'pretty': semester_pretty,
+				'pretty': semester_pretty(semester),
 				'selected': semester == selected_semester
 			})
 		template_vals['semesters'] = semesters
-		template_vals['prev_semester'] = prev_semester_str if selected_semester != 'fall_2013' else None
-		template_vals['next_semester'] = next_semester_str if selected_semester != current_semester_str else None
+		template_vals['prev_semester'] = prev_semester() if selected_semester != FIRST_SEMESTER else None
+		template_vals['next_semester'] = next_semester() if selected_semester != get_current_semester() else None
 		
 		template = JINJA_ENVIRONMENT.get_template('missions_list.html')
 		self.response.write(template.render(template_vals))

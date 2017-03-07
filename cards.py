@@ -11,7 +11,7 @@ import jinja2
 import webapp2
 
 from models import Member
-from utils import get_current_semester
+from semesters import get_current_semester
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
