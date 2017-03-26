@@ -95,7 +95,7 @@ class EveryUserListPage(webapp2.RequestHandler):
 			return
 		
 		template_vals = {
-			'title': 'Every User EVer',
+			'title': 'Every User Ever',
 			'page': 'members'
 		}
 		
