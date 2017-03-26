@@ -87,7 +87,32 @@ class HiddenListPage(webapp2.RequestHandler):
 		
 		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
 		self.response.write(template.render(template_vals))
+
+class EveryUserListPage(webapp2.RequestHandler):
+	def get(self):
+		if not users.is_current_user_admin():
+			self.error(403)
+			return
 		
+		template_vals = {
+			'title': 'Every User EVer',
+			'page': 'members'
+		}
+		
+		user = users.get_current_user()
+		if user:
+			template_vals['user'] = user
+			template_vals['admin'] = users.is_current_user_admin()
+			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
+		else:
+			template_vals['login_url'] = users.create_login_url(self.request.uri)
+		
+		template_vals['members'] = Member.query().order(Member.name).fetch(limit=None)
+		
+		template_vals['current_semester'] = get_current_semester()
+		
+		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
+		self.response.write(template.render(template_vals))
 
 class MailingList(webapp2.RequestHandler):
 	def get(self):
@@ -218,6 +243,7 @@ class MemberEditPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
 	('/members/?(\?.*)?', MemberListPage),
 	('/members/hidden/?', HiddenListPage),
+	('/members/every/?', EveryUserListPage),
 	('/members/mailinglist/?', MailingList),
 	('/members/edit/?(\?.*)?', MemberEditPage),
 	('/members/([a-z0-9]+)/?', MemberInfoPage)
