@@ -3,6 +3,12 @@
 <section class="wide">
 	{% include 'semester_picker.html' %}
 	<h1>Missions</h1>
+	{% if admin %}
+		<div style="margin: 2em 0;">
+			<a role="button" href="/missions/edit">&#x2795; Add mission</a>
+			<a role="button" href="/missions/hidden">&#x1f441; Unscheduled missions</a>
+		</div>
+	{% endif %}
 	<table class="bigListTable">
 		{% for mission in missions %}
 			<tr>
