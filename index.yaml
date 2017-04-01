@@ -10,8 +10,57 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: BridgeCrew
+  properties:
+  - name: admiral
+  - name: start
+
+- kind: BridgeCrew
+  properties:
+  - name: captain
+  - name: start
+
+- kind: Member
+  properties:
+  - name: card_printed
+  - name: current_student
+  - name: name
+
+- kind: Member
+  properties:
+  - name: card_printed
+  - name: current_student
+  - name: semesters_paid
+  - name: name
+
+- kind: Member
+  properties:
+  - name: card_printed
+  - name: name
+
+- kind: Member
+  properties:
+  - name: never_paid
+  - name: name
+
 - kind: Member
   properties:
   - name: semesters_paid
   - name: show
   - name: name
+
+- kind: Member
+  properties:
+  - name: show
+  - name: name
+
+- kind: Mission
+  properties:
+  - name: runners
+  - name: start
+
+- kind: Mission
+  properties:
+  - name: runners
+  - name: type
+  - name: start

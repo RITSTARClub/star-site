@@ -18,6 +18,8 @@ from PyQRNativeGAE import QRCode
 
 from utils import get_current_semester, semester_date
 
+from ryanify import ryanify
+
 def semester_to_num(semester_str):
 	# spring = YEAR.1; false = YEAR.2
 	return int(semester_str[-4:]) + (0.1 if semester_str[:7] == 'spring_' else 0.2 if semester_str[:5] == 'fall_' else 0.3)
@@ -169,7 +171,7 @@ class Member(ndb.Model):
 		return Member.RANKS[self.get_rank(semester)]['name']
 	
 	def get_name_with_rank(self, semester=get_current_semester()):
-		return Member.RANKS[self.get_rank(semester)]['abbr'] + ' ' + self.name
+		return Member.RANKS[self.get_rank(semester)]['abbr'] + ' ' + ryanify(self.name)
 	
 	def get_semesters_paid_pretty(self):
 		return ((semester[0].upper() + semester[1:].replace('_', ' ')) for semester in self.semesters_paid)
@@ -204,27 +206,27 @@ class BridgeCrew(ndb.Model):
 	
 	def get_admiral_name(self):
 		admiral_member = Member.query(Member.id == self.admiral).get()
-		return admiral_member.name
+		return ryanify(admiral_member.name)
 	
 	def get_captain_name(self):
 		captain_member = Member.query(Member.id == self.captain).get()
-		return captain_member.name
+		return ryanify(captain_member.name)
 	
 	def get_first_officer_name(self):
 		first_officer_member = Member.query(Member.id == self.first_officer).get()
-		return first_officer_member.name
+		return ryanify(first_officer_member.name)
 	
 	def get_ops_name(self):
 		ops_member = Member.query(Member.id == self.ops).get()
-		return ops_member.name
+		return ryanify(ops_member.name)
 	
 	def get_comms_name(self):
 		comms_member = Member.query(Member.id == self.comms).get()
-		return comms_member.name
+		return ryanify(comms_member.name)
 	
 	def get_engi_name(self):
 		engi_member = Member.query(Member.id == self.engi).get()
-		return engi_member.name
+		return ryanify(engi_member.name)
 	
 	def get_year_str(self):
 		if self.start.year == self.end.year:
@@ -289,6 +291,7 @@ class Mission(ndb.Model):
 		for runner_id in self.runners:
 			runner = Member.query(Member.id == runner_id).get()
 			if runner:
+				runner.name = ryanify(runner.name)
 				runners_list.append(runner)
 		return runners_list
 	

@@ -14,6 +14,8 @@ import webapp2
 from models import Member
 from utils import get_current_semester, get_all_semesters, prev_semester, next_semester
 
+from ryanify import ryanify
+
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
 	extensions=['jinja2.ext.autoescape'],
@@ -43,7 +45,10 @@ class MemberListPage(webapp2.RequestHandler):
 		current_semester_str = get_current_semester()
 		next_semester_str = next_semester(selected_semester)
 		
-		template_vals['members'] = Member.query(Member.show == True, Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
+		members = Member.query(Member.show == True, Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
+		for member in members:
+			member.name = ryanify(member.name)
+		template_vals['members'] = members
 		
 		# Get all possible semesters to put in the menu.
 		semesters = []
@@ -148,6 +153,8 @@ class MemberInfoPage(webapp2.RequestHandler):
 			# 404 if a nonexistent member is specified.
 			self.error(404)
 			return
+		
+		member.name = ryanify(member.name)
 		
 		template_vals['member'] = member
 		template_vals['title'] = member.name
