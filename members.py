@@ -130,7 +130,7 @@ class MailingList(webapp2.RequestHandler):
 				mailing_list.append(member.name + ' <' + member.dce + '@rit.edu>')
 		
 		self.response.headers['Content-Type'] = 'text/plain'
-		self.response.write(','.join(mailing_list))
+		self.response.write('; '.join(mailing_list))
 
 class MemberInfoPage(webapp2.RequestHandler):
 	def get(self, req_id):
