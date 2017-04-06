@@ -126,7 +126,7 @@ class MailingList(webapp2.RequestHandler):
 		for member in members:
 			if member.email:
 				mailing_list.append(member.name + ' <' + member.email + '>')
-			else:
+			elif member.dce:
 				mailing_list.append(member.name + ' <' + member.dce + '@rit.edu>')
 		
 		self.response.headers['Content-Type'] = 'text/plain'
