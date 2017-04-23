@@ -10,6 +10,7 @@ import webapp2
 import models_r4
 import models_r5_1
 import models_r5_2
+import models
 
 def update_schema_task_part1(cursor=None, num_updated=0, batch_size=100):
 	"""Scans each entity in the datastore and converts its string semesters to float semesters"""
@@ -77,6 +78,33 @@ def update_schema_task_part2(cursor=None, num_updated=0, batch_size=100):
 		logging.debug('update_schema_task_part2 complete with {0} updates!'.format(num_updated))
 
 
+def update_schema_task_part3(cursor=None, num_updated=0, batch_size=100):
+	"""Scans each entity in the datastore and copies its new semester field to its semester field"""
+	
+	# Force ndb to use the new version of the model by reloading it.
+	reload(models)
+	
+	# Get all entities.
+	query = models.Member.query()
+	members, next_cursor, more = query.fetch_page(batch_size, start_cursor=cursor)
+	
+	to_put = []
+	for member in members:
+		delattr(member, 'semesters_paid_new')
+		to_put.append(member)
+	
+	# Save the updated entities.
+	if to_put:
+		ndb.put_multi(to_put)
+		num_updated += len(to_put)
+		logging.info('update_schema_task_part2 put {} entities to Datastore for a total of {}'.format(len(to_put), num_updated))
+	
+	# If there are more entities, re-queue the task for the next page.
+	if more:
+		deferred.defer(update_schema_task_part2, cursor=next_cursor, num_updated=num_updated)
+	else:
+		logging.debug('update_schema_task_part2 complete with {0} updates!'.format(num_updated))
+
 class UpdateSchemaHandler1(webapp2.RequestHandler):
 	def get(self):
 		deferred.defer(update_schema_task_part1)
@@ -87,9 +115,13 @@ class UpdateSchemaHandler2(webapp2.RequestHandler):
 		deferred.defer(update_schema_task_part2)
 		self.response.write('Schema update part 2 started.  Check the console. for task progress.')
 
+class UpdateSchemaHandler3(webapp2.RequestHandler):
+	def get(self):
+		deferred.defer(update_schema_task_part3)
+		self.response.write('Schema update part 3 started.  Check the console. for task progress.')
+
 app = webapp2.WSGIApplication([
-	('/updateschema1', UpdateSchemaHandler1),
-	('/updateschema2', UpdateSchemaHandler2)
 	('/admin/updateschema1', UpdateSchemaHandler1),
 	('/admin/updateschema2', UpdateSchemaHandler2),
+	('/admin/updateschema3', UpdateSchemaHandler3)
 ])
