@@ -95,7 +95,6 @@ class Member(ndb.Model):
 	current_student = ndb.BooleanProperty()
 	email = ndb.StringProperty() # Member's preferred e-mail
 	semesters_paid = ndb.FloatProperty(repeated=True)
-	semesters_paid_new = ndb.FloatProperty(repeated=True)
 	never_paid = ndb.ComputedProperty(lambda self: len(self.semesters_paid) == 0) # Thank you to bossylobster and wag2639 on StackOverflow.
 	committee_rank = ndb.BooleanProperty()
 	merit_rank1 = ndb.BooleanProperty()
@@ -113,7 +112,7 @@ class Member(ndb.Model):
 	def get_rank(self, semester=get_current_semester()):
 		paid = False
 		num_semesters_paid_to_date = 0
-		for semester_paid_new in self.semesters_paid:
+		for semester_paid in self.semesters_paid:
 			if semester_paid <= semester:
 				paid = True
 			if semester_paid < semester:

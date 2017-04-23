@@ -58,7 +58,7 @@ def update_schema_task_part2(cursor=None, num_updated=0, batch_size=100):
 	to_put = []
 	for member in members:
 		new_semesters = []
-		for semester in member.semesters_paid:
+		for semester in member.semesters_paid_new:
 			new_semesters.append(semester)
 		
 		member.semesters_paid = new_semesters
@@ -90,4 +90,6 @@ class UpdateSchemaHandler2(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
 	('/updateschema1', UpdateSchemaHandler1),
 	('/updateschema2', UpdateSchemaHandler2)
+	('/admin/updateschema1', UpdateSchemaHandler1),
+	('/admin/updateschema2', UpdateSchemaHandler2),
 ])
