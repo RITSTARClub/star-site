@@ -16,7 +16,8 @@ def format_member(member):
 		'dce': member.dce,
 		'mailingList': member.mailing_list,
 		'currentStudent': member.current_student,
-		'email': member.email
+		'email': member.email,
+		'semestersPaid': member.semesters_paid
 	}
 
 class MemberListAPI(webapp2.RequestHandler):
