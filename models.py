@@ -171,7 +171,14 @@ class Member(ndb.Model):
 		return Member.RANKS[self.get_rank(semester)]['abbr'] + ' ' + self.name
 	
 	def get_semesters_paid_pretty(self):
-		return ((semester[0].upper() + semester[1:].replace('_', ' ')) for semester in self.semesters_paid)
+		semesters_pretty = []
+		for semester in self.semesters_paid:
+			i_part = int(semester)
+			d_part = round((semester - i_part) * 10)
+			semester_pretty = 'Spring ' if d_part == 1 else 'Fall '
+			semester_pretty += `i_part`
+			semesters_pretty.append(semester_pretty)
+		return semesters_pretty
 	
 	def get_qr_code(self):
 		url = 'http://ritstar.com/members/' + self.id
