@@ -312,3 +312,7 @@ class Mission(ndb.Model):
 	type_name = property(get_type_name)
 	youtube_embed_url = property(get_youtube_embed_url)
 	html_description = property(get_html_description)
+
+class APIKey(ndb.Model):
+	key = ndb.StringProperty()
+	name = ndb.StringProperty()
