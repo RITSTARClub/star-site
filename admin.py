@@ -90,8 +90,9 @@ def update_schema_task_part3(cursor=None, num_updated=0, batch_size=100):
 	
 	to_put = []
 	for member in members:
-		delattr(member, 'semesters_paid_new')
-		to_put.append(member)
+		if hasattr(member, 'semesters_paid_new'):
+			delattr(member, 'semesters_paid_new')
+			to_put.append(member)
 	
 	# Save the updated entities.
 	if to_put:
