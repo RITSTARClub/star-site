@@ -63,5 +63,5 @@ def semester_date(semester):
 
 def semester_pretty(semester):
 	year = int(semester)
-	semester_str = 'Spring' if semester - year == 0.1 else 'Fall'
+	semester_str = 'Spring' if round(semester - year, 1) == 0.1 else 'Fall'
 	return semester_str + ' ' + `year`
