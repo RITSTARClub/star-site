@@ -94,8 +94,7 @@ class Member(ndb.Expando):
 	mailing_list = ndb.BooleanProperty()
 	current_student = ndb.BooleanProperty()
 	email = ndb.StringProperty() # Member's preferred e-mail
-	semesters_paid = ndb.StringProperty(repeated=True)
-	semesters_paid_new = ndb.FloatProperty(repeated=True)
+	semesters_paid = ndb.FloatProperty(repeated=True)
 	never_paid = ndb.ComputedProperty(lambda self: len(self.semesters_paid) == 0) # Thank you to bossylobster and wag2639 on StackOverflow.
 	committee_rank = ndb.BooleanProperty()
 	merit_rank1 = ndb.BooleanProperty()
