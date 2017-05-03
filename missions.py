@@ -41,8 +41,7 @@ class MissionListPage(webapp2.RequestHandler):
 		except Exception:
 			selected_semester = get_current_semester()
 		
-		prev_semester_str = prev_semester(selected_semester)
-		next_semester_date = semester_date(next_semester())
+		next_semester_date = semester_date(next_semester(selected_semester))
 		selected_semester_date = semester_date(selected_semester)
 		
 		template_vals['missions'] = Mission.query(Mission.start >= semester_date(selected_semester), Mission.start < next_semester_date).order(Mission.start).fetch(limit=None)
@@ -56,8 +55,8 @@ class MissionListPage(webapp2.RequestHandler):
 				'selected': semester == selected_semester
 			})
 		template_vals['semesters'] = semesters
-		template_vals['prev_semester'] = prev_semester() if selected_semester != FIRST_SEMESTER else None
-		template_vals['next_semester'] = next_semester() if selected_semester != get_current_semester() else None
+		template_vals['prev_semester'] = prev_semester(selected_semester) if selected_semester != FIRST_SEMESTER else None
+		template_vals['next_semester'] = next_semester(selected_semester) if selected_semester != get_current_semester() else None
 		
 		template = JINJA_ENVIRONMENT.get_template('missions_list.html')
 		self.response.write(template.render(template_vals))
