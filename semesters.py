@@ -57,7 +57,7 @@ def next_semester(semester):
 def semester_date(semester):
 	year = int(semester)
 	semester = semester - year
-	month = (1 if semester == 0.1 else FALL_START_MONTH)
+	month = (1 if round(semester, 1) == 0.1 else FALL_START_MONTH)
 	
 	return datetime(year, month, 1)
 
