@@ -48,7 +48,7 @@ def prev_semester(semester):
 		return year + 0.2
 
 def next_semester(semester):
-	if semester - int(semester) == 0.1:
+	if round(semester - int(semester), 1) == 0.1:
 		return semester + 0.1
 	else:
 		year = int(semester) + 1
