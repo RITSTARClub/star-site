@@ -16,77 +16,13 @@ sys.path.append('PyQRNativeGAE')
 from PyQRNative import QRErrorCorrectLevel
 from PyQRNativeGAE import QRCode
 
-from semesters import get_current_semester, semester_date
+from utils import get_current_semester, semester_date
 
 def semester_to_num(semester_str):
 	# spring = YEAR.1; false = YEAR.2
 	return int(semester_str[-4:]) + (0.1 if semester_str[:7] == 'spring_' else 0.2 if semester_str[:5] == 'fall_' else 0.3)
 
 class Member(ndb.Model):
-	RANKS = [
-		{
-			# 0
-			'name': 'Cadet',
-			'abbr': 'Cdt.',
-			'disp': ''
-		}, {
-			# 1
-			'name': 'Ensign',
-			'abbr': 'Ens.',
-			'disp': unichr(9679) # ●
-		}, {
-			# 2
-			'name': 'Lieutenant, Junior Grade',
-			'abbr': 'Lt. J.G.',
-			'disp': unichr(9675) + unichr(9679) # ○●
-		}, {
-			# 3
-			'name': 'Lieutenant',
-			'abbr': 'Lt.',
-			'disp': unichr(9679) + unichr(9679) # ●●
-		}, {
-			# 4
-			'name': 'Lieutenant Commander',
-			'abbr': 'Lt. Cmdr.',
-			'disp': unichr(9675) + unichr(9679) + unichr(9679) # ○●●
-		}, {
-			# 5
-			'name': 'Commander',
-			'abbr': 'Cmdr.',
-			'disp': unichr(9679) + unichr(9679) + unichr(9679) # ●●●
-		}, {
-			# 6
-			'name': 'Captain',
-			'abbr': 'Capt.',
-			'disp': unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) # ●●●●
-		}, {
-			# 7
-			'name': 'Commodore',
-			'abbr': 'Cmdre.',
-			'disp': '[' + unichr(9679) + ']' # [●]
-		}, {
-			# 8
-			'name': 'Rear Admiral',
-			'abbr': 'Adm.',
-			'disp': '[' + unichr(9679) + unichr(9679) + ']' # [●●]
-		}, {
-			# 9
-			'name': 'Vice Admiral',
-			'abbr': 'Adm.',
-			'disp': '[' + unichr(9679) + unichr(9679) + unichr(9679) + ']' # [●●●]
-		}, {
-			# 10
-			'name': 'Admiral',
-			'abbr': 'Adm.',
-			'disp': '[' + unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) + ']' # [●●●●]
-		}, {
-			# 11
-			'name': 'Fleet Admiral',
-			'abbr': 'Adm.',
-			'disp': '[' + unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) + unichr(9679) + ']' # [●●●●●]
-		}
-	]
-	
 	id = ndb.StringProperty() # UUID
 	show = ndb.BooleanProperty() # Show the user on the public site?
 	name = ndb.StringProperty()
@@ -108,67 +44,6 @@ class Member(ndb.Model):
 	
 	def get_missions(self):
 		return Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
-	
-	def get_rank(self, semester=get_current_semester()):
-		paid = False
-		num_semesters_paid_to_date = 0
-		for semester_paid in self.semesters_paid:
-			if semester_paid <= semester:
-				paid = True
-			if semester_paid < semester:
-				num_semesters_paid_to_date += 1
-		
-		# Cadets cannot earn ranks
-		if not paid:
-			return 0
-		
-		rank = 1
-		
-		# Longevity
-		if num_semesters_paid_to_date >= 4:
-			rank += 1
-		
-		# Led weekly mission
-		if Mission.query(Mission.runners == self.id, Mission.type == 0, Mission.start < semester_date(semester)).count(limit=1) != 0:
-			rank += 1
-		
-		# Volunteered with special mission or committee
-		if self.committee_rank or Mission.query(Mission.runners == self.id, Mission.type == 1, Mission.start < semester_date(semester)).count(limit=1) != 0:
-			rank += 1
-		
-		# Merit ranks
-		if self.merit_rank1:
-			rank += 1
-		if self.merit_rank2:
-			rank += 1
-		
-		# Voted captain
-		if BridgeCrew.query(BridgeCrew.captain == self.id, BridgeCrew.start < semester_date(semester)).count(limit=1) != 0:
-			rank = 6
-		
-		# Alumni ranks
-		if not self.current_student:
-			if rank == 6:
-				# Captains become rear admirals
-				rank = 8
-			else:
-				# Non-captains become commodores
-				rank = 7
-		
-		# Was an admiral (advisor)
-		if BridgeCrew.query(BridgeCrew.admiral == self.id, BridgeCrew.start < semester_date(semester)).count(limit=1) != 0:
-			rank = 10
-		
-		return rank
-	
-	def get_rank_disp(self, semester=get_current_semester()):
-		return Member.RANKS[self.get_rank(semester)]['disp']
-	
-	def get_rank_name(self, semester=get_current_semester()):
-		return Member.RANKS[self.get_rank(semester)]['name']
-	
-	def get_name_with_rank(self, semester=get_current_semester()):
-		return Member.RANKS[self.get_rank(semester)]['abbr'] + ' ' + self.name
 	
 	def get_semesters_paid_pretty(self):
 		semesters_pretty = []

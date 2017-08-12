@@ -11,7 +11,13 @@ import jinja2
 import webapp2
 
 from models import Member
-from semesters import get_current_semester
+<<<<<<< HEAD
+import ranks
+from utils import get_current_semester
+=======
+import ranks
+from utils import get_current_semester
+>>>>>>> Move rank related functions to another file, alter references to those functions as needed
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -53,6 +59,8 @@ class SingleCardPage(webapp2.RequestHandler):
 		template_vals = {
 			'title': 'ID card for ' + member.name,
 			'members': [member],
+			'ranks': [get_rank(member)],
+			'rankNames': [get_rank_name(member)]
 			'semester': semester_mod
 		}
 		
@@ -70,7 +78,9 @@ class AllCardsPage(webapp2.RequestHandler):
 		
 		template_vals = {
 			'title': 'ID cards for ' + semester,
-			'members': members,
+			'memberTuples': zip(members, 
+								[get_rank(mem) for mem in members], 
+								[get_rank_name(mem) for mem in members]),
 			'semester': semester_mod
 		}
 		
