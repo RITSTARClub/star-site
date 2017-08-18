@@ -14,7 +14,7 @@
 			<tr>
 				<td class="missionTypeCol">{{ mission.type_name }}</td>
 				<td class="missionTitleCol"><a href="/missions/{{ mission.id }}"><strong>{{ mission.title or '[Untitled]' }}</strong></a></td>
-				<td class="missionDateCol">{{ mission.pretty_date|safe }}</td>
+				<td class="missionDateCol">{{ pretty_date(mission.start, mission.end)|safe }}</td>
 				<td class="missionSocialCol">
 					{% if mission.fb_url %}
 						<a href="{{ mission.fb_url }}" target="_blank" class="socialIcon fb tiny">Facebook</a>

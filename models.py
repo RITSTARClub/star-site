@@ -18,6 +18,7 @@ from PyQRNativeGAE import QRCode
 
 from utils import get_current_semester, semester_date
 
+from dates import year_str, date_str
 
 class Member(ndb.Model):
 	id = ndb.StringProperty() # UUID
@@ -104,19 +105,12 @@ class BridgeCrew(ndb.Model):
 		engi_member = Member.query(Member.id == self.engi).get()
 		return engi_member.name
 	
-	def get_year_str(self):
-		if self.start.year == self.end.year:
-			return str(self.start.year)
-		else:
-			return str(self.start.year) + '-' + str(self.end.year)
-	
 	admiral_name = property(get_admiral_name)
 	captain_name = property(get_captain_name)
 	first_officer_name = property(get_first_officer_name)
 	ops_name = property(get_ops_name)
 	comms_name = property(get_comms_name)
 	engi_name = property(get_engi_name)
-	year_str = property(get_year_str)
 
 class Mission(ndb.Model):
 	TYPES = [
@@ -140,24 +134,6 @@ class Mission(ndb.Model):
 	the_link_url = ndb.StringProperty()
 	youtube_url = ndb.StringProperty()
 	
-	def get_start_str(self):
-		if self.start:
-			return self.start.strftime('%Y-%m-%dT%H:%M')
-		return ''
-	
-	def get_end_str(self):
-		if self.end:
-			return self.end.strftime('%Y-%m-%dT%H:%M')
-		return ''
-	
-	def get_pretty_date(self):
-		pretty_date = self.start.strftime('%B %d, %Y &middot; %I:%M %p')
-		# Do not show the date twice for single-day events.
-		if self.start.date() == self.end.date():
-			pretty_date += self.end.strftime(' - %I:%M %p')
-		else:
-			pretty_date += self.end.strftime(' - %B %d, %Y &middot; %I:%M %p')
-		return pretty_date
 	
 	def get_runners_str(self):
 		return ','.join(self.runners)
@@ -182,9 +158,6 @@ class Mission(ndb.Model):
 		# Convert the description from Markdown to HTML.
 		return markdown(text=gfm(self.description),safe_mode='escape').replace('<a href="', '<a target="_blank" href="')
 	
-	start_str = property(get_start_str)
-	end_str = property(get_end_str)
-	pretty_date = property(get_pretty_date)
 	runners_str = property(get_runners_str)
 	runners_list = property(get_runners_list)
 	type_name = property(get_type_name)

@@ -62,7 +62,7 @@
 					</label>
 				</td>
 				<td>
-					<input type="datetime-local" name="start" value="{{ mission.start_str or '' }}" />
+					<input type="datetime-local" name="start" value="{{ date_str(mission.start) or '' }}" />
 				</td>
 			</tr>
 			<tr>
@@ -74,7 +74,7 @@
 					</label>
 				</td>
 				<td>
-					<input type="datetime-local" name="end" value="{{ mission.end_str or '' }}" />
+					<input type="datetime-local" name="end" value="{{ date_str(mission.end) or '' }}" />
 				</td>
 			</tr>
 			<tr>

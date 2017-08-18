@@ -11,6 +11,7 @@ import jinja2
 import webapp2
 
 from models import Mission
+from dates import pretty_date
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -23,7 +24,7 @@ class HomePage(webapp2.RequestHandler):
 		template_vals = {
 			'page': 'home'
 		}
-		
+		template_vals['pretty_date'] = pretty_date
 		# Get the next five missions.
 		# Include missions happening today.
 		now = datetime.now()
