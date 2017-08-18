@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from utils import get_current_semester
+from utils import get_current_semester, semester_to_num, semester_date
 from models import BridgeCrew, Mission, Member
 
 RANKS = [
@@ -122,10 +122,10 @@ def get_rank(member, semester=get_current_semester()):
 	return rank
 
 def get_rank_disp(member, semester=get_current_semester()):
-	return RANKS[member.get_rank(semester)]['disp']
+	return RANKS[get_rank(member, semester)]['disp']
 
 def get_rank_name(member, semester=get_current_semester()):
-	return RANKS[member.get_rank(semester)]['name']
+	return RANKS[get_rank(member, semester)]['name']
 
 def get_name_with_rank(member, semester=get_current_semester()):
-	return RANKS[member.get_rank(semester)]['abbr'] + ' ' + member.name
+	return RANKS[get_rank(member, semester)]['abbr'] + ' ' + member.name

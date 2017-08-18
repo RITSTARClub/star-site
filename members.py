@@ -13,6 +13,7 @@ import webapp2
 
 from models import Member
 from semesters import FIRST_SEMESTER, get_current_semester, get_all_semesters, prev_semester, next_semester, semester_pretty
+from ranks import get_rank_name, get_name_with_rank, get_rank_disp
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -54,6 +55,11 @@ class MemberListPage(webapp2.RequestHandler):
 		template_vals['prev_semester'] = prev_semester(selected_semester) if selected_semester != FIRST_SEMESTER else None
 		template_vals['next_semester'] = next_semester(selected_semester) if selected_semester != get_current_semester() else None
 		template_vals['selected_semester'] = selected_semester
+                
+                # Load in rank-based helper functions
+                template_vals['get_rank_name'] = get_rank_name
+                template_vals['get_name_with_rank'] = get_name_with_rank
+                template_vals['get_rank_disp'] = get_rank_disp
 		
 		template = JINJA_ENVIRONMENT.get_template('members_list.html')
 		self.response.write(template.render(template_vals))
@@ -80,6 +86,10 @@ class HiddenListPage(webapp2.RequestHandler):
 		template_vals['members'] = Member.query(ndb.OR(Member.show == False, Member.never_paid == True)).order(Member.name).fetch(limit=None)
 		
 		template_vals['current_semester'] = get_current_semester()
+                # Load in rank-based helper functions
+                template_vals['get_rank_name'] = get_rank_name
+                template_vals['get_name_with_rank'] = get_name_with_rank
+                template_vals['get_rank_disp'] = get_rank_disp
 		
 		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
 		self.response.write(template.render(template_vals))
@@ -107,6 +117,10 @@ class EveryUserListPage(webapp2.RequestHandler):
 		
 		template_vals['current_semester'] = get_current_semester()
 		
+                # Load in rank-based helper functions
+                template_vals['get_rank_name'] = get_rank_name
+                template_vals['get_name_with_rank'] = get_name_with_rank
+                template_vals['get_rank_disp'] = get_rank_disp
 		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
 		self.response.write(template.render(template_vals))
 

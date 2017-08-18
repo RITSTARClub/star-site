@@ -18,9 +18,6 @@ from PyQRNativeGAE import QRCode
 
 from utils import get_current_semester, semester_date
 
-def semester_to_num(semester_str):
-	# spring = YEAR.1; false = YEAR.2
-	return int(semester_str[-4:]) + (0.1 if semester_str[:7] == 'spring_' else 0.2 if semester_str[:5] == 'fall_' else 0.3)
 
 class Member(ndb.Model):
 	id = ndb.StringProperty() # UUID

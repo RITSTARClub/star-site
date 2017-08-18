@@ -20,8 +20,8 @@
 		{% for member in members %}
 			<tr>
 				<td><a href="/members/edit?id={{ member.id }}" style="text-decoration: none;">&#x270e;</a></td>
-				<td><a href="/members/{{ member.id }}"><strong>{{ member.get_name_with_rank(current_semester) }}</strong></a></td>
-				<td><abbr title="{{ member.get_rank_name(current_semester) }}">{{ member.get_rank_disp(current_semester) }}</abbr></td>
+				<td><a href="/members/{{ member.id }}"><strong>{{ get_name_with_rank(member, current_semester) }}</strong></a></td>
+				<td><abbr title="{{ get_rank_name(member, current_semester) }}">{{ get_rank_disp(member, current_semester) }}</abbr></td>
 				<td>{% if member.mailing_list %}&#x2611;{% else %}&#x2610;{% endif %}</td>
 				<td>{% if member.card_printed %}&#x2611;{% else %}&#x2610;{% endif %}</td>
 				<td>{% if not member.never_paid %}&#x2611;{% else %}&#x2610;{% endif %}</td>
