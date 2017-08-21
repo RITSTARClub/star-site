@@ -11,7 +11,7 @@ import jinja2
 import webapp2
 
 from models import Member
-from ranks import get_rank, get_rank_name
+from ranks import rank, rank_name
 from utils import get_current_semester, semester_date
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -54,8 +54,8 @@ class SingleCardPage(webapp2.RequestHandler):
 		template_vals = {
 			'title': 'ID card for ' + member.name,
 			'members': [member],
-			'ranks': [get_rank(member)],
-			'rankNames': [get_rank_name(member)],
+			'rank': rank,
+			'rank_name': rank_name,
 			'semester': semester_mod
 		}
 		
@@ -73,10 +73,10 @@ class AllCardsPage(webapp2.RequestHandler):
 		
 		template_vals = {
 			'title': 'ID cards for ' + semester,
-			'memberTuples': zip(members, 
-								[get_rank(mem) for mem in members], 
-								[get_rank_name(mem) for mem in members]),
-			'semester': semester_mod
+			'members':  members, 
+			'semester': semester_mod,
+                        'rank': rank,
+                        'rank_name': rank_name
 		}
 		
 		template = JINJA_ENVIRONMENT.get_template('cards.html')

@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="/static/styles/cards.css" />
 	</head>
 	<body>
-		{% for member, rank, rankName in memberTuples %}
+		{% for member in members %}
 			{% include 'card_single.html' %}
 		{% endfor %}
 	</body>

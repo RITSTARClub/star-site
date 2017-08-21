@@ -13,7 +13,7 @@ import webapp2
 
 from models import Member
 from semesters import FIRST_SEMESTER, get_current_semester, get_all_semesters, prev_semester, next_semester, semester_pretty
-from ranks import get_rank_name, get_name_with_rank, get_rank_disp
+from ranks import rank_name, name_with_rank, rank_disp
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -48,7 +48,7 @@ class MemberListPage(webapp2.RequestHandler):
 		for semester in get_all_semesters():
 			semesters.append({
 				'id': semester,
-				'pretty': semester_pretty(semester),
+				'pretty': semester_pretty,
 				'selected': semester == selected_semester
 			})
 		template_vals['semesters'] = semesters
@@ -57,9 +57,9 @@ class MemberListPage(webapp2.RequestHandler):
 		template_vals['selected_semester'] = selected_semester
                 
                 # Load in rank-based helper functions
-                template_vals['get_rank_name'] = get_rank_name
-                template_vals['get_name_with_rank'] = get_name_with_rank
-                template_vals['get_rank_disp'] = get_rank_disp
+                template_vals['rank_name'] = rank_name
+                template_vals['name_with_rank'] = name_with_rank
+                template_vals['rank_disp'] = rank_disp
 		
 		template = JINJA_ENVIRONMENT.get_template('members_list.html')
 		self.response.write(template.render(template_vals))
@@ -87,9 +87,9 @@ class HiddenListPage(webapp2.RequestHandler):
 		
 		template_vals['current_semester'] = get_current_semester()
                 # Load in rank-based helper functions
-                template_vals['get_rank_name'] = get_rank_name
-                template_vals['get_name_with_rank'] = get_name_with_rank
-                template_vals['get_rank_disp'] = get_rank_disp
+                template_vals['rank_name'] = rank_name
+                template_vals['name_with_rank'] = name_with_rank
+                template_vals['rank_disp'] = rank_disp
 		
 		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
 		self.response.write(template.render(template_vals))
@@ -118,9 +118,9 @@ class EveryUserListPage(webapp2.RequestHandler):
 		template_vals['current_semester'] = get_current_semester()
 		
                 # Load in rank-based helper functions
-                template_vals['get_rank_name'] = get_rank_name
-                template_vals['get_name_with_rank'] = get_name_with_rank
-                template_vals['get_rank_disp'] = get_rank_disp
+                template_vals['rank_name'] = rank_name
+                template_vals['name_with_rank'] = name_with_rank
+                template_vals['rank_disp'] = rank_disp
 		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
 		self.response.write(template.render(template_vals))
 
@@ -145,7 +145,8 @@ class MailingList(webapp2.RequestHandler):
 class MemberInfoPage(webapp2.RequestHandler):
 	def get(self, req_id):
 		template_vals = {
-			'page': 'members'
+			'page': 'members',
+			'rank_name': rank_name
 		}
 		
 		if not req_id:

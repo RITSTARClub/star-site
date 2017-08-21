@@ -29,8 +29,8 @@
 				{% if admin %}
 					<td><a href="/members/edit?id={{ member.id }}" style="text-decoration: none;">&#x270e;</a></td>
 				{% endif %}
-				<td><a href="/members/{{ member.id }}"><strong>{{ get_name_with_rank(member, selected_semester) }}</strong></a></td>
-				<td><abbr title="{{ get_rank_name(member, selected_semester) }}">{{ get_rank_disp(member, selected_semester) }}</abbr></td>
+				<td><a href="/members/{{ member.id }}"><strong>{{ name_with_rank(member, selected_semester) }}</strong></a></td>
+				<td><abbr title="{{ rank_name(member, selected_semester) }}">{{ rank_disp(member, selected_semester) }}</abbr></td>
 				{% if admin %}
 					<td>{% if member.mailing_list %}&#x2611;{% else %}&#x2610;{% endif %}</td>
 					<td>{% if member.card_printed %}&#x2611;{% else %}&#x2610;{% endif %}</td>

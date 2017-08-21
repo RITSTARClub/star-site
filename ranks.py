@@ -68,7 +68,7 @@ RANKS = [
 		}
 	]
 
-def get_rank(member, semester=get_current_semester()):
+def rank(member, semester=get_current_semester()):
 	semester_num = semester_to_num(semester)
 	paid = False
 	num_semesters_paid_to_date = 0
@@ -121,11 +121,11 @@ def get_rank(member, semester=get_current_semester()):
 	
 	return rank
 
-def get_rank_disp(member, semester=get_current_semester()):
-	return RANKS[get_rank(member, semester)]['disp']
+def rank_disp(member, semester=get_current_semester()):
+	return RANKS[rank(member, semester)]['disp']
 
-def get_rank_name(member, semester=get_current_semester()):
-	return RANKS[get_rank(member, semester)]['name']
+def rank_name(member, semester=get_current_semester()):
+	return RANKS[rank(member, semester)]['name']
 
-def get_name_with_rank(member, semester=get_current_semester()):
-	return RANKS[get_rank(member, semester)]['abbr'] + ' ' + member.name
+def name_with_rank(member, semester=get_current_semester()):
+	return RANKS[rank(member, semester)]['abbr'] + ' ' + member.name
