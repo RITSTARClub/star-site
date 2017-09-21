@@ -225,7 +225,7 @@ class MemberEditPage(webapp2.RequestHandler):
 			setattr(member, bool_param, not not req_val)
 		
 		# Update multi-select values.
-		member.semesters_paid = self.request.get('semesters_paid', allow_multiple=True)
+		member.semesters_paid = [float(semester) for semester in self.request.get('semesters_paid', allow_multiple=True)]
 		
 		# Save the updated member.
 		member.put()
