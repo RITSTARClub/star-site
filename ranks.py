@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from semesters import get_current_semester, semester_date
-from models import BridgeCrew, Mission, Member
+import models
 
 RANKS = [
 		{
