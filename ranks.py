@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from semesters import get_current_semester, semester_to_num, semester_date
+from semesters import get_current_semester, semester_date
 from models import BridgeCrew, Mission, Member
 
 RANKS = [
@@ -69,13 +69,12 @@ RANKS = [
 	]
 
 def rank(member, semester=get_current_semester()):
-	semester_num = semester_to_num(semester)
 	paid = False
 	num_semesters_paid_to_date = 0
-	for semester_paid in map(semester_to_num, member.semesters_paid):
-		if semester_paid <= semester_num:
+	for semester_paid in member.semesters_paid:
+		if semester_paid <= semester:
 			paid = True
-		if semester_paid < semester_num:
+		if semester_paid < semester:
 			num_semesters_paid_to_date += 1
 	
 	# Cadets cannot earn ranks

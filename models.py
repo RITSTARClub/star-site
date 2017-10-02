@@ -20,6 +20,8 @@ from semesters import get_current_semester
 
 from dates import year_str, date_str, pretty_date
 
+from ranks import rank, rank_disp, rank_name, rank_with_name
+
 class Member(ndb.Model):
 	id = ndb.StringProperty() # UUID
 	show = ndb.BooleanProperty() # Show the user on the public site?
