@@ -43,7 +43,7 @@
 		</tr>
 		{% for crew in past_crews %}
 			<tr>
-				<td>{{ year_str(crew.start.year, crew.end.year) }}</td>
+				<td>{{ crew.year_str }}</td>
 				<td>{{ crew.admiral_name }}</td>
 				<td>{{ crew.captain_name }}</td>
 				<td>{{ crew.first_officer_name }}</td>

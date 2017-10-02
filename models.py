@@ -104,6 +104,9 @@ class BridgeCrew(ndb.Model):
 	def get_engi_name(self):
 		engi_member = Member.query(Member.id == self.engi).get()
 		return engi_member.name
+
+	def get_year_str(self):
+		return year_str(self.start.year, self.end.year)
 	
 	admiral_name = property(get_admiral_name)
 	captain_name = property(get_captain_name)
@@ -111,6 +114,7 @@ class BridgeCrew(ndb.Model):
 	ops_name = property(get_ops_name)
 	comms_name = property(get_comms_name)
 	engi_name = property(get_engi_name)
+	year_str = property(get_year_str)
 
 class Mission(ndb.Model):
 	TYPES = [

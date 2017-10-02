@@ -9,7 +9,6 @@ import jinja2
 import webapp2
 
 from models import BridgeCrew
-from dates import year_str
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -22,7 +21,6 @@ class BridgeCrewViewPage(webapp2.RequestHandler):
 			'title': 'Bridge Crew',
 			'page': 'bridgecrew'
 		}
-                template_vals['year_str'] = year_str
 		
 		user = users.get_current_user()
 		if user:
