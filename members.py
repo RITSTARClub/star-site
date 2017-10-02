@@ -13,7 +13,6 @@ import webapp2
 
 from models import Member
 from semesters import FIRST_SEMESTER, get_current_semester, get_all_semesters, prev_semester, next_semester, semester_pretty
-from ranks import rank_name, name_with_rank, rank_disp
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -48,18 +47,13 @@ class MemberListPage(webapp2.RequestHandler):
 		for semester in get_all_semesters():
 			semesters.append({
 				'id': semester,
-				'pretty': semester_pretty,
+				'pretty': semester_pretty(semester),
 				'selected': semester == selected_semester
 			})
 		template_vals['semesters'] = semesters
 		template_vals['prev_semester'] = prev_semester(selected_semester) if selected_semester != FIRST_SEMESTER else None
 		template_vals['next_semester'] = next_semester(selected_semester) if selected_semester != get_current_semester() else None
 		template_vals['selected_semester'] = selected_semester
-                
-                # Load in rank-based helper functions
-                template_vals['rank_name'] = rank_name
-                template_vals['name_with_rank'] = name_with_rank
-                template_vals['rank_disp'] = rank_disp
 		
 		template = JINJA_ENVIRONMENT.get_template('members_list.html')
 		self.response.write(template.render(template_vals))
@@ -86,10 +80,6 @@ class HiddenListPage(webapp2.RequestHandler):
 		template_vals['members'] = Member.query(ndb.OR(Member.show == False, Member.never_paid == True)).order(Member.name).fetch(limit=None)
 		
 		template_vals['current_semester'] = get_current_semester()
-                # Load in rank-based helper functions
-                template_vals['rank_name'] = rank_name
-                template_vals['name_with_rank'] = name_with_rank
-                template_vals['rank_disp'] = rank_disp
 		
 		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
 		self.response.write(template.render(template_vals))
@@ -117,10 +107,6 @@ class EveryUserListPage(webapp2.RequestHandler):
 		
 		template_vals['current_semester'] = get_current_semester()
 		
-                # Load in rank-based helper functions
-                template_vals['rank_name'] = rank_name
-                template_vals['name_with_rank'] = name_with_rank
-                template_vals['rank_disp'] = rank_disp
 		template = JINJA_ENVIRONMENT.get_template('members_hidden.html')
 		self.response.write(template.render(template_vals))
 
@@ -145,8 +131,7 @@ class MailingList(webapp2.RequestHandler):
 class MemberInfoPage(webapp2.RequestHandler):
 	def get(self, req_id):
 		template_vals = {
-			'page': 'members',
-			'rank_name': rank_name
+			'page': 'members'
 		}
 		
 		if not req_id:

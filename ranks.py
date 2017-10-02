@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from utils import get_current_semester, semester_to_num, semester_date
+from semesters import get_current_semester, semester_to_num, semester_date
 from models import BridgeCrew, Mission, Member
 
 RANKS = [

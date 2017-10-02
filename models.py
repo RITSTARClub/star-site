@@ -42,7 +42,19 @@ class Member(ndb.Model):
 	
 	def get_missions(self):
 		return Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
+
+	def get_rank(self, semester=get_current_semester()):
+		return rank(self, semester)
 	
+	def get_rank_disp(self, semester=get_current_semester()):
+		return rank_disp(self, semester)
+
+	def get_rank_name(self, semester=get_current_semester()):
+		return rank_name(self, semester)
+
+	def get_name_with_rank(self, semester=get_current_semester()):
+		return rank_with_name(self, semester)
+
 	def get_semesters_paid_pretty(self):
 		semesters_pretty = []
 		for semester in self.semesters_paid:

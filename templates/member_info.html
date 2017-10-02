@@ -2,7 +2,7 @@
 
 <section>
 	<h1>{{ member.name }}</h1>
-	Current rank: {{ rank_name(member) }}
+	Current rank: {{ member.get_rank_name() }}
 	
 	{% if member.missions %}
 		<h3>Missions run:</h3>
