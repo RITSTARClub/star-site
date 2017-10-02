@@ -14,7 +14,6 @@ import webapp2
 
 from models import Mission
 from semesters import FIRST_SEMESTER, get_current_semester, get_all_semesters, prev_semester, next_semester, semester_date, semester_pretty
-from dates import date_str, pretty_date
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -27,7 +26,6 @@ class MissionListPage(webapp2.RequestHandler):
 			'title': 'Missions',
 			'page': 'missions'
 		}
-                template_vals['pretty_date'] = pretty_date
 		
 		user = users.get_current_user()
 		if user:
@@ -92,7 +90,7 @@ class MissionInfoPage(webapp2.RequestHandler):
 		template_vals = {
 			'page': 'missions'
 		}
-		template_vals['pretty_date'] = pretty_date
+		
 		if not req_id:
 			# Redirect to the missions page if no mission is specified.
 			self.redirect('/missions')
@@ -130,7 +128,6 @@ class MissionEditPage(webapp2.RequestHandler):
 			'title': 'Edit Mission',
 			'page': 'missions'
 		}
-                template_vals['date_str'] = date_str
 		template_vals['user'] = users.get_current_user()
 		template_vals['logout_url'] = users.create_logout_url(self.request.uri)
 		

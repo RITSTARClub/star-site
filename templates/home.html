@@ -15,7 +15,7 @@
 		{% for mission in missions %}
 			<tr>
 				<td><a href="/missions/{{ mission.id }}"><strong>{{ mission.title }}</strong></a></td>
-				<td>{{ pretty_date(mission.start, mission.end)|safe }}</td>
+				<td>{{ mission.pretty_date|safe }}</td>
 			</tr>
 		{% else %}
 			<tr>

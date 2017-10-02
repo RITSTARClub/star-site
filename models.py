@@ -16,9 +16,9 @@ sys.path.append('PyQRNativeGAE')
 from PyQRNative import QRErrorCorrectLevel
 from PyQRNativeGAE import QRCode
 
-from utils import get_current_semester, semester_date
+from semesters import get_current_semester
 
-from dates import year_str, date_str
+from dates import year_str, date_str, pretty_date
 
 class Member(ndb.Model):
 	id = ndb.StringProperty() # UUID
@@ -138,6 +138,14 @@ class Mission(ndb.Model):
 	the_link_url = ndb.StringProperty()
 	youtube_url = ndb.StringProperty()
 	
+	def get_start_str(self):
+		return date_str(self.start)
+
+	def get_end_str(self):
+		return date_str(self.end)
+
+	def get_pretty_date(self):
+		return pretty_date(self.start, self.end)
 	
 	def get_runners_str(self):
 		return ','.join(self.runners)
@@ -162,6 +170,9 @@ class Mission(ndb.Model):
 		# Convert the description from Markdown to HTML.
 		return markdown(text=gfm(self.description),safe_mode='escape').replace('<a href="', '<a target="_blank" href="')
 	
+	start_str = property(get_start_str)
+	end_str = property(get_end_str)
+	pretty_date = property(get_pretty_date)
 	runners_str = property(get_runners_str)
 	runners_list = property(get_runners_list)
 	type_name = property(get_type_name)
