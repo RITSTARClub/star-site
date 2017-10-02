@@ -20,7 +20,7 @@ from semesters import get_current_semester
 
 from dates import year_str, date_str, pretty_date
 
-from ranks import rank, rank_disp, rank_name, rank_with_name
+from ranks import rank, rank_disp, rank_name, name_with_rank
 
 class Member(ndb.Model):
 	id = ndb.StringProperty() # UUID
@@ -55,7 +55,7 @@ class Member(ndb.Model):
 		return rank_name(self, semester)
 
 	def get_name_with_rank(self, semester=get_current_semester()):
-		return rank_with_name(self, semester)
+		return name_with_rank(self, semester)
 
 	def get_semesters_paid_pretty(self):
 		semesters_pretty = []
