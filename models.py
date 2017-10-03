@@ -20,8 +20,6 @@ from semesters import get_current_semester
 
 from dates import year_str, date_str, pretty_date
 
-from ranks import rank, rank_disp, rank_name, name_with_rank
-
 class Member(ndb.Model):
 	id = ndb.StringProperty() # UUID
 	show = ndb.BooleanProperty() # Show the user on the public site?
@@ -46,15 +44,19 @@ class Member(ndb.Model):
 		return Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
 
 	def get_rank(self, semester=get_current_semester()):
+		from ranks import rank
 		return rank(self, semester)
 	
 	def get_rank_disp(self, semester=get_current_semester()):
+		from ranks import rank_disp
 		return rank_disp(self, semester)
 
 	def get_rank_name(self, semester=get_current_semester()):
+		from ranks import rank_name
 		return rank_name(self, semester)
 
 	def get_name_with_rank(self, semester=get_current_semester()):
+		from ranks import name_with_rank
 		return name_with_rank(self, semester)
 
 	def get_semesters_paid_pretty(self):
