@@ -42,7 +42,7 @@ class Member(ndb.Model):
 	
 	def get_missions(self):
 		return Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
-
+	
 	def get_rank(self, semester=get_current_semester()):
 		from ranks import rank
 		return rank(self, semester)
@@ -120,7 +120,7 @@ class BridgeCrew(ndb.Model):
 	def get_engi_name(self):
 		engi_member = Member.query(Member.id == self.engi).get()
 		return engi_member.name
-
+	
 	def get_year_str(self):
 		return year_str(self.start.year, self.end.year)
 	
