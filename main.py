@@ -23,6 +23,7 @@ class HomePage(webapp2.RequestHandler):
 		template_vals = {
 			'page': 'home'
 		}
+		
 		# Get the next five missions.
 		# Include missions happening today.
 		now = datetime.now()

@@ -62,8 +62,5 @@ def semester_date(semester_str):
 	year = int(semester_str.split('_')[1])
 	semester = semester_str.split('_')[0]
 	month = (1 if semester == 'spring' else FALL_START_MONTH)
+	
 	return datetime(year, month, 1)
-
-def semester_to_num(semester_str):
-	# spring = YEAR.1; false = YEAR.2
-	return int(semester_str[-4:]) + (0.1 if semester_str[:7] == 'spring_' else 0.2 if semester_str[:5] == 'fall_' else 0.3)
