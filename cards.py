@@ -46,7 +46,7 @@ class SingleCardPage(webapp2.RequestHandler):
 			return
 		
 		# TODO: Replace with fetching the current semester once semester formatting functions are merged in.
-		semester = 'Spring 2017'
+		semester = 'Fall 2017'
 		# Replace 0 with O because it looks better in the font.
 		semester_mod = semester.replace('0', 'O')
 		
@@ -64,7 +64,7 @@ class AllCardsPage(webapp2.RequestHandler):
 		members = Member.query(Member.card_printed == False, Member.current_student == True, Member.semesters_paid == get_current_semester()).order(Member.name).fetch(limit=None)
 		
 		# TODO: Replace with fetching the current semester once semester formatting functions are merged in.
-		semester = 'Spring 2017'
+		semester = 'Fall 2017'
 		# Replace 0 with O because it looks better in the font.
 		semester_mod = semester.replace('0', 'O')
 		
