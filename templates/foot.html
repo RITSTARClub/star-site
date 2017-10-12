@@ -10,10 +10,18 @@
 			{% if engi %}
 				<p>Currently maintained by {{ engi }}.</p>
 			{% endif %}
-			{% if login_url %}
-				<p><a href="{{ login_url }}">Admin sign in</a></p>
-			{% elif logout_url %}
-				<p>{{ user.email() }} &middot; <a href="{{ logout_url }}">Sign out</a></p>
+			{% if user %}
+				<p>
+					{{ user.email() }}
+					&middot;
+					<a href="{{ login_url }}">Switch Google account</a>
+					&middot;
+					<a href="{{ logout_url }}">Sign out Google account</a>
+				</p>
+			{% else %}
+				<p>
+					<a href="{{ login_url }}">Admin sign in with Google</a>
+				</p>
 			{% endif %}
 		</footer>
 	</body>

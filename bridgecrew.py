@@ -19,16 +19,11 @@ class BridgeCrewViewPage(webapp2.RequestHandler):
 	def get(self):
 		template_vals = {
 			'title': 'Bridge Crew',
-			'page': 'bridgecrew'
+			'page': 'bridgecrew',
+			'user': users.get_current_user(),
+			'logout_url': users.create_logout_url(self.request.uri),
+			'login_url': users.create_login_url(self.request.uri)
 		}
-		
-		user = users.get_current_user()
-		if user:
-			template_vals['user'] = user
-			template_vals['admin'] = users.is_current_user_admin()
-			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
-		else:
-			template_vals['login_url'] = users.create_login_url(self.request.uri)
 		
 		# Get the bridge crew.
 		template_vals['current_crew'] = BridgeCrew.query().order(-BridgeCrew.start).get()

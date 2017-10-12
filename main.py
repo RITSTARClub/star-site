@@ -21,7 +21,10 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class HomePage(webapp2.RequestHandler):
 	def get(self):
 		template_vals = {
-			'page': 'home'
+			'page': 'home',
+			'user': users.get_current_user(),
+			'logout_url': users.create_logout_url(self.request.uri),
+			'login_url': users.create_login_url(self.request.uri)
 		}
 		
 		# Get the next five missions.
@@ -29,12 +32,6 @@ class HomePage(webapp2.RequestHandler):
 		now = datetime.now()
 		today = datetime(now.year, now.month, now.day)
 		template_vals['missions'] = Mission.query(Mission.start >= today).order(Mission.start).fetch(limit=5)
-		
-		template_vals['user'] = users.get_current_user()
-		if template_vals['user']:
-			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
-		else:
-			template_vals['login_url'] = users.create_login_url(self.request.uri)
 		
 		# Pick an end quote.
 		template_vals['end_quote'] = choice([
@@ -49,14 +46,11 @@ class HomePage(webapp2.RequestHandler):
 class AVTestPage(webapp2.RequestHandler):
 	def get(self):
 		template_vals = {
-			'title': 'A/V Test'
+			'title': 'A/V Test',
+			'user': users.get_current_user(),
+			'logout_url': users.create_logout_url(self.request.uri),
+			'login_url': users.create_login_url(self.request.uri)
 		}
-		
-		template_vals['user'] = users.get_current_user()
-		if template_vals['user']:
-			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
-		else:
-			template_vals['login_url'] = users.create_login_url(self.request.uri)
 		
 		template = JINJA_ENVIRONMENT.get_template('av_test.html')
 		self.response.write(template.render(template_vals))

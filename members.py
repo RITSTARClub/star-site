@@ -23,16 +23,12 @@ class MemberListPage(webapp2.RequestHandler):
 	def get(self, args):
 		template_vals = {
 			'title': 'Members',
-			'page': 'members'
+			'page': 'members',
+			'user': users.get_current_user(),
+			'logout_url': users.create_logout_url(self.request.uri),
+			'login_url': users.create_login_url(self.request.uri),
+			'admin': users.is_current_user_admin()
 		}
-		
-		user = users.get_current_user()
-		if user:
-			template_vals['user'] = user
-			template_vals['admin'] = users.is_current_user_admin()
-			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
-		else:
-			template_vals['login_url'] = users.create_login_url(self.request.uri)
 		
 		# Get all users from the given semester
 		try:
@@ -66,16 +62,12 @@ class HiddenListPage(webapp2.RequestHandler):
 		
 		template_vals = {
 			'title': 'Hidden Users',
-			'page': 'members'
-		}
-		
-		user = users.get_current_user()
-		if user:
-			template_vals['user'] = user
-			template_vals['admin'] = users.is_current_user_admin()
-			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
-		else:
-			template_vals['login_url'] = users.create_login_url(self.request.uri)
+			'page': 'members',
+			'user': users.get_current_user(),
+			'logout_url': users.create_logout_url(self.request.uri),
+			'login_url': users.create_login_url(self.request.uri),
+			'admin': users.is_current_user_admin()
+		} 
 		
 		template_vals['members'] = Member.query(ndb.OR(Member.show == False, Member.never_paid == True)).order(Member.name).fetch(limit=None)
 		
@@ -92,16 +84,11 @@ class EveryUserListPage(webapp2.RequestHandler):
 		
 		template_vals = {
 			'title': 'Every User Ever',
-			'page': 'members'
+			'page': 'members',
+			'user': users.get_current_user(),
+			'logout_url': users.create_logout_url(self.request.uri),
+			'login_url': users.create_login_url(self.request.uri)
 		}
-		
-		user = users.get_current_user()
-		if user:
-			template_vals['user'] = user
-			template_vals['admin'] = users.is_current_user_admin()
-			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
-		else:
-			template_vals['login_url'] = users.create_login_url(self.request.uri)
 		
 		template_vals['members'] = Member.query().order(Member.name).fetch(limit=None)
 		
@@ -131,7 +118,11 @@ class MailingList(webapp2.RequestHandler):
 class MemberInfoPage(webapp2.RequestHandler):
 	def get(self, req_id):
 		template_vals = {
-			'page': 'members'
+			'page': 'members',
+			'user': users.get_current_user(),
+			'logout_url': users.create_logout_url(self.request.uri),
+			'login_url': users.create_login_url(self.request.uri),
+			'admin': users.is_current_user_admin()
 		}
 		
 		if not req_id:
@@ -148,15 +139,6 @@ class MemberInfoPage(webapp2.RequestHandler):
 		template_vals['member'] = member
 		template_vals['title'] = member.name
 		
-		# Get user data for the footer and admin controls.
-		user = users.get_current_user()
-		if user:
-			template_vals['user'] = user
-			template_vals['admin'] = users.is_current_user_admin()
-			template_vals['logout_url'] = users.create_logout_url(self.request.uri)
-		else:
-			template_vals['login_url'] = users.create_login_url(self.request.uri)
-		
 		template = JINJA_ENVIRONMENT.get_template('member_info.html')
 		self.response.write(template.render(template_vals))
 
@@ -168,10 +150,11 @@ class MemberEditPage(webapp2.RequestHandler):
 		
 		template_vals = {
 			'title': 'Edit Member',
-			'page': 'members'
+			'page': 'members',
+			'user': users.get_current_user(),
+			'logout_url': users.create_logout_url(self.request.uri),
+			'login_url': users.create_login_url(self.request.uri)
 		}
-		template_vals['user'] = users.get_current_user()
-		template_vals['logout_url'] = users.create_logout_url(self.request.uri)
 		
 		req_id = self.request.get('id')
 		
