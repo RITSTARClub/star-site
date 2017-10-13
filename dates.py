@@ -4,9 +4,9 @@
 
 def year_str(year_start, year_end):
 	if year_start == year_end:
-		return str(start_year)
+		return str(year_start)
 	else:
-		return str(start_year) + '-' + str(year_end)
+		return str(year_start) + '-' + str(year_end)
 
 def date_str(date=None):
 	if date:
