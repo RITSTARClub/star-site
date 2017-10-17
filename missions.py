@@ -13,6 +13,7 @@ import webapp2
 
 from models import Mission
 from semesters import FIRST_SEMESTER, get_current_semester, get_all_semesters, prev_semester, next_semester, semester_date, semester_pretty
+from utils import require_admin, generate_base_template_vals
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -21,14 +22,9 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class MissionListPage(webapp2.RequestHandler):
 	def get(self, args):
-		template_vals = {
-			'title': 'Missions',
-			'page': 'missions',
-			'user': users.get_current_user(),
-			'logout_url': users.create_logout_url(self.request.uri),
-			'login_url': users.create_login_url(self.request.uri),
-			'admin': users.is_current_user_admin()
-		}
+		template_vals = generate_base_template_vals(self)
+		template_vals['title'] = 'Missions'
+		template_vals['page'] = 'missions'
 		
 		# Get all users from the given semester
 		try:
@@ -58,18 +54,12 @@ class MissionListPage(webapp2.RequestHandler):
 
 class HiddenListPage(webapp2.RequestHandler):
 	def get(self):
-		if not users.is_current_user_admin():
-			self.error(403)
+		if not require_admin(self):
 			return
 		
-		template_vals = {
-			'title': 'Hidden Missions',
-			'page': 'missions',
-			'user': users.get_current_user(),
-			'logout_url': users.create_logout_url(self.request.uri),
-			'login_url': users.create_login_url(self.request.uri),
-			'admin': users.is_current_user_admin()
-		}
+		template_vals = generate_base_template_vals(self)
+		template_vals['title'] = 'Hidden Missions'
+		template_vals['page'] = 'missions'
 		
 		template_vals['missions'] = Mission.query(ndb.OR(Mission.start == None)).order(Mission.id).fetch(limit=None)
 		
@@ -78,14 +68,6 @@ class HiddenListPage(webapp2.RequestHandler):
 
 class MissionInfoPage(webapp2.RequestHandler):
 	def get(self, req_id):
-		template_vals = {
-			'page': 'missions',
-			'user': users.get_current_user(),
-			'logout_url': users.create_logout_url(self.request.uri),
-			'login_url': users.create_login_url(self.request.uri),
-			'admin': users.is_current_user_admin()
-		}
-		
 		if not req_id:
 			# Redirect to the missions page if no mission is specified.
 			self.redirect('/missions')
@@ -97,6 +79,9 @@ class MissionInfoPage(webapp2.RequestHandler):
 			self.error(404)
 			return
 		
+		template_vals = generate_base_template_vals(self)
+		template_vals['page'] = 'missions'
+		
 		template_vals['mission'] = mission
 		template_vals['title'] = mission.title
 		
@@ -105,18 +90,12 @@ class MissionInfoPage(webapp2.RequestHandler):
 
 class MissionEditPage(webapp2.RequestHandler):
 	def get(self, args):
-		if not users.is_current_user_admin():
-			self.error(403)
+		if not require_admin(self):
 			return
 		
-		
-		template_vals = {
-			'title': 'Edit Mission',
-			'page': 'missions',
-			'user': users.get_current_user(),
-			'logout_url': users.create_logout_url(self.request.uri),
-			'login_url': users.create_login_url(self.request.uri)
-		}
+		template_vals = generate_base_template_vals(self)
+		template_vals['title'] = 'Edit Mission'
+		template_vals['page'] = 'missions'
 		
 		req_id = self.request.get('id')
 		
@@ -138,8 +117,7 @@ class MissionEditPage(webapp2.RequestHandler):
 		self.response.write(template.render(template_vals))
 		
 	def post(self, args):
-		if not users.is_current_user_admin():
-			self.error(403)
+		if not require_admin(self):
 			return
 		
 		req_id = self.request.get('id')

@@ -8,6 +8,7 @@ import jinja2
 import webapp2
 
 from models import BridgeCrew
+from utils import require_admin, generate_base_template_vals
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -16,13 +17,9 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class BridgeCrewViewPage(webapp2.RequestHandler):
 	def get(self):
-		template_vals = {
-			'title': 'Bridge Crew',
-			'page': 'bridgecrew',
-			'user': users.get_current_user(),
-			'logout_url': users.create_logout_url(self.request.uri),
-			'login_url': users.create_login_url(self.request.uri)
-		}
+		template_vals = generate_base_template_vals(self)
+		template_vals['title'] = 'Bridge Crew'
+		template_vals['page'] = 'bridgecrew'
 		
 		# Get the bridge crew.
 		template_vals['current_crew'] = BridgeCrew.query().order(-BridgeCrew.start).get()
@@ -36,8 +33,7 @@ class BridgeCrewViewPage(webapp2.RequestHandler):
 class BridgeCrewEditPage(webapp2.RequestHandler):
 	def get(self, args):
 		# TODO: Create proper bridge crew editor.
-		if not users.is_current_user_admin():
-			self.error(403)
+		if not require_admin(self):
 			return
 		
 		new_crew = BridgeCrew()

@@ -12,6 +12,7 @@ import webapp2
 
 from models import Member
 from semesters import FIRST_SEMESTER, get_current_semester, get_all_semesters, prev_semester, next_semester, semester_pretty
+from utils import require_admin, generate_base_template_vals
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -20,14 +21,9 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class MemberListPage(webapp2.RequestHandler):
 	def get(self, args):
-		template_vals = {
-			'title': 'Members',
-			'page': 'members',
-			'user': users.get_current_user(),
-			'logout_url': users.create_logout_url(self.request.uri),
-			'login_url': users.create_login_url(self.request.uri),
-			'admin': users.is_current_user_admin()
-		}
+		template_vals = generate_base_template_vals(self)
+		template_vals['title'] = 'Members'
+		template_vals['page'] = 'members'
 		
 		# Get all users from the given semester
 		try:
@@ -55,18 +51,12 @@ class MemberListPage(webapp2.RequestHandler):
 
 class HiddenListPage(webapp2.RequestHandler):
 	def get(self):
-		if not users.is_current_user_admin():
-			self.error(403)
+		if not require_admin(self):
 			return
 		
-		template_vals = {
-			'title': 'Hidden Users',
-			'page': 'members',
-			'user': users.get_current_user(),
-			'logout_url': users.create_logout_url(self.request.uri),
-			'login_url': users.create_login_url(self.request.uri),
-			'admin': users.is_current_user_admin()
-		} 
+		template_vals = generate_base_template_vals(self)
+		template_vals['title'] = 'Hidden Users'
+		template_vals['page'] = 'members'
 		
 		template_vals['members'] = Member.query(ndb.OR(Member.show == False, Member.never_paid == True)).order(Member.name).fetch(limit=None)
 		
@@ -77,17 +67,12 @@ class HiddenListPage(webapp2.RequestHandler):
 
 class EveryUserListPage(webapp2.RequestHandler):
 	def get(self):
-		if not users.is_current_user_admin():
-			self.error(403)
+		if not require_admin(self):
 			return
 		
-		template_vals = {
-			'title': 'Every User Ever',
-			'page': 'members',
-			'user': users.get_current_user(),
-			'logout_url': users.create_logout_url(self.request.uri),
-			'login_url': users.create_login_url(self.request.uri)
-		}
+		template_vals = generate_base_template_vals(self)
+		template_vals['title'] = 'Every User Ever'
+		template_vals['page'] = 'members'
 		
 		template_vals['members'] = Member.query().order(Member.name).fetch(limit=None)
 		
@@ -98,8 +83,7 @@ class EveryUserListPage(webapp2.RequestHandler):
 
 class MailingList(webapp2.RequestHandler):
 	def get(self):
-		if not users.is_current_user_admin():
-			self.error(403)
+		if not require_admin(self):
 			return
 		
 		members = Member.query(Member.mailing_list == True).fetch(limit=None)
@@ -116,14 +100,6 @@ class MailingList(webapp2.RequestHandler):
 
 class MemberInfoPage(webapp2.RequestHandler):
 	def get(self, req_id):
-		template_vals = {
-			'page': 'members',
-			'user': users.get_current_user(),
-			'logout_url': users.create_logout_url(self.request.uri),
-			'login_url': users.create_login_url(self.request.uri),
-			'admin': users.is_current_user_admin()
-		}
-		
 		if not req_id:
 			# Redirect to the members list if no member is specified.
 			self.redirect('/members')
@@ -135,6 +111,9 @@ class MemberInfoPage(webapp2.RequestHandler):
 			self.error(404)
 			return
 		
+		template_vals = generate_base_template_vals(self)
+		template_vals['page'] = 'members'
+		
 		template_vals['member'] = member
 		template_vals['title'] = member.name
 		
@@ -143,17 +122,12 @@ class MemberInfoPage(webapp2.RequestHandler):
 
 class MemberEditPage(webapp2.RequestHandler):
 	def get(self, args):
-		if not users.is_current_user_admin():
-			self.error(403)
+		if not require_admin(self):
 			return
 		
-		template_vals = {
-			'title': 'Edit Member',
-			'page': 'members',
-			'user': users.get_current_user(),
-			'logout_url': users.create_logout_url(self.request.uri),
-			'login_url': users.create_login_url(self.request.uri)
-		}
+		template_vals = generate_base_template_vals(self)
+		template_vals['title'] = 'Edit Member'
+		template_vals['page'] = 'members'
 		
 		req_id = self.request.get('id')
 		
@@ -180,8 +154,7 @@ class MemberEditPage(webapp2.RequestHandler):
 		template = JINJA_ENVIRONMENT.get_template('member_edit.html')
 		self.response.write(template.render(template_vals))
 	def post(self, args):
-		if not users.is_current_user_admin():
-			self.error(403)
+		if not require_admin(self):
 			return
 		
 		req_id = self.request.get('id')
