@@ -7,7 +7,7 @@ from random import choice
 import jinja2
 import webapp2
 
-from models import Mission
+from models import Mission, PageContent
 from utils import require_admin, generate_base_template_vals
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -20,6 +20,10 @@ class HomePage(webapp2.RequestHandler):
 	def get(self):
 		template_vals = generate_base_template_vals(self)
 		template_vals['page'] = 'home'
+		
+		# Get the home page text.
+		home_content = PageContent.query(PageContent.page == 'home').get()
+		template_vals['home_html'] = home_content.html_text
 		
 		# Get the next five missions.
 		# Include missions happening today.

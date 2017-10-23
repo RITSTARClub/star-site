@@ -204,3 +204,5 @@ class PageContent(ndb.Model):
 	
 	def get_html_text(self):
 		return markdown(text=gfm(self.text), safe_mode='escape').replace('<a href="', '<a target="_blank" href="')
+	
+	html_text = property(get_html_text)
