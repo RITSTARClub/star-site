@@ -1,0 +1,17 @@
+{% include 'head.html' %}
+
+<section>
+	<h1>Admin controls</h1>
+</section>
+<section>
+	<h2>Home page content</h2>
+	<form method="POST">
+		<textarea name="home_text" style="width: 100%;" rows="10">{{ home_text }}</textarea>
+		<br />
+		<button type="submit">Save</button>
+		<br />
+		<br />
+	</form>
+</section>
+
+{% include 'foot.html' %}

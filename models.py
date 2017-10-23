@@ -197,3 +197,10 @@ class Mission(ndb.Model):
 class APIKey(ndb.Model):
 	key = ndb.StringProperty()
 	name = ndb.StringProperty()
+
+class PageContent(ndb.Model):
+	page = ndb.StringProperty()
+	text = ndb.TextProperty()
+	
+	def get_html_text(self):
+		return markdown(text=gfm(self.text), safe_mode='escape').replace('<a href="', '<a target="_blank" href="')
