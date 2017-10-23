@@ -10,6 +10,9 @@
 			{% if engi %}
 				<p>Currently maintained by {{ engi }}.</p>
 			{% endif %}
+			{% if admin %}
+				<a href="/admin">Admin hub</a>
+			{% endif %}
 			{% if user %}
 				<p>
 					{{ user.email() }}
