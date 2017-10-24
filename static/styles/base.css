@@ -43,6 +43,7 @@ a {
 
 button,
 a[role="button"],
+.button,
 select:not([size]) {
 	-webkit-tap-highlight-color: transparent !important;
 	
@@ -62,18 +63,25 @@ select:not([size]) {
 	outline: 0 none;
 }
 	button,
-	a[role="button"] {
+	a[role="button"],
+	.button {
 		background-color: #9999cc;
+		color: black;
 	}
 		button:focus,
 		a[role="button"]:focus,
+		.button:focus,
 		button:hover,
-		a[role="button"]:hover {
+		a[role="button"]:hover,
+		.button:hover {
 			background-color: #9999ff;
+			color: black;
 		}
 		button:active,
-		a[role="button"]:active {
+		a[role="button"]:active,
+		.button:active {
 			background-color: #cc99ff;
+			color: black;
 		}
 	select:not([size]) {
 		background-color: #cc99cc;

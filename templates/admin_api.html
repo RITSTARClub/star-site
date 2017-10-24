@@ -1,0 +1,29 @@
+{% include 'head.html' %}
+
+<section>
+	<h1>API admin</h1>
+	<h2>Existing keys</h2>
+	<table border="1" cellpadding="4">
+		{% for key in keys %}
+			<tr>
+				<td>{{ key.name }}</td>
+				<td>{{ key.key }}</td>
+			</tr>
+		{% else %}
+			<tr>
+				<td rowspan="2">No API keys have been created.</td>
+			</tr>
+		{% endfor %}
+	</table>
+	<form method="POST">
+		<h2>Create new key</h2>
+		<label for="new-key-name">
+			Key name:
+			<input type="text" name="name" id="new-key-name" />
+		</label>
+		<button type="submit">Create</button>
+	</form>
+</section>
+<br />
+
+{% include 'foot.html' %}
