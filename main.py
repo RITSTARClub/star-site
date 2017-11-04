@@ -23,7 +23,7 @@ class HomePage(webapp2.RequestHandler):
 		
 		# Get the home page text.
 		home_content = PageContent.query(PageContent.page == 'home').get()
-		template_vals['home_html'] = home_content.html_text
+		template_vals['home_html'] = home_content.html_text if home_content else ''
 		
 		# Get the next five missions.
 		# Include missions happening today.
