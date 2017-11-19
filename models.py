@@ -87,14 +87,15 @@ class Member(ndb.Model):
 			self.put()
 		
 		# Update the member's assosciated search document.
-		doc = search.Document(
-			doc_id=self.id,
-			fields=[
-				search.TextField(name='name', value=self.name),
-				search.AtomField(name='dce', value=self.dce),
-				search.AtomField(name='email', value=self.email)
-			]
-		)
+		fields = [
+			search.TextField(name='name', value=self.name),
+			search.AtomField(name='dce', value=self.dce),
+			search.AtomField(name='email', value=self.email)
+		]
+		for semester in self.semesters_paid:
+			fields.append(search.AtomField(name='semester', value=`semester`))
+		
+		doc = search.Document(doc_id=self.id, fields=fields)
 		search.Index(name=MEMBER_SEARCH_INDEX_NAME).put(doc)
 
 
