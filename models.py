@@ -44,18 +44,26 @@ class Member(ndb.Model):
 	
 	def get_rank(self, semester=get_current_semester()):
 		from ranks import rank
+		if not semester:
+			semester = get_current_semester()
 		return rank(self, semester)
 	
 	def get_rank_disp(self, semester=get_current_semester()):
 		from ranks import rank_disp
+		if not semester:
+			semester = get_current_semester()
 		return rank_disp(self, semester)
 
 	def get_rank_name(self, semester=get_current_semester()):
 		from ranks import rank_name
+		if not semester:
+			semester = get_current_semester()
 		return rank_name(self, semester)
 
 	def get_name_with_rank(self, semester=get_current_semester()):
 		from ranks import name_with_rank
+		if not semester:
+			semester = get_current_semester()
 		return name_with_rank(self, semester)
 
 	def get_semesters_paid_pretty(self):

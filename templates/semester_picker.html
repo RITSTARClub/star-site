@@ -3,6 +3,7 @@
 		<a href="?semester={{ prev_semester }}" role="button">&lt;&lt;</a>
 	{% endif %}
 	<select name="semester">
+		<option value="" disabled="disabled"{% if not selected_semester %} selected="selected"{%endif %}>Go to semester</option>
 		{% for semester in semesters %}
 			<option value="{{ semester['id'] }}"{% if semester['selected'] %} selected="selected"{% endif %}>{{ semester['pretty'] }}</option>
 		{% endfor %}

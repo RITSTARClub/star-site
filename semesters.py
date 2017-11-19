@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 from datetime import datetime
 
 
@@ -38,6 +39,13 @@ def get_all_semesters():
 		year += 1
 	
 	return semesters
+
+def get_semester_from_query(query):
+	match = re.search('\\bsemester:([0-9.]{6})\\b', query)
+	if match:
+		return float(match.group(1))
+	else:
+		return None
 
 def prev_semester(semester):
 	if semester - int(semester) == 0.2:

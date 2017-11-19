@@ -4,14 +4,16 @@ import os
 import urllib2
 from uuid import uuid4
 
+from google.appengine.api import search
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
 import jinja2
 import webapp2
 
+from constants import MEMBER_SEARCH_INDEX_NAME
 from models import Member
-from semesters import FIRST_SEMESTER, get_current_semester, get_all_semesters, prev_semester, next_semester, semester_pretty
+from semesters import FIRST_SEMESTER, get_current_semester, get_all_semesters, get_semester_from_query, prev_semester, next_semester, semester_pretty
 from utils import require_admin, generate_base_template_vals
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -25,15 +27,29 @@ class MemberListPage(webapp2.RequestHandler):
 		template_vals['title'] = 'Members'
 		template_vals['page'] = 'members'
 		
-		# Get all users from the given semester
-		try:
-			selected_semester = float(self.request.get('semester'))
-		except Exception:
-			selected_semester = get_current_semester()
+		# Check for a search query.
+		search_query = self.request.get('q')
 		
-		template_vals['members'] = Member.query(Member.show == True, Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
+		# If there was no search or semester specified, default to the current semester.
+		if not search_query:
+			search_query = 'semester:' + `get_current_semester()`
+		
+		# Run the search.
+		search_results = search.Index(MEMBER_SEARCH_INDEX_NAME).search(search_query)
+		
+		# Fetch the members.
+		show_private = users.is_current_user_admin()
+		members = []
+		for result in search_results.results:
+			member = Member.query(Member.id == result._doc_id).get()
+			if member and (member.show or show_private):
+				members.append(member)
+		
+		template_vals['members'] = members
 		
 		# Get all possible semesters to put in the menu.
+		selected_semester = get_semester_from_query(search_query)
+		
 		semesters = []
 		for semester in get_all_semesters():
 			semesters.append({
@@ -42,9 +58,12 @@ class MemberListPage(webapp2.RequestHandler):
 				'selected': semester == selected_semester
 			})
 		template_vals['semesters'] = semesters
-		template_vals['prev_semester'] = prev_semester(selected_semester) if selected_semester != FIRST_SEMESTER else None
-		template_vals['next_semester'] = next_semester(selected_semester) if selected_semester != get_current_semester() else None
-		template_vals['selected_semester'] = selected_semester
+		if selected_semester and selected_semester > FIRST_SEMESTER:
+			template_vals['prev_semester'] = prev_semester(selected_semester)
+		if selected_semester and selected_semester < get_current_semester():
+			template_vals['next_semester'] = next_semester(selected_semester)
+		if selected_semester and selected_semester >= FIRST_SEMESTER and selected_semester <= get_current_semester():
+			template_vals['selected_semester'] = selected_semester
 		
 		template = JINJA_ENVIRONMENT.get_template('members_list.html')
 		self.response.write(template.render(template_vals))
