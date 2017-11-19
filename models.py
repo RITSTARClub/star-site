@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import logging
+from google.appengine.api import search
 from google.appengine.ext import ndb
 
 # The Python Markdown implementation by Waylan Limberg
@@ -15,9 +15,9 @@ sys.path.append('PyQRNativeGAE')
 from PyQRNative import QRErrorCorrectLevel
 from PyQRNativeGAE import QRCode
 
-from semesters import get_current_semester
-
+from constants import MEMBER_SEARCH_INDEX_NAME
 from dates import year_str, date_str, pretty_date
+from semesters import get_current_semester
 
 class Member(ndb.Model):
 	id = ndb.StringProperty() # UUID
@@ -81,9 +81,21 @@ class Member(ndb.Model):
 	missions = property(get_missions)
 	
 	def _post_put_hook(self, future):
+		# Generate the member's QR code if the member does not have one.
 		if not self.qr_code:
 			self.qr_code = self.get_qr_code()
 			self.put()
+		
+		# Update the member's assosciated search document.
+		doc = search.Document(
+			doc_id=self.id,
+			fields=[
+				search.TextField(name='name', value=self.name),
+				search.AtomField(name='dce', value=self.dce),
+				search.AtomField(name='email', value=self.email)
+			]
+		)
+		search.Index(name=MEMBER_SEARCH_INDEX_NAME).put(doc)
 
 
 class BridgeCrew(ndb.Model):
@@ -130,6 +142,7 @@ class BridgeCrew(ndb.Model):
 	comms_name = property(get_comms_name)
 	engi_name = property(get_engi_name)
 	year_str = property(get_year_str)
+
 
 class Mission(ndb.Model):
 	TYPES = [

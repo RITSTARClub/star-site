@@ -1,0 +1,1 @@
+MEMBER_SEARCH_INDEX_NAME = 'memberindex'
