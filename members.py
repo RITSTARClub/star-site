@@ -108,7 +108,9 @@ class MailingList(webapp2.RequestHandler):
 		members = Member.query(Member.mailing_list == True).fetch(limit=None)
 		mailing_list = []
 		
-		for member in members:
+		for index, member in enumerate(members):
+			if index%100 == 0:
+				mailing_list.append('\n')
 			if member.email:
 				mailing_list.append(member.name + ' <' + member.email + '>')
 			elif member.dce:
