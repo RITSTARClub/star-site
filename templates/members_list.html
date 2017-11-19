@@ -1,7 +1,10 @@
 {% include 'head.html' %}
 
 <section>
-	{% include 'semester_picker.html' %}
+	<form action="" method="GET" style="float: right; position: relative;">
+		<input type="search" name="q" accesskey="/" placeholder="Search members" style="padding-right: 3em;" />
+		<button type="submit" title="Search" aria-label="Search" style="position: absolute; right: 0; top: 0; border: 2px solid transparent;">&gt;</button>
+	</form>
 	<h1>Members</h1>
 	{% if admin %}
 		<div style="margin: 2em 0;">
@@ -38,6 +41,7 @@
 			</tr>
 		{% endfor %}
 	</table>
+	{% include 'semester_picker_search.html' %}
 	<p style="text-align: center;">Members may <a href="https://docs.google.com/forms/d/e/1FAIpQLSecOKyptl2uAPMEwjiMO2Sn67hEimDBqOorGvrsChO3SbTpMg/viewform" target="_blank">opt in or out</a> of being publicly listed.</p>
 	{% if admin %}
 		<div style="margin: 2em 0;">

@@ -1,0 +1,14 @@
+<form action="" method="GET" id="semesterPicker" style="text-align: right;">
+	{% if prev_semester %}
+		<a href="?q=semester:{{ prev_semester }}" role="button">&lt;&lt;</a>
+	{% endif %}
+	<select name="semester">
+		<option value="" disabled="disabled"{% if not selected_semester %} selected="selected"{%endif %}>Go to semester</option>
+		{% for semester in semesters %}
+			<option value="{{ semester['id'] }}"{% if semester['selected'] %} selected="selected"{% endif %}>{{ semester['pretty'] }}</option>
+		{% endfor %}
+	</select>
+	{% if next_semester %}
+		<a href="?q=semester:{{ next_semester }}" role="button">&gt;&gt;</a>
+	{% endif %}
+</form>

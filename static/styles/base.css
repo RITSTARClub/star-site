@@ -44,7 +44,8 @@ a {
 button,
 a[role="button"],
 .button,
-select:not([size]) {
+select:not([size]),
+input[type="search"] {
 	-webkit-tap-highlight-color: transparent !important;
 	
 	display: inline-block;
@@ -61,6 +62,7 @@ select:not([size]) {
 	cursor: pointer;
 	text-decoration: none;
 	outline: 0 none;
+	box-sizing: border-box;
 }
 	button,
 	a[role="button"],
@@ -89,6 +91,15 @@ select:not([size]) {
 		select:not([size]):focus,
 		select:not([size]):hover {
 			background-color: #cc6699;
+		}
+	input[type="search"] {
+		border: 2px solid #9999cc;
+		background-color: transparent;
+		color: #f0f0f0;
+		cursor: auto;
+	}
+		input[type="search"]:focus {
+			border-color: #cc99ff;
 		}
 
 h1,
