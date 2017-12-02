@@ -68,6 +68,12 @@ class MemberListAPI(webapp2.RequestHandler):
 		selected_semester = self.request.get('semester')
 		
 		if selected_semester:
+			# Avoid throwing error 500 if a bad semester string is supplied
+			try:
+				selected_semester = float(selected_semester)
+			except ValueError:
+				self.error(400)
+				return
 			members = Member.query(Member.show == True, Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
 		else:
 			members = Member.query(Member.show == True, Member.never_paid == False).order(Member.name).fetch(limit=None)
@@ -120,16 +126,26 @@ class RankAPI(webapp2.RequestHandler):
 			self.error(404)
 			return
 
-		semester = self.request.get('semester')
-
+		selected_semester = self.request.get('semester')
+		
+		if not selected_semester:
+			selected_semester = get_current_semester()
+		else:
+			# Avoid throwing error 500 if a bad semester string is supplied
+			try:
+				selected_semester = float(selected_semester)
+			except ValueError:
+				self.error(400)
+				return
+		
 		if not rank_type:
-			output = member.get_rank(semester)
+			output = member.get_rank(selected_semester)
 		elif rank_type == 'name':
-			output = member.get_rank_name(semester)
+			output = member.get_rank_name(selected_semester)
 		elif rank_type == 'disp':
-			output = member.get_rank_disp(semester)
+			output = member.get_rank_disp(selected_semester)
 		elif rank_type == 'with_name':
-			output = member.get_name_with_rank(semester)
+			output = member.get_name_with_rank(selected_semester)
 		else: 
 			# 400 if no known rank type is passed
 			self.error(404)
@@ -147,6 +163,12 @@ class MissionListAPI(webapp2.RequestHandler):
 
 		# Offer option to filter by a semester, but by default just send all missions
 		if selected_semester:
+			# Avoid throwing error 500 if a bad semester string is supplied
+			try:
+				selected_semester = float(selected_semester)
+			except ValueError:
+				self.error(400)
+				return
 			next_semester_date = semester_date(next_semester(selected_semester))
 			selected_semester_date = semester_date(selected_semester)
 			missions = Mission.query(Mission.start >= selected_semester_date, Mission.start < next_semester_date).fetch(limit=None)
