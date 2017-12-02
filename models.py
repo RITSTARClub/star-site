@@ -41,6 +41,10 @@ class Member(ndb.Model):
 	
 	def get_missions(self):
 		return Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
+
+	def get_mission_ids(self):
+		missions = Mission.query(Mission.runners == self.id).order(Mission.start).fetch(limit=None)
+		return [mission.id for mission in missions]
 	
 	def get_rank(self, semester=get_current_semester()):
 		from ranks import rank
@@ -87,6 +91,7 @@ class Member(ndb.Model):
 		#return 'data:image/svg+xml;base64,' + base64.b64encode(qr.make_svg())
 	
 	missions = property(get_missions)
+	mission_ids = property(get_mission_ids)
 	
 	def _post_put_hook(self, future):
 		# Generate the member's QR code if the member does not have one.

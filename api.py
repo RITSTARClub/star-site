@@ -7,8 +7,8 @@ from google.appengine.ext import ndb
 
 import webapp2
 
-from models import APIKey, Member
-from semesters import get_current_semester
+from models import APIKey, Member, Mission
+from semesters import get_current_semester, semester_date, next_semester
 
 def check_authentication(handler):
 	key = handler.request.get('key')
@@ -27,8 +27,8 @@ def format_member(member):
 		'mailingList': member.mailing_list,
 		'currentStudent': member.current_student,
 		'email': member.email,
-		'semestersPaid': member.semesters_paid,
-		'missions': member.missions, # Only computed property, maybe not necessary?
+		'semesters_paid': member.semesters_paid,
+		'mission_ids': member.mission_ids,
 		'committee_rank': member.committee_rank,
 		'merit_rank1': member.merit_rank1,
 		'merit_rank2': member.merit_rank2,
@@ -37,6 +37,25 @@ def format_member(member):
 		'card_printed': member.card_printed
 	}
 
+def format_mission(mission):
+	return {
+		'id': mission.id,
+		'type': mission.type,
+		'type_name': mission.type_name,
+		'title': mission.title,
+		'description': mission.description,
+		'html_description': mission.html_description,
+		'start': mission.start_str,
+		'end': mission.end_str,
+		'location': mission.location,
+		'runners': mission.runners,
+		'wave_url': mission.wave_url,
+		'drive_url': mission.drive_url,
+		'fb_url': mission.fb_url,
+		'gplus_url': mission.gplus_url,
+		'the_link_url': mission.the_link_url,
+		'youtube_url': mission.youtube_url
+	}
 
 
 
@@ -119,14 +138,62 @@ class RankAPI(webapp2.RequestHandler):
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.write(json.dumps(output))
 
+class MissionListAPI(webapp2.RequestHandler):
+	def get(self):
+		if not check_authentication(self):
+			return
+		
+		selected_semester = self.request.get('semester')
+
+		# Offer option to filter by a semester, but by default just send all missions
+		if selected_semester:
+			next_semester_date = semester_date(next_semester(selected_semester))
+			selected_semester_date = semester_date(selected_semester)
+			missions = Mission.query(Mission.start >= selected_semester_date, Mission.start < next_semester_date).fetch(limit=None)
+		else:
+			missions = Mission.query().fetch(limit=None)
+
+		output = []
+		for mission in missions:
+			output.append(format_mission(mission))
+
+		self.response.headers['Content-Type'] = 'application/json'
+		self.response.write(json.dumps(output))
+
+class MissionAPI(webapp2.RequestHandler):
+	def get(self):
+		if not check_authentication(self):
+			return
+
+		id = self.request.get('id')
+
+		if not id:
+			# Error if no mission specified
+			self.error(400)
+			return
+
+		mission = Mission.query(Mission.id == id).get()
+
+		if not mission:
+			# Error if mission not found
+			self.error(404)
+			return
+
+		output = format_mission(mission)
+
+		self.response.headers['Content-Type'] = 'application/json'
+		self.response.write(json.dumps(output))
+
 class APIFail(webapp2.RequestHandler):
 	def get(self, args):
 		# Just error out.
 		self.error(404)
 
 app = webapp2.WSGIApplication([
-	('/api/members', MemberListAPI),
-	('/api/member', MemberAPI),
+	('/api/members/?', MemberListAPI),
+	('/api/member/?', MemberAPI),
 	('/api/rank/?([a-zA-Z0-9_]+)?', RankAPI),
+	('/api/missions/?', MissionListAPI),
+	('/api/mission/?', MissionAPI),
 	('/api/?(\?.*)?', APIFail)
 ])
