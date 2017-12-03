@@ -170,6 +170,11 @@ class Mission(ndb.Model):
 	runners = ndb.StringProperty(repeated=True) # Member UUIDs
 	wave_url = ndb.StringProperty()
 	drive_url = ndb.StringProperty()
+	
+	intro_url = ndb.StringProperty()
+	pres_url = ndb.StringProperty()
+	sign_in_url = ndb.StringProperty()
+	
 	fb_url = ndb.StringProperty()
 	gplus_url = ndb.StringProperty()
 	the_link_url = ndb.StringProperty()
