@@ -98,6 +98,12 @@
 				</td>
 			</tr>
 			<tr>
+				<td></td>
+				<td>
+					<hr />
+				</td>
+			</tr>
+			<tr>
 				<td>
 					<label for="wave_url">
 						Mission wave
@@ -131,22 +137,6 @@
 			</tr>
 			<tr>
 				<td>
-					<label for="gplus_url">Google+ event</label>
-				</td>
-				<td>
-					<input type="url" name="gplus_url" value="{{ mission.gplus_url or '' }}" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="the_link_url">The Link event</label>
-				</td>
-				<td>
-					<input type="url" name="the_link_url" value="{{ mission.the_link_url or '' }}" />
-				</td>
-			</tr>
-			<tr>
-				<td>
 					<label for="youtube_url">YouTube video</label>
 				</td>
 				<td>
@@ -156,8 +146,41 @@
 			<tr>
 				<td></td>
 				<td>
+					<hr />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="gplus_url">Google+ event (legacy)</label>
+					<br />
+					<small>Not needed for new missions</small>
+				</td>
+				<td>
+					<input type="url" name="gplus_url" value="{{ mission.gplus_url or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="the_link_url">The Link event (legacy)</label>
+					<br />
+					<small>Not needed for new missions</small>
+				</td>
+				<td>
+					<input type="url" name="the_link_url" value="{{ mission.the_link_url or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<hr />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
 					<button type="submit">Save</button>
 				</td>
+			</tr>
 		</table>
 	</form>
 </section>
