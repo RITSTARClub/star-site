@@ -92,9 +92,9 @@ class MemberListAPI(webapp2.RequestHandler):
 			except ValueError:
 				self.error(400)
 				return
-			members = Member.query(Member.show == True, Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
+			members = Member.query(Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
 		else:
-			members = Member.query(Member.show == True, Member.never_paid == False).order(Member.name).fetch(limit=None)
+			members = Member.query().order(Member.name).fetch(limit=None)
 		
 		output = [format_member(member) for member in members]
 		
