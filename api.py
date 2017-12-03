@@ -7,7 +7,7 @@ from google.appengine.ext import ndb
 
 import webapp2
 
-from models import APIKey, Member, Mission
+from models import APIKey, Member, Mission, BridgeCrew
 from semesters import get_current_semester, semester_date, next_semester
 
 def check_authentication(handler):
@@ -24,8 +24,8 @@ def format_member(member):
 		'show': member.show,
 		'name': member.name,
 		'dce': member.dce,
-		'mailingList': member.mailing_list,
-		'currentStudent': member.current_student,
+		'mailing_list': member.mailing_list,
+		'current_student': member.current_student,
 		'email': member.email,
 		'semesters_paid': member.semesters_paid,
 		'mission_ids': member.mission_ids,
@@ -57,6 +57,24 @@ def format_mission(mission):
 		'youtube_url': mission.youtube_url
 	}
 
+def format_bridgecrew(crew):
+	return {
+		'yearStr': crew.year_str,
+		'start': str(crew.start),
+		'end': str(crew.end),
+		'admiral': crew.admiral,
+		'captain': crew.captain,
+		'first_officer': crew.first_officer,
+		'ops': crew.ops,
+		'comms': crew.comms,
+		'engi': crew.engi,
+		'admiralName': crew.admiral_name,
+		'captainName': crew.captain_name,
+		'firstOfficerName': crew.first_officer_name,
+		'opsName': crew.ops_name,
+		'commsName': crew.comms_name,
+		'engiName': crew.engi_name
+	}
 
 
 class MemberListAPI(webapp2.RequestHandler):
@@ -78,19 +96,15 @@ class MemberListAPI(webapp2.RequestHandler):
 		else:
 			members = Member.query(Member.show == True, Member.never_paid == False).order(Member.name).fetch(limit=None)
 		
-		output = []
-		for member in members:
-			output.append(format_member(member))
+		output = [format_member(member) for member in members]
 		
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.write(json.dumps(output))
 
 class MemberAPI(webapp2.RequestHandler):
-	def get(self):
+	def get(self, id):
 		if not check_authentication(self):
 			return
-		
-		id = self.request.get('id')
 		
 		if not id:
 			# Error out if no member is specified.
@@ -109,20 +123,13 @@ class MemberAPI(webapp2.RequestHandler):
 		self.response.write(json.dumps(output))
 
 class RankAPI(webapp2.RequestHandler):
-	def get(self, rank_type):
+	def get(self, rank_type, id):
 		if not check_authentication(self):
-			return
-
-		id = self.request.get('id')
-
-		if not id:
-			# Error if no member specified.
-			self.error(400)
 			return
 
 		member = Member.query(Member.id == id).get()
 		if not member:
-			# 404 if a nonexstient member is specified
+			# 404 if a nonexistent member is specified
 			self.error(404)
 			return
 
@@ -138,9 +145,7 @@ class RankAPI(webapp2.RequestHandler):
 				self.error(400)
 				return
 		
-		if not rank_type:
-			output = member.get_rank(selected_semester)
-		elif rank_type == 'name':
+		if rank_type == 'name':
 			output = member.get_rank_name(selected_semester)
 		elif rank_type == 'disp':
 			output = member.get_rank_disp(selected_semester)
@@ -175,19 +180,15 @@ class MissionListAPI(webapp2.RequestHandler):
 		else:
 			missions = Mission.query().fetch(limit=None)
 
-		output = []
-		for mission in missions:
-			output.append(format_mission(mission))
+		output = [format_mission(mission) for mission in missions]
 
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.write(json.dumps(output))
 
 class MissionAPI(webapp2.RequestHandler):
-	def get(self):
+	def get(self, id):
 		if not check_authentication(self):
 			return
-
-		id = self.request.get('id')
 
 		if not id:
 			# Error if no mission specified
@@ -206,6 +207,34 @@ class MissionAPI(webapp2.RequestHandler):
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.write(json.dumps(output))
 
+class BridgeCrewListAPI(webapp2.RequestHandler):
+	def get(self):
+		if not check_authentication(self):
+			return
+		bridgecrews = BridgeCrew.query().fetch(limit=None)
+
+		output = [format_bridgecrew(crew) for crew in bridgecrews]
+
+		self.response.headers['Content-Type'] = 'application/json'
+		self.response.write(json.dumps(output))
+
+class BridgeCrewAPI(webapp2.RequestHandler):
+	def get(self, crew):
+		if not check_authentication(self):
+			return
+
+		# Only link latest bridge crew for now, don't see a reason to send anything besides the current one or all of them
+		if crew == 'current':
+			bridgecrew = BridgeCrew.query().order(-BridgeCrew.start).get()
+		else:
+			self.error(404)
+			return
+
+		output = format_bridgecrew(bridgecrew)
+
+		self.response.headers['Content-Type'] = 'application/json'
+		self.response.write(json.dumps(output))
+
 class APIFail(webapp2.RequestHandler):
 	def get(self, args):
 		# Just error out.
@@ -213,9 +242,11 @@ class APIFail(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/api/members/?', MemberListAPI),
-	('/api/member/?', MemberAPI),
-	('/api/rank/?([a-zA-Z0-9_]+)?', RankAPI),
+	('/api/member/([a-z0-9]+)', MemberAPI),
+	('/api/rank/([a-z_]+)/([a-zA-Z0-9]+)', RankAPI),
 	('/api/missions/?', MissionListAPI),
-	('/api/mission/?', MissionAPI),
+	('/api/mission/([a-z0-9]+)', MissionAPI),
+	('/api/bridgecrews/?', BridgeCrewListAPI),
+	('/api/bridgecrew/([a-z0-9]+)?', BridgeCrewAPI),
 	('/api/?(\?.*)?', APIFail)
 ])
