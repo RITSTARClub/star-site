@@ -124,7 +124,7 @@
 					</label>
 				</td>
 				<td>
-					<input type="url" name="drive_url" value="{{ mission.drive_url or '' }}" placeholder="https://drive.google.com/drive/folders/XXXXXXXX...XXXXXXXX" pattern="https://drive.google.com/drive/folders/[A-Za-z0-9]+" />
+					<input type="url" name="drive_url" value="{{ mission.drive_url or '' }}" placeholder="https://drive.google.com/drive/folders/XXXXXXXX...XXXXXXXX" pattern="https://drive.google.com/drive/folders/[A-Za-z0-9_\-]+" />
 				</td>
 			</tr>
 			<tr>
@@ -138,7 +138,7 @@
 					<label for="intro_url">Intro. presentation</label>
 				</td>
 				<td>
-					<input type="url" name="intro_url" value="{{ mission.intro_url or '' }}" placeholder="https://docs.google.com/presentation/d/XXXXXXXX...XXXXXXXX/edit" pattern="https://docs.google.com/presentation/d/[A-Za-z0-9]+/edit" />
+					<input type="url" name="intro_url" value="{{ mission.intro_url or '' }}" placeholder="https://docs.google.com/presentation/d/XXXXXXXX...XXXXXXXX/edit" pattern="https://docs.google.com/presentation/d/[A-Za-z0-9_\-]+/edit" />
 				</td>
 			</tr>
 			<tr>
@@ -155,7 +155,7 @@
 					<label for="sign_in_url">Sign-in form</label>
 				</td>
 				<td>
-					<input type="url" name="sign_in_url" value="{{ mission.sign_in_url or '' }}" placeholder="https://docs.google.com/forms/d/XXXXXXXX...XXXXXXXX/viewform" pattern="https://docs.google.com/forms/d/[A-Za-z0-9]+/viewform" />
+					<input type="url" name="sign_in_url" value="{{ mission.sign_in_url or '' }}" placeholder="https://docs.google.com/forms/d/XXXXXXXX...XXXXXXXX/viewform" pattern="https://docs.google.com/forms/d/[A-Za-z0-9_\-]+/viewform" />
 				</td>
 			</tr>
 			<tr>
