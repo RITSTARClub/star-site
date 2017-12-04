@@ -1,5 +1,6 @@
 .socialIcon {
 	display: inline-block;
+	position: relative;
 	width: 48px;
 	height: 48px;
 	
@@ -8,275 +9,396 @@
 	text-decoration: none;
 	
 	background-image: url('/static/images/social_icons.png');
-	background-size: 144px 336px;
+	background-size: 144px 432px;
 }
+	.socialIcon.missing::after {
+		content: '?';
+		display: block;
+		position: absolute;
+		right: 0;
+		top: 0;
+		
+		color: #ff8e8e;
+		text-shadow: 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+					 
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+					 
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+					 
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+					 
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+					 
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808,
+		             0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808, 0 0 6px #080808;
+		font-weight: bold;
+		font-size: 24px;
+	}
 	.socialIcon.email {
 		background-position: 0 0;
 	}
-		.socialIcon.email:hover {
+		.socialIcon.email:not(.missing):hover {
 			background-position: -48px 0;
 		}
-		.socialIcon.email:active {
+		.socialIcon.email:not(.missing):active {
 			background-position: -96px 0;
 		}
 	.socialIcon.fb {
 		background-position: 0 -48px;
 	}
-		.socialIcon.fb:hover {
+		.socialIcon.fb:not(.missing):hover {
 			background-position: -48px -48px;
 		}
-		.socialIcon.fb:active {
+		.socialIcon.fb:not(.missing):active {
 			background-position: -96px -48px;
 		}
 	.socialIcon.gplus {
 		background-position: 0 -96px;
 	}
-		.socialIcon.gplus:hover {
+		.socialIcon.gplus:not(.missing):hover {
 			background-position: -48px -96px;
 		}
-		.socialIcon.gplus:active {
+		.socialIcon.gplus:not(.missing):active {
 			background-position: -96px -96px;
 		}
 	.socialIcon.twitter {
 		background-position: 0 -144px;
 	}
-		.socialIcon.twitter:hover {
+		.socialIcon.twitter:not(.missing):hover {
 			background-position: -48px -144px;
 		}
-		.socialIcon.twitter:active {
+		.socialIcon.twitter:not(.missing):active {
 			background-position: -96px -144px;
 		}
 	.socialIcon.slack {
 		background-position: 0 -192px;
 	}
-		.socialIcon.slack:hover {
+		.socialIcon.slack:not(.missing):hover {
 			background-position: -48px -192px;
 		}
-		.socialIcon.slack:active {
+		.socialIcon.slack:not(.missing):active {
 			background-position: -96px -192px;
 		}
 	.socialIcon.youtube {
 		background-position: 0 -240px;
 	}
-		.socialIcon.youtube:hover {
+		.socialIcon.youtube:not(.missing):hover {
 			background-position: -48px -240px;
 		}
-		.socialIcon.youtube:active {
+		.socialIcon.youtube:not(.missing):active {
 			background-position: -96px -240px;
 		}
 	.socialIcon.thelink {
 		background-position: 0 -288px;
 	}
-		.socialIcon.thelink:hover {
+		.socialIcon.thelink:not(.missing):hover {
 			background-position: -48px -288px;
 		}
-		.socialIcon.thelink:active {
+		.socialIcon.thelink:not(.missing):active {
 			background-position: -96px -288px;
+		}
+	.socialIcon.rizzoma {
+		background-position: 0 -336px;
+	}
+		.socialIcon.rizzoma:not(.missing):hover {
+			background-position: -48px -336px;
+		}
+		.socialIcon.rizzoma:not(.missing):active {
+			background-position: -96px -336px;
+		}
+	.socialIcon.gdrive {
+		background-position: 0 -288px;
+	}
+		.socialIcon.gdrive:not(.missing):hover {
+			background-position: -48px -384px;
+		}
+		.socialIcon.gdrive:not(.missing):active {
+			background-position: -96px -384px;
 		}
 
 .socialIcon.large {
 	width: 96px;
 	height: 96px;
-	background-size: 288px 672px;
+	background-size: 288px 864px;
 }
+	.socialIcon.large.missing::after {
+		font-size: 48px;
+	}
 	.socialIcon.large.email {
 		background-position: 0 0;
 	}
-		.socialIcon.large.email:hover {
+		.socialIcon.large.email:not(.missing):hover {
 			background-position: -96px 0;
 		}
-		.socialIcon.large.email:active {
+		.socialIcon.large.email:not(.missing):active {
 			background-position: -192px 0;
 		}
 	.socialIcon.large.fb {
 		background-position: 0 -96px;
 	}
-		.socialIcon.large.fb:hover {
+		.socialIcon.large.fb:not(.missing):hover {
 			background-position: -96px -96px;
 		}
-		.socialIcon.large.fb:active {
+		.socialIcon.large.fb:not(.missing):active {
 			background-position: -192px -96px;
 		}
 	.socialIcon.large.gplus {
 		background-position: 0 -192px;
 	}
-		.socialIcon.large.gplus:hover {
+		.socialIcon.large.gplus:not(.missing):hover {
 			background-position: -96px -192px;
 		}
-		.socialIcon.large.gplus:active {
+		.socialIcon.large.gplus:not(.missing):active {
 			background-position: -192px -192px;
 		}
 	.socialIcon.large.twitter {
 		background-position: 0 -288px;
 	}
-		.socialIcon.large.twitter:hover {
+		.socialIcon.large.twitter:not(.missing):hover {
 			background-position: -96px -288px;
 		}
-		.socialIcon.large.twitter:active {
+		.socialIcon.large.twitter:not(.missing):active {
 			background-position: -192px -288px;
 		}
 	.socialIcon.large.slack {
 		background-position: 0 -384px;
 	}
-		.socialIcon.large.slack:hover {
+		.socialIcon.large.slack:not(.missing):hover {
 			background-position: -96px -384px;
 		}
-		.socialIcon.large.slack:active {
+		.socialIcon.large.slack:not(.missing):active {
 			background-position: -192px -384px;
 		}
 	.socialIcon.large.youtube {
 		background-position: 0 -480px;
 	}
-		.socialIcon.large.youtube:hover {
+		.socialIcon.large.youtube:not(.missing):hover {
 			background-position: -96px -480px;
 		}
-		.socialIcon.large.youtube:active {
+		.socialIcon.large.youtube:not(.missing):active {
 			background-position: -192px -480px;
 		}
 	.socialIcon.large.thelink {
 		background-position: 0 -576px;
 	}
-		.socialIcon.large.thelink:hover {
+		.socialIcon.large.thelink:not(.missing):hover {
 			background-position: -96px -576px;
 		}
-		.socialIcon.large.thelink:active {
+		.socialIcon.large.thelink:not(.missing):active {
 			background-position: -192px -576px;
+		}
+	.socialIcon.large.rizzoma {
+		background-position: 0 -672px;
+	}
+		.socialIcon.large.rizzoma:not(.missing):hover {
+			background-position: -96px -672px;
+		}
+		.socialIcon.large.rizzoma:not(.missing):active {
+			background-position: -192px -672px;
+		}
+	.socialIcon.large.gdrive {
+		background-position: 0 -768px;
+	}
+		.socialIcon.large.gdrive:not(.missing):hover {
+			background-position: -96px -768px;
+		}
+		.socialIcon.large.gdrive:not(.missing):active {
+			background-position: -192px -768px;
 		}
 
 .socialIcon.small {
 	width: 36px;
 	height: 36px;
-	background-size: 108px 252px;
+	background-size: 108px 324px;
 }
+	.socialIcon.small.missing::after {
+		font-size: 18px;
+	}
 	.socialIcon.small.email {
 		background-position: 0 0;
 	}
-		.socialIcon.small.email:hover {
+		.socialIcon.small.email:not(.missing):hover {
 			background-position: -36px 0;
 		}
-		.socialIcon.small.email:active {
+		.socialIcon.small.email:not(.missing):active {
 			background-position: -72px 0;
 		}
 	.socialIcon.small.fb {
 		background-position: 0 -36px;
 	}
-		.socialIcon.small.fb:hover {
+		.socialIcon.small.fb:not(.missing):hover {
 			background-position: -36px -36px;
 		}
-		.socialIcon.small.fb:active {
+		.socialIcon.small.fb:not(.missing):active {
 			background-position: -72px -36px;
 		}
 	.socialIcon.small.gplus {
 		background-position: 0 -72px;
 	}
-		.socialIcon.small.gplus:hover {
+		.socialIcon.small.gplus:not(.missing):hover {
 			background-position: -36px -72px;
 		}
-		.socialIcon.small.gplus:active {
+		.socialIcon.small.gplus:not(.missing):active {
 			background-position: -72px -72px;
 		}
 	.socialIcon.small.twitter {
 		background-position: 0 -108px;
 	}
-		.socialIcon.small.twitter:hover {
+		.socialIcon.small.twitter:not(.missing):hover {
 			background-position: -36px -108px;
 		}
-		.socialIcon.small.twitter:active {
+		.socialIcon.small.twitter:not(.missing):active {
 			background-position: -72px -108px;
 		}
 	.socialIcon.small.slack {
 		background-position: 0 -144px;
 	}
-		.socialIcon.small.slack:hover {
+		.socialIcon.small.slack:not(.missing):hover {
 			background-position: -36px -144px;
 		}
-		.socialIcon.small.slack:active {
+		.socialIcon.small.slack:not(.missing):active {
 			background-position: -72px -144px;
 		}
 	.socialIcon.small.youtube {
 		background-position: 0 -180px;
 	}
-		.socialIcon.small.youtube:hover {
+		.socialIcon.small.youtube:not(.missing):hover {
 			background-position: -36px -180px;
 		}
-		.socialIcon.small.youtube:active {
+		.socialIcon.small.youtube:not(.missing):active {
 			background-position: -72px -180px;
 		}
 	.socialIcon.small.thelink {
 		background-position: 0 -216px;
 	}
-		.socialIcon.small.thelink:hover {
+		.socialIcon.small.thelink:not(.missing):hover {
 			background-position: -36px -216px;
 		}
-		.socialIcon.small.thelink:active {
+		.socialIcon.small.thelink:not(.missing):active {
 			background-position: -72px -216px;
+		}
+	.socialIcon.small.rizzoma {
+		background-position: 0 -252px;
+	}
+		.socialIcon.small.rizzoma:not(.missing):hover {
+			background-position: -36px -252px;
+		}
+		.socialIcon.small.rizzoma:not(.missing):active {
+			background-position: -72px -252px;
+		}
+	.socialIcon.small.gdrive {
+		background-position: 0 -288px;
+	}
+		.socialIcon.small.gdrive:not(.missing):hover {
+			background-position: -36px -288px;
+		}
+		.socialIcon.small.gdrive:not(.missing):active {
+			background-position: -72px -288px;
 		}
 
 .socialIcon.tiny {
 	width: 24px;
 	height: 24px;
-	background-size: 72px 168px;
+	background-size: 72px 216px;
 }
+	.socialIcon.tiny.missing::after {
+		font-size: 12px;
+	}
 	.socialIcon.tiny.email {
 		background-position: 0 0;
 	}
-		.socialIcon.tiny.email:hover {
+		.socialIcon.tiny.email:not(.missing):hover {
 			background-position: -24px 0;
 		}
-		.socialIcon.tiny.email:active {
+		.socialIcon.tiny.email:not(.missing):active {
 			background-position: -48px 0;
 		}
 	.socialIcon.tiny.fb {
 		background-position: 0 -24px;
 	}
-		.socialIcon.tiny.fb:hover {
+		.socialIcon.tiny.fb:not(.missing):hover {
 			background-position: -24px -24px;
 		}
-		.socialIcon.tiny.fb:active {
+		.socialIcon.tiny.fb:not(.missing):active {
 			background-position: -48px -24px;
 		}
 	.socialIcon.tiny.gplus {
 		background-position: 0 -48px;
 	}
-		.socialIcon.tiny.gplus:hover {
+		.socialIcon.tiny.gplus:not(.missing):hover {
 			background-position: -24px -48px;
 		}
-		.socialIcon.tiny.gplus:active {
+		.socialIcon.tiny.gplus:not(.missing):active {
 			background-position: -48px -48px;
 		}
 	.socialIcon.tiny.twitter {
 		background-position: 0 -72px;
 	}
-		.socialIcon.tiny.twitter:hover {
+		.socialIcon.tiny.twitter:not(.missing):hover {
 			background-position: -24px -72px;
 		}
-		.socialIcon.tiny.twitter:active {
+		.socialIcon.tiny.twitter:not(.missing):active {
 			background-position: -48px -72px;
 		}
 	.socialIcon.tiny.slack {
 		background-position: 0 -96px;
 	}
-		.socialIcon.tiny.slack:hover {
+		.socialIcon.tiny.slack:not(.missing):hover {
 			background-position: -24px -96px;
 		}
-		.socialIcon.tiny.slack:active {
+		.socialIcon.tiny.slack:not(.missing):active {
 			background-position: -48px -96px;
 		}
 	.socialIcon.tiny.youtube {
 		background-position: 0 -120px;
 	}
-		.socialIcon.tiny.youtube:hover {
+		.socialIcon.tiny.youtube:not(.missing):hover {
 			background-position: -24px -120px;
 		}
-		.socialIcon.tiny.youtube:active {
+		.socialIcon.tiny.youtube:not(.missing):active {
 			background-position: -48px -120px;
 		}
 	.socialIcon.tiny.thelink {
 		background-position: 0 -144px;
 	}
-		.socialIcon.tiny.thelink:hover {
+		.socialIcon.tiny.thelink:not(.missing):hover {
 			background-position: -24px -144px;
 		}
-		.socialIcon.tiny.thelink:active {
+		.socialIcon.tiny.thelink:not(.missing):active {
 			background-position: -48px -144px;
+		}
+	.socialIcon.tiny.rizzoma {
+		background-position: 0 -144px;
+	}
+		.socialIcon.tiny.rizzoma:not(.missing):hover {
+			background-position: -24px -168px;
+		}
+		.socialIcon.tiny.rizzoma:not(.missing):active {
+			background-position: -48px -168px;
+		}
+	.socialIcon.tiny.gdrive {
+		background-position: 0 -144px;
+	}
+		.socialIcon.tiny.gdrive:not(.missing):hover {
+			background-position: -24px -192px;
+		}
+		.socialIcon.tiny.gdrive:not(.missing):active {
+			background-position: -48px -192px;
 		}

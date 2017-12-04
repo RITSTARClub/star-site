@@ -29,10 +29,10 @@
 	{% if admin %}
 		<p style="font-size: larger;">
 			{% if mission.wave_url %}
-				<a href="{{ mission.wave_url }}" target="_blank">Mission wave</a>
+				<a href="{{ mission.wave_url }}" target="_blank" class="socialIcon rizzoma small">Mission wave</a>
 			{% endif %}
 			{% if mission.drive_url %}
-				<a href="{{ mission.drive_url }}" target="_blank">Google Drive folder</a>
+				<a href="{{ mission.drive_url }}" target="_blank" class="socialIcon gdrive small">Google Drive folder</a>
 			{% endif %}
 		</p>
 	{% endif %}
