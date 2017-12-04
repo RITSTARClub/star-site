@@ -26,29 +26,65 @@
 		{% endif %}
 	</p>
 	
-	{% if admin %}
-		<p style="font-size: larger;">
+	<p style="font-size: larger;">
+		{% if admin %}
 			{% if mission.wave_url %}
 				<a href="{{ mission.wave_url }}" target="_blank" class="socialIcon rizzoma small">Mission wave</a>
+			{% else %}
+				<a href="/missions/edit?id={{ mission.id }}" class="socialIcon rizzoma small missing">No mission wave link</a>
 			{% endif %}
+			
 			{% if mission.drive_url %}
 				<a href="{{ mission.drive_url }}" target="_blank" class="socialIcon gdrive small">Google Drive folder</a>
+			{% else %}
+				<a href="/missions/edit?id={{ mission.id }}" class="socialIcon gdrive small missing">No Google Drive link</a>
+			{% endif %}
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;
+		{% endif %}
+		
+		{% if mission.fb_url %}
+			<a href="{{ mission.fb_url }}" target="_blank" class="socialIcon fb small">Facebook event</a>
+		{% elif admin %}
+			<a href="/missions/edit?id={{ mission.id }}" class="socialIcon fb small missing">No Facebook link</a>
+		{% endif %}
+		
+		{% if mission.gplus_url %}
+			<a href="{{ mission.gplus_url }}" target="_blank" class="socialIcon gplus small">Google+ event</a>
+		{% endif %}
+		
+		{% if mission.the_link_url %}
+			<a href="{{ mission.the_link_url }}" target="_blank" class="socialIcon thelink small">The Link event</a>
+		{% endif %}
+		
+		{% if mission.youtube_url %}
+			<a href="{{ mission.youtube_url }}" target="_blank" class="socialIcon youtube small">YouTube video</a>
+		{% elif admin %}
+			<a href="/missions/edit?id={{ mission.id }}" class="socialIcon youtube small missing">No YouTube link</a>
+		{% endif %}
+	</p>
+	{% if admin %}
+		<p style="font-size: larger;">
+			{% if mission.intro_url %}
+				<a href="{{ mission.intro_url }}" target="_blank">Intro. presentation</a>
+			{% else %}
+				<a href="/missions/edit?id={{ mission.id }}">No intro. presentation link</a>
+			{% endif %}
+			<br />
+			
+			{% if mission.pres_url %}
+				<a href="{{ mission.pres_url }}" target="_blank">Mission presentation</a>
+				<br />
+			{% endif %}
+			
+			{% if mission.sign_in_url %}
+				<a href="{{ mission.sign_in_url }}" target="_blank">Sign-in form</a>
+			{% else %}
+				<a href="/missions/edit?id={{ mission.id }}">No sign-in form link</a>
 			{% endif %}
 		</p>
 	{% endif %}
 	
-	{% if mission.fb_url %}
-		<a href="{{ mission.fb_url }}" target="_blank" class="socialIcon fb small">Facebook event</a>
-	{% endif %}
-	{% if mission.gplus_url %}
-		<a href="{{ mission.gplus_url }}" target="_blank" class="socialIcon gplus small">Google+ event</a>
-	{% endif %}
-	{% if mission.the_link_url %}
-		<a href="{{ mission.the_link_url }}" target="_blank" class="socialIcon thelink small">The Link event</a>
-	{% endif %}
-	{% if mission.youtube_url %}
-		<a href="{{ mission.youtube_url }}" target="_blank" class="socialIcon youtube small">YouTube video</a>
-	{% endif %}
 	
 	{% if mission.runners %}
 		{% if mission.type == 0 %}
