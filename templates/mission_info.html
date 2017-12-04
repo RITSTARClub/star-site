@@ -68,7 +68,7 @@
 			{% if mission.intro_url %}
 				<a href="{{ mission.intro_url }}" target="_blank">Intro. presentation</a>
 			{% else %}
-				<a href="/missions/edit?id={{ mission.id }}">No intro. presentation link</a>
+				<a href="/missions/edit?id={{ mission.id }}" style="color: #ff8e8e;">No intro. presentation link</a>
 			{% endif %}
 			<br />
 			
@@ -80,7 +80,7 @@
 			{% if mission.sign_in_url %}
 				<a href="{{ mission.sign_in_url }}" target="_blank">Sign-in form</a>
 			{% else %}
-				<a href="/missions/edit?id={{ mission.id }}">No sign-in form link</a>
+				<a href="/missions/edit?id={{ mission.id }}" style="color: #ff8e8e;">No sign-in form link</a>
 			{% endif %}
 		</p>
 	{% endif %}
