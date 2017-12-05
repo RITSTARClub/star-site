@@ -109,7 +109,7 @@ class MailingList(webapp2.RequestHandler):
 		mailing_list = []
 		
 		for index, member in enumerate(members):
-			if (index+1)%100 == 0:
+			if (index + 1) % 100 == 0:
 				mailing_list.append('\n')
 			if member.email:
 				mailing_list.append(member.name + ' <' + member.email + '>')
