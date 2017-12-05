@@ -48,7 +48,7 @@ def get_semester_from_query(query):
 		return None
 
 def prev_semester(semester):
-	if semester - int(semester) == 0.2:
+	if round(semester - int(semester), 1) == 0.2:
 		return semester - 0.1
 	else:
 		year = int(semester) - 1
