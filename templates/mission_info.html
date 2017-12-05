@@ -64,10 +64,12 @@
 		{% endif %}
 	</p>
 	{% if admin %}
+		{# Only require these links for standard missions. #}
+		
 		<p style="font-size: larger;">
 			{% if mission.intro_url %}
 				<a href="{{ mission.intro_url }}" target="_blank">Intro. presentation</a>
-			{% else %}
+			{% elif mission.type == 0 %}
 				<a href="/missions/edit?id={{ mission.id }}" style="color: #ff8e8e;">No intro. presentation link</a>
 			{% endif %}
 			<br />
@@ -79,7 +81,7 @@
 			
 			{% if mission.sign_in_url %}
 				<a href="{{ mission.sign_in_url }}" target="_blank">Sign-in form</a>
-			{% else %}
+			{% elif mission.type == 0 %}
 				<a href="/missions/edit?id={{ mission.id }}" style="color: #ff8e8e;">No sign-in form link</a>
 			{% endif %}
 		</p>
