@@ -102,6 +102,16 @@ input[type="search"] {
 			border-color: #cc99ff;
 		}
 
+input[type="text"]::placeholder,
+input[type="datetime-local"]::placeholder,
+input[type="email"]::placeholder,
+input[type="number"]::placeholder,
+input[type="url"]::placeholder {
+	color: rgba(0,0,0,0.4);
+}
+	
+}
+
 h1,
 h2 {
 	color: #ff9900;
