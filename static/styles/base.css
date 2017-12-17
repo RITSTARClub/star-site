@@ -109,8 +109,6 @@ input[type="number"]::placeholder,
 input[type="url"]::placeholder {
 	color: rgba(0,0,0,0.4);
 }
-	
-}
 
 h1,
 h2 {
