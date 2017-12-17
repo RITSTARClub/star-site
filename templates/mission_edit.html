@@ -112,19 +112,19 @@
 					</label>
 				</td>
 				<td>
-					<input type="url" name="wave_url" value="{{ mission.wave_url or '' }}" placeholder="https://rizzoma.com/topic/XXXXXXXX...XXXXXXXX" pattern="https://rizzoma.com/topic/[a-z0-9]+" />
+					<input type="url" id="wave_url" name="wave_url" value="{{ mission.wave_url or '' }}" placeholder="https://rizzoma.com/topic/XXXXXXXX...XXXXXXXX" pattern="https://rizzoma.com/topic/[a-z0-9]+/?" />
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="wave_url">
+					<label for="drive_url">
 						Google Drive folder
 						<br />
 						<small>Only shown to admins</small>
 					</label>
 				</td>
 				<td>
-					<input type="url" name="drive_url" value="{{ mission.drive_url or '' }}" placeholder="https://drive.google.com/drive/folders/XXXXXXXX...XXXXXXXX" pattern="https://drive.google.com/drive/folders/[A-Za-z0-9_\-]+" />
+					<input type="url" id="drive_url" name="drive_url" value="{{ mission.drive_url or '' }}" placeholder="https://drive.google.com/drive/folders/XXXXXXXX...XXXXXXXX" pattern="https://drive.google.com/drive/folders/[A-Za-z0-9_\-]+" />
 				</td>
 			</tr>
 			<tr>
@@ -138,7 +138,7 @@
 					<label for="intro_url">Intro. presentation</label>
 				</td>
 				<td>
-					<input type="url" name="intro_url" value="{{ mission.intro_url or '' }}" placeholder="https://docs.google.com/presentation/d/XXXXXXXX...XXXXXXXX/edit" pattern="https://docs.google.com/presentation/d/[A-Za-z0-9_\-]+/edit" />
+					<input type="url" id="intro_url" name="intro_url" value="{{ mission.intro_url or '' }}" placeholder="https://docs.google.com/presentation/d/XXXXXXXX...XXXXXXXX/edit" pattern="https://docs.google.com/presentation/[A-Za-z0-9_\-\/]+/edit" />
 				</td>
 			</tr>
 			<tr>
@@ -146,7 +146,7 @@
 					<label for="pres_url">Mission presentation</label>
 				</td>
 				<td>
-					<input type="url" name="pres_url" value="{{ mission.pres_url or '' }}" placeholder="https://docs.google.com/presentation/d/XXXXXXXX...XXXXXXXX/edit" />
+					<input type="url" id="pres_url" name="pres_url" value="{{ mission.pres_url or '' }}" placeholder="https://docs.google.com/presentation/d/XXXXXXXX...XXXXXXXX/edit" />
 					<!-- No validation on this field because it could be Prezi, PowerPoint Online, etc. -->
 				</td>
 			</tr>
@@ -155,7 +155,7 @@
 					<label for="sign_in_url">Sign-in form</label>
 				</td>
 				<td>
-					<input type="url" name="sign_in_url" value="{{ mission.sign_in_url or '' }}" placeholder="https://docs.google.com/forms/d/XXXXXXXX...XXXXXXXX/viewform" pattern="https://docs.google.com/forms/d/[A-Za-z0-9_\-]+/viewform" />
+					<input type="url" id="sign_in_url" name="sign_in_url" value="{{ mission.sign_in_url or '' }}" placeholder="https://docs.google.com/forms/d/XXXXXXXX...XXXXXXXX/viewform" pattern="https://docs.google.com/forms/[A-Za-z0-9_\-\/]+/viewform" />
 				</td>
 			</tr>
 			<tr>
@@ -169,7 +169,7 @@
 					<label for="fb_url">Facebook event</label>
 				</td>
 				<td>
-					<input type="url" name="fb_url" value="{{ mission.fb_url or '' }}" placeholder="https://www.facebook.com/events/XXXXXXXX...XXXXXXXX" pattern="https://www.facebook.com/events/[0-9]+" />
+					<input type="url" id="fb_url" name="fb_url" value="{{ mission.fb_url or '' }}" placeholder="https://www.facebook.com/events/XXXXXXXX...XXXXXXXX" pattern="https://www.facebook.com/events/[0-9]+/?" />
 				</td>
 			</tr>
 			<tr>
@@ -177,7 +177,7 @@
 					<label for="youtube_url">YouTube video</label>
 				</td>
 				<td>
-					<input type="url" name="youtube_url" value="{{ mission.youtube_url or '' }}" placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX" pattern="https://www.youtube.com/(watch\?v=[^#\&\?]+|playlist\?list=[^#\&\?]+)" />
+					<input type="url" id="youtube_url" name="youtube_url" value="{{ mission.youtube_url or '' }}" placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX" pattern="https://www.youtube.com/(watch\?v=[^#\&\?]+|playlist\?list=[^#\&\?]+)" />
 				</td>
 			</tr>
 			<tr>
@@ -193,7 +193,7 @@
 					<small>Not needed for new missions</small>
 				</td>
 				<td>
-					<input type="url" name="gplus_url" value="{{ mission.gplus_url or '' }}" placeholder="https://plus.google.com/events/XXXXXXXX...XXXXXXXX" pattern="https://plus.google.com/events/[a-z0-9]+" />
+					<input type="url" id="gplus_url" name="gplus_url" value="{{ mission.gplus_url or '' }}" placeholder="https://plus.google.com/events/XXXXXXXX...XXXXXXXX" pattern="https://plus.google.com/events/[a-z0-9]+" />
 				</td>
 			</tr>
 			<tr>
@@ -203,7 +203,7 @@
 					<small>Not needed for new missions</small>
 				</td>
 				<td>
-					<input type="url" name="the_link_url" value="{{ mission.the_link_url or '' }}" placeholder="https://thelink.rit.edu/organization/STAR/calendar/details/XXXXXX" />
+					<input type="url" id="the_link_url" name="the_link_url" value="{{ mission.the_link_url or '' }}" placeholder="https://thelink.rit.edu/organization/STAR/calendar/details/XXXXXX" />
 				</td>
 			</tr>
 			<tr>
@@ -221,6 +221,7 @@
 		</table>
 	</form>
 </section>
+<script type="text/javascript" src="/static/scripts/mission_field_validation.js"></script>
 <br />
 
 {% include 'foot.html' %}
