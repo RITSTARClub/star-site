@@ -4,6 +4,12 @@ window.addEventListener('load', function () {
 		DEFAULT_MESSAGE_PLACEHOLDER = DEFAULT_MESSAGE + '  It should look like \u201c{{PLACEHOLDER}}\u201d.',
 		MESSAGES = [
 			{
+				check: /^http:/,
+				message: 'It looks like you have \u201chttp://\u201d instead of \u201chttps://\u201d.  Try changing that.'
+			}, {
+				check: /^(?!https:\/\/).+/,
+				message: 'It looks like your URL is missing the \u201chttps://\u201d.  Try adding that.'
+			}, {
 				check: /\/a\/.+\.[A-Za-z]+\//,
 				message: 'It looks like you might have a GSuite fragment in that link (e.g., \u201c/a/rit.edu/\u201d).  Try taking that out.'
 			}, {
