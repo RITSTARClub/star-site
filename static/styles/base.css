@@ -137,6 +137,15 @@ aside {
 	font-size: smaller;
 	float: right;
 }
+
+div.awesomplete{
+	width: 100%;
+}
+
+ul#awesomplete_list_1{
+	color: black;
+}
+
 @media (max-width: 600px) {
 	aside.minor {
 		display: none;
