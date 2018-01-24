@@ -11,7 +11,7 @@ import jinja2
 import webapp2
 
 from models import Member
-from semesters import get_current_semester
+from semesters import get_current_semester, semester_pretty
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -45,15 +45,19 @@ class SingleCardPage(webapp2.RequestHandler):
 			self.error(404)
 			return
 		
-		# TODO: Replace with fetching the current semester once semester formatting functions are merged in.
-		semester = 'Fall 2017'
-		# Replace 0 with O because it looks better in the font.
-		semester_mod = semester.replace('0', 'O')
-		
+		# Pick current semester by default, otherwise if there is a parameter in the request use that as a reference
+		semester = self.request.get('semester')
+		if not semester:
+			semester = get_current_semester()
+		else:
+			try: semester = float(semester)
+			except ValueError: semester = get_current_semester()
+
 		template_vals = {
 			'title': 'ID card for ' + member.name,
 			'members': [member],
-			'semester': semester_mod
+			# Replace 0 with O because it looks better in the font
+			'semester': semester_pretty(semester).replace('0', 'O')
 		}
 		
 		template = JINJA_ENVIRONMENT.get_template('cards.html')
@@ -63,15 +67,19 @@ class AllCardsPage(webapp2.RequestHandler):
 	def get(self):
 		members = Member.query(Member.card_printed == False, Member.current_student == True, Member.semesters_paid == get_current_semester()).order(Member.name).fetch(limit=None)
 		
-		# TODO: Replace with fetching the current semester once semester formatting functions are merged in.
-		semester = 'Fall 2017'
-		# Replace 0 with O because it looks better in the font.
-		semester_mod = semester.replace('0', 'O')
-		
+		# Pick current semester by default, otherwise if there is a parameter in the request use that as a reference
+		semester = self.request.get('semester')
+		if not semester: 
+			semester = get_current_semester()
+		else:
+			try: semester = float(semester)
+			except ValueError: semester = get_current_semester()
+
 		template_vals = {
-			'title': 'ID cards for ' + semester,
+			'title': 'ID cards for ' + semester_pretty(semester),
 			'members': members,
-			'semester': semester_mod
+			# Replace 0 with O because it looks better in the font.
+			'semester': semester_pretty(semester).replace('0', 'O')
 		}
 		
 		template = JINJA_ENVIRONMENT.get_template('cards.html')
