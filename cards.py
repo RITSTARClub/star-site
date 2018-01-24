@@ -11,7 +11,7 @@ import jinja2
 import webapp2
 
 from models import Member
-from semesters import get_current_semester, semester_pretty
+from semesters import get_current_semester, semester_pretty, validate_semester
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -46,12 +46,9 @@ class SingleCardPage(webapp2.RequestHandler):
 			return
 		
 		# Pick current semester by default, otherwise if there is a parameter in the request use that as a reference
-		semester = self.request.get('semester')
+		semester = validate_semester(self.request.get('semester'))
 		if not semester:
 			semester = get_current_semester()
-		else:
-			try: semester = float(semester)
-			except ValueError: semester = get_current_semester()
 
 		template_vals = {
 			'title': 'ID card for ' + member.name,
@@ -68,12 +65,9 @@ class AllCardsPage(webapp2.RequestHandler):
 		members = Member.query(Member.card_printed == False, Member.current_student == True, Member.semesters_paid == get_current_semester()).order(Member.name).fetch(limit=None)
 		
 		# Pick current semester by default, otherwise if there is a parameter in the request use that as a reference
-		semester = self.request.get('semester')
+		semester = validate_semester(self.request.get('semester'))
 		if not semester: 
 			semester = get_current_semester()
-		else:
-			try: semester = float(semester)
-			except ValueError: semester = get_current_semester()
 
 		template_vals = {
 			'title': 'ID cards for ' + semester_pretty(semester),

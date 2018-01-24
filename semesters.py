@@ -72,3 +72,18 @@ def semester_pretty(semester):
 	year = int(semester)
 	semester_str = 'Spring' if round(semester - year, 1) == 0.1 else 'Fall'
 	return semester_str + ' ' + `year`
+
+def validate_semester(semester):
+	try: semester = float(semester)
+	# Don't accept anything that does not cast to a float
+	except ValueError: return None
+
+	# Reject semesters that are not in this milennia
+	if semester > 3000 or semester < 2000:
+		return None
+	# Reject semesters that are not Fall or Spring
+	elif: round(semester - int(semester), 1) not in [.1, .2]:
+		return None
+	else: return semester
+
+	
