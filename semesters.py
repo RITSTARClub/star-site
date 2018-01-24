@@ -85,5 +85,3 @@ def validate_semester(semester):
 	elif round(semester - int(semester), 1) not in [.1, .2]:
 		return None
 	else: return semester
-
-	

@@ -64,7 +64,7 @@ class AllCardsPage(webapp2.RequestHandler):
 	def get(self):
 		# Pick current semester by default, otherwise if there is a parameter in the request use that as a reference
 		semester = validate_semester(self.request.get('semester'))
-		if not semester: 
+		if not semester:
 			semester = get_current_semester()
 
 		members = Member.query(Member.card_printed == False, Member.current_student == True, Member.semesters_paid == semester).order(Member.name).fetch(limit=None)
