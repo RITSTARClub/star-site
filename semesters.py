@@ -82,7 +82,7 @@ def validate_semester(semester):
 	if semester > 3000 or semester < 2000:
 		return None
 	# Reject semesters that are not Fall or Spring
-	elif: round(semester - int(semester), 1) not in [.1, .2]:
+	elif round(semester - int(semester), 1) not in [.1, .2]:
 		return None
 	else: return semester
 

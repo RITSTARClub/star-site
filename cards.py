@@ -62,12 +62,12 @@ class SingleCardPage(webapp2.RequestHandler):
 
 class AllCardsPage(webapp2.RequestHandler):
 	def get(self):
-		members = Member.query(Member.card_printed == False, Member.current_student == True, Member.semesters_paid == get_current_semester()).order(Member.name).fetch(limit=None)
-		
 		# Pick current semester by default, otherwise if there is a parameter in the request use that as a reference
 		semester = validate_semester(self.request.get('semester'))
 		if not semester: 
 			semester = get_current_semester()
+
+		members = Member.query(Member.card_printed == False, Member.current_student == True, Member.semesters_paid == semester).order(Member.name).fetch(limit=None)
 
 		template_vals = {
 			'title': 'ID cards for ' + semester_pretty(semester),
