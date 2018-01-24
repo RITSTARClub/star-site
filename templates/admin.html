@@ -18,5 +18,22 @@
 		<br />
 	</form>
 </section>
+<section>
+	<h2>Print All ID Cards</h2>
+	<form action=/cards/all>
+		<h3>Select semester for which to generate ID cards:</h3>
+		<select name="semester" size="{{ semesters|length }}">
+			{% for semester in semesters %}
+			<option value={{ semester }}{% if semester == current_semester%} selected="selected"{%endif%}>{{ semester }}</option>
+			{% endfor %}
+		</select>
+		<br />
+		<br />
+		<button type="submit">Print</button>
+		<br />
+		<br />
+	</form>
+
+</section>
 
 {% include 'foot.html' %}

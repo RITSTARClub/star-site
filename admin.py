@@ -11,6 +11,7 @@ import webapp2
 
 from models import APIKey, PageContent
 from utils import require_admin, generate_base_template_vals
+from semesters import get_all_semesters, get_current_semester
 
 JINJA_ENVIRONMENT = jinja2.Environment(
 	loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates/')),
@@ -25,6 +26,8 @@ class AdminPage(webapp2.RequestHandler):
 		template_vals = generate_base_template_vals(self)
 		template_vals['title'] = 'Admin Hub'
 		template_vals['page'] = 'admin'
+		template_vals['semesters'] = get_all_semesters()
+		template_vals['current_semester'] = get_current_semester()
 		
 		# Get custom home page text.
 		home_content = PageContent.query(PageContent.page == 'home').get()
