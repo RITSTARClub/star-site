@@ -101,7 +101,7 @@ class Member(ndb.Model):
 			search.AtomField(name='email', value=self.email)
 		]
 		for semester in self.semesters_paid:
-			fields.append(search.AtomField(name='semester', value=`semester`))
+			fields.append(search.AtomField(name='semester', value=str(round(semester, 1))))
 		
 		doc = search.Document(doc_id=self.id, fields=fields)
 		search.Index(name=MEMBER_SEARCH_INDEX_NAME).put(doc)
