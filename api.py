@@ -144,17 +144,12 @@ class RankAPI(webapp2.RequestHandler):
 			except ValueError:
 				self.error(400)
 				return
-		
-		if rank_type == 'name':
-			output = member.get_rank_name(selected_semester)
-		elif rank_type == 'disp':
-			output = member.get_rank_disp(selected_semester)
-		elif rank_type == 'with_name':
-			output = member.get_name_with_rank(selected_semester)
-		else: 
-			# 400 if no known rank type is passed
-			self.error(404)
-			return
+		#Build output dict with all rank related results	
+		output = {
+		'rankName': member.get_rank_name(selected_semester),
+		'rankDisp': member.get_rank_disp(selected_semester),
+		'rankWithName': member.get_name_with_rank(selected_semester)}
+
 
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.write(json.dumps(output))
