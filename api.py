@@ -86,7 +86,7 @@ class MemberListAPI(webapp2.RequestHandler):
 		selected_semester = self.request.get('semester')
 		
 		if selected_semester:
-			# Avoid throwing error 500 if a bad semester string is supplied
+			# Avoid throwing error 500 if a bad semester string is supplied.
 			try:
 				selected_semester = float(selected_semester)
 			except ValueError:
@@ -123,7 +123,7 @@ class MemberAPI(webapp2.RequestHandler):
 		self.response.write(json.dumps(output))
 
 class RankAPI(webapp2.RequestHandler):
-	def get(self, rank_type, id):
+	def get(self, id):
 		if not check_authentication(self):
 			return
 
@@ -144,7 +144,7 @@ class RankAPI(webapp2.RequestHandler):
 			except ValueError:
 				self.error(400)
 				return
-		#Build output dict with all rank related results	
+		#Build output dict with all rank related results
 		output = {
 		'rankName': member.get_rank_name(selected_semester),
 		'rankDisp': member.get_rank_disp(selected_semester),
@@ -238,7 +238,7 @@ class APIFail(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
 	('/api/members/?', MemberListAPI),
 	('/api/member/([a-z0-9]+)', MemberAPI),
-	('/api/rank/([a-z_]+)/([a-zA-Z0-9]+)', RankAPI),
+	('/api/rank/([a-zA-Z0-9]+)', RankAPI),
 	('/api/missions/?', MissionListAPI),
 	('/api/mission/([a-z0-9]+)', MissionAPI),
 	('/api/bridgecrews/?', BridgeCrewListAPI),
