@@ -24,37 +24,37 @@ def format_member(member):
 		'show': member.show,
 		'name': member.name,
 		'dce': member.dce,
-		'mailing_list': member.mailing_list,
-		'current_student': member.current_student,
+		'mailingList': member.mailing_list,
+		'currentStudent': member.current_student,
 		'email': member.email,
-		'semesters_paid': member.semesters_paid,
-		'mission_ids': member.mission_ids,
-		'committee_rank': member.committee_rank,
-		'merit_rank1': member.merit_rank1,
-		'merit_rank2': member.merit_rank2,
-		'card_color': member.card_color,
-		'card_emblem': member.card_emblem,
-		'card_printed': member.card_printed
+		'semestersPaid': member.semesters_paid,
+		'missionIds': member.mission_ids,
+		'committeeRank': member.committee_rank,
+		'meritRank1': member.merit_rank1,
+		'meritRank2': member.merit_rank2,
+		'cardColor': member.card_color,
+		'cardEmblem': member.card_emblem,
+		'cardPrinted': member.card_printed
 	}
 
 def format_mission(mission):
 	return {
 		'id': mission.id,
 		'type': mission.type,
-		'type_name': mission.type_name,
+		'typeName': mission.type_name,
 		'title': mission.title,
 		'description': mission.description,
-		'html_description': mission.html_description,
+		'htmlDescription': mission.html_description,
 		'start': mission.start_str,
 		'end': mission.end_str,
 		'location': mission.location,
 		'runners': mission.runners,
-		'wave_url': mission.wave_url,
-		'drive_url': mission.drive_url,
-		'fb_url': mission.fb_url,
-		'gplus_url': mission.gplus_url,
-		'the_link_url': mission.the_link_url,
-		'youtube_url': mission.youtube_url
+		'waveUrl': mission.wave_url,
+		'driveUrl': mission.drive_url,
+		'fbUrl': mission.fb_url,
+		'gplusUrl': mission.gplus_url,
+		'theLinkUrl': mission.the_link_url,
+		'youtubeUrl': mission.youtube_url
 	}
 
 def format_bridgecrew(crew):
@@ -64,7 +64,7 @@ def format_bridgecrew(crew):
 		'end': str(crew.end),
 		'admiral': crew.admiral,
 		'captain': crew.captain,
-		'first_officer': crew.first_officer,
+		'firstOfficer': crew.first_officer,
 		'ops': crew.ops,
 		'comms': crew.comms,
 		'engi': crew.engi,
