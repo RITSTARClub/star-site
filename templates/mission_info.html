@@ -60,7 +60,7 @@
 		
 		{% if mission.youtube_url %}
 			<a href="{{ mission.youtube_url }}" target="_blank" class="socialIcon youtube small">YouTube video</a>
-		{% elif admin %}
+		{% elif admin and mission.type == 0 %}
 			<a href="/missions/edit?id={{ mission.id }}" class="socialIcon youtube small missing">No YouTube link</a>
 		{% endif %}
 	</p>
