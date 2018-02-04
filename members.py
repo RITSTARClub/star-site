@@ -35,7 +35,16 @@ class MemberListPage(webapp2.RequestHandler):
 			search_query = 'semester:' + str(get_current_semester())
 		
 		# Run the search.
-		search_results = search.Index(MEMBER_SEARCH_INDEX_NAME).search(search_query)
+		search_results = search.Index(MEMBER_SEARCH_INDEX_NAME).search(search.Query(
+				query_string=search_query,
+				options=search.QueryOptions(
+					sort_options=search.SortOptions(
+						expressions=[
+							search.SortExpression(
+								expression='name',
+								direction=search.SortExpression.ASCENDING, 
+								default_value='')
+						]))))
 		
 		# Fetch the members.
 		show_private = users.is_current_user_admin()
