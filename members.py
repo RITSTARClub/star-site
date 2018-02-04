@@ -32,7 +32,7 @@ class MemberListPage(webapp2.RequestHandler):
 		
 		# If there was no search or semester specified, default to the current semester.
 		if not search_query:
-			search_query = 'semester:' + `get_current_semester()`
+			search_query = 'semester:' + str(get_current_semester())
 		
 		# Run the search.
 		search_results = search.Index(MEMBER_SEARCH_INDEX_NAME).search(search_query)
