@@ -77,7 +77,6 @@ class APIFail(webapp2.RequestHandler):
 		self.error(404)
 
 app = webapp2.WSGIApplication([
-	('/api/key', APIKeyHandler),
 	('/api/members', MemberListAPI),
 	('/api/member', MemberAPI),
 	('/api/?(\?.*)?', APIFail)
