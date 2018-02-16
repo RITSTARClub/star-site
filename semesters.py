@@ -65,7 +65,6 @@ def semester_date(semester):
 	year = int(semester)
 	semester = semester - year
 	month = (1 if round(semester, 1) == 0.1 else FALL_START_MONTH)
-	
 	return datetime(year, month, 1)
 
 def semester_pretty(semester):
@@ -74,14 +73,18 @@ def semester_pretty(semester):
 	return semester_str + ' ' + `year`
 
 def validate_semester(semester):
-	try: semester = float(semester)
-	# Don't accept anything that does not cast to a float
-	except ValueError: return None
+	try:
+		semester = float(semester)
+	# Don't accept anything that does not cast to a float.
+	except ValueError: 
+		return None
 
-	# Reject semesters that are not in this milennia
+	# Reject semesters that are not in this milennium.
 	if semester > 3000 or semester < 2000:
 		return None
+
 	# Reject semesters that are not Fall or Spring
-	elif round(semester - int(semester), 1) not in [.1, .2]:
+	elif round(semester - int(semester), 1) not in [0.1, 0.2]:
 		return None
-	else: return semester
+	else: 
+		return semester
