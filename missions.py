@@ -3,15 +3,19 @@
 from datetime import datetime
 import os
 import urllib2
+import json
 from uuid import uuid4
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
+from google.appengine.api import search
 
 import jinja2
 import webapp2
 
 from models import Mission
+from models import Member
+from constants import MEMBER_SEARCH_INDEX_NAME
 from semesters import FIRST_SEMESTER, get_current_semester, get_all_semesters, prev_semester, next_semester, semester_date, semester_pretty
 from utils import require_admin, generate_base_template_vals
 
@@ -171,11 +175,35 @@ class MissionEditPage(webapp2.RequestHandler):
 			self.redirect('/missions/hidden', code=303)
 			return
 		
-		self.redirect('/missions/' + mission.id, code=303)	
+		self.redirect('/missions/' + mission.id, code=303)
+
+
+# Use search function to get back the full name of the members and their unique ids
+class SearchHandler(webapp2.RequestHandler):
+	def get(self):
+
+		search_query = self.request.get('search_query')
+
+		# Run the search.
+		search_results = search.Index(MEMBER_SEARCH_INDEX_NAME).search(search_query)
+
+		# Fetch the members.
+		show_private = users.is_current_user_admin()
+		members = []
+		for result in search_results.results:
+			member = Member.query(Member.id == result._doc_id).get()
+			if member and (member.show or show_private):
+				members.append({
+					'name': str(member.name),
+					'u_id': str(member.id)
+				})
+
+		self.response.out.write(json.dumps(members, sort_keys=True))
 
 app = webapp2.WSGIApplication([
 	('/missions/?(\?.*)?', MissionListPage),
 	('/missions/hidden/?', HiddenListPage),
 	('/missions/edit/?(\?.*)?', MissionEditPage),
-	('/missions/([a-z0-9\-]+)', MissionInfoPage)
+	('/missions/([a-z0-9\-]+)', MissionInfoPage),
+	('/missions/search/', SearchHandler)
 ])

@@ -94,7 +94,7 @@
 					</label>
 				</td>
 				<td>
-					<input type="text" class="awesomplete" name="runners" data-list="Ada, Java, JavaScript, Brainfuck, LOLCODE, Node.js, Ruby on Rails"/>
+					<input type="text" id="ajaxTest" class="awesomplete" name="runners" onkeyup="getMembers()"/>
 				</td>
 			</tr>
 			<tr>
@@ -222,6 +222,41 @@
 	</form>
 </section>
 <script type="text/javascript" src="/static/scripts/mission_field_validation.js"></script>
+<script>
+						var input;
+						$(document).ready((function() {
+						    input = document.getElementsByClassName("awesomplete").item(1);
+							//console.log(input);
+						}));
+
+						function getMembers(){
+						    var query = input.value;
+						    if(input.value.length > 2){
+								$.ajax({
+								  type: "GET",
+								  url: "/missions/search/",
+								  data: { search_query: query}
+								}).done(function( data ) {
+								    //console.log(JSON.parse(data));
+									console.log(data);
+									//remove old awesomeplte div
+//									var oldDiv = document.getElementsByClassName("awesomplete").item(0);
+//									if(awesomplete.list){
+//										awesomplete.list = JSON.parse(data);
+//									}else{
+//									   new Awesomplete(input, {
+//											list: JSON.parse(data)
+//										});
+//									}
+									 new Awesomplete(input, {
+										 list: JSON.parse(data)
+									 });
+
+								});
+							}
+							input.focus();
+						}
+					</script>
 <br />
 
 {% include 'foot.html' %}
