@@ -24,6 +24,7 @@
 * Constant names should be ALL_CAPS_SEPARATED_BY_UNDERSCORES.
 * Strings should use single quotes.
 * Surround operators with spaces.
+* The code block within a control structure (`if`, `for`, `try`, etc.) should be indented one additional level and not on the same line as the control structure.
 
 
 ### HTML
@@ -36,14 +37,15 @@
 * Indent with tabs, NOT spaces.
 * Variable and function names should be in camelCase.
 * Constant names should be ALL_CAPS_SEPARATED_BY_UNDERSCORES.
-* Braces should open on the same line as control structures (`if`, `for`, etc.), NOT on the next line.
 * Surround operators with spaces.
+* Braces should open on the same line as control structures (`if`, `for`, `try`, etc.), NOT on the next line.
+* The code block within a control structure (`if`, `for`, `try`, etc.) should be indented one additional level and not on the same line as the control structure.
 
 --------
 ## Credits
 
 * The site uses a [Python](http://python.org) backend running on [Google App Engine](https://developers.google.com/appengine).
-* Created, designed, and coded by [Zachary Yaro](https://zmyaro.com).
+* Original website created, designed, and coded by [Zachary Yaro](https://zmyaro.com), maintained by [STAR Webmaster Committee](http://webmasters.ritstar.com).
 * Design inspired by LCARS from _Star Trek: The Next Generation_.
 * [Python Markdown implementation](https://pypi.python.org/pypi/Markdown) created by Waylan Limberg.
 * GitHub-Flavored Markdown Python implementation by [Christian Oudard](https://gist.github.com/christian-oudard/457617), [mvasilkov](https://gist.github.com/mvasilkov/710689), and [Matt Westcott](https://gist.github.com/gasman/856894).
