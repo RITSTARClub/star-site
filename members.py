@@ -38,6 +38,8 @@ class MemberListPage(webapp2.RequestHandler):
 		search_results = search.Index(MEMBER_SEARCH_INDEX_NAME).search(search.Query(
 				query_string=search_query,
 				options=search.QueryOptions(
+					limit=999,
+					ids_only=True,
 					sort_options=search.SortOptions(
 						expressions=[
 							search.SortExpression(
