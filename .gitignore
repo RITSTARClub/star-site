@@ -1,3 +1,4 @@
 *.pyc
+index.yaml
 gfm.py
 markdown
