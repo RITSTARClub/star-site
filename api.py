@@ -82,10 +82,10 @@ class MemberListAPI(webapp2.RequestHandler):
 		if not check_authentication(self):
 			return
 		
-		# Get all users from the given semester
+		# Get all users from the given semester.
 		selected_semester = self.request.get('semester')
 
-		# By default only grab members who have paid and wish to be listed publicly
+		# By default only grab members who have paid and wish to be listed publicly.
 		show_all = self.request.get('all')
 		if show_all:
 			if show_all.lower() == 'true':
@@ -95,7 +95,7 @@ class MemberListAPI(webapp2.RequestHandler):
 		else: 
 			show_all = False
 
-		# If ID is specified as a parameter, only provide one member in the output, filtered by that ID
+		# If ID is specified as a parameter, only provide one member in the output, filtered by that ID.
 		member_id = self.request.get('id')
 		if member_id:
 			member = Member.query(Member.id == member_id).get()
@@ -133,7 +133,7 @@ class RankAPI(webapp2.RequestHandler):
 
 		member = Member.query(Member.id == id).get()
 		if not member:
-			# 404 if a nonexistent member is specified
+			# Throw 404 if a nonexistent member is specified.
 			self.error(404)
 			return
 
@@ -142,17 +142,17 @@ class RankAPI(webapp2.RequestHandler):
 		if not selected_semester:
 			selected_semester = get_current_semester()
 		else:
-			# Avoid throwing error 500 if a bad semester string is supplied
+			# Avoid throwing error 500 if a bad semester string is supplied.
 			try:
 				selected_semester = float(selected_semester)
 			except ValueError:
 				self.error(400)
 				return
-		#Build output dict with all rank related results
+		# Build output dict with all rank related results.
 		output = {
-		'rankName': member.get_rank_name(selected_semester),
-		'rankDisp': member.get_rank_disp(selected_semester),
-		'rankWithName': member.get_name_with_rank(selected_semester)}
+		'name': member.get_rank_name(selected_semester),
+		'disp': member.get_rank_disp(selected_semester),
+		'rankName': member.get_name_with_rank(selected_semester)}
 
 
 		self.response.headers['Content-Type'] = 'application/json'
@@ -165,9 +165,9 @@ class MissionListAPI(webapp2.RequestHandler):
 		
 		selected_semester = self.request.get('semester')
 
-		# Offer option to filter by a semester, but by default just send all missions
+		# Offer option to filter by a semester, but by default just send all missions.
 		if selected_semester:
-			# Avoid throwing error 500 if a bad semester string is supplied
+			# Avoid throwing error 500 if a bad semester string is supplied.
 			try:
 				selected_semester = float(selected_semester)
 			except ValueError:
@@ -190,14 +190,14 @@ class MissionAPI(webapp2.RequestHandler):
 			return
 
 		if not id:
-			# Error if no mission specified
+			# Throw 400 if no mission specified.
 			self.error(400)
 			return
 
 		mission = Mission.query(Mission.id == id).get()
 
 		if not mission:
-			# Error if mission not found
+			# Throw 404 if mission not found.
 			self.error(404)
 			return
 
@@ -222,7 +222,7 @@ class BridgeCrewAPI(webapp2.RequestHandler):
 		if not check_authentication(self):
 			return
 
-		# Only link latest bridge crew for now, don't see a reason to send anything besides the current one or all of them
+		# Only link latest bridge crew for now, don't see a reason to send anything besides the current one or all of them.
 		if crew == 'current':
 			bridgecrew = BridgeCrew.query().order(-BridgeCrew.start).get()
 		else:
