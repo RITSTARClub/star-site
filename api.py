@@ -94,8 +94,16 @@ class MemberListAPI(webapp2.RequestHandler):
 				show_all = False
 		else: 
 			show_all = False
-		
-		if selected_semester:
+
+		# If ID is specified as a parameter, only provide one member in the output, filtered by that ID
+		member_id = self.request.get('id')
+		if member_id:
+			member = Member.query(Member.id == member_id).get()
+			if not member:
+				self.error(404)
+				return
+			members = [member]
+		elif selected_semester:
 			# Avoid throwing error 500 if a bad semester string is supplied.
 			try:
 				selected_semester = float(selected_semester)
@@ -106,7 +114,6 @@ class MemberListAPI(webapp2.RequestHandler):
 				members = Member.query(Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
 			else:
 				members = Member.query(Member.semesters_paid == selected_semester, Member.never_paid == False, Member.show == True).order(Member.name).fetch(limit=None)
-
 		else:
 			if show_all:
 				members = Member.query().order(Member.name).fetch(limit=None)
@@ -115,27 +122,6 @@ class MemberListAPI(webapp2.RequestHandler):
 
 		
 		output = [format_member(member) for member in members]
-		
-		self.response.headers['Content-Type'] = 'application/json'
-		self.response.write(json.dumps(output))
-
-class MemberAPI(webapp2.RequestHandler):
-	def get(self, id):
-		if not check_authentication(self):
-			return
-		
-		if not id:
-			# Error out if no member is specified.
-			self.error(400)
-			return
-		
-		member = Member.query(Member.id == id).get()
-		if not member:
-			# 404 if a nonexistent member is specified.
-			self.error(404)
-			return
-		
-		output = format_member(member)
 		
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.write(json.dumps(output))
@@ -255,7 +241,6 @@ class APIFail(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/api/members/?', MemberListAPI),
-	('/api/member/([a-z0-9]+)', MemberAPI),
 	('/api/rank/([a-zA-Z0-9]+)', RankAPI),
 	('/api/missions/?', MissionListAPI),
 	('/api/mission/([a-z0-9]+)', MissionAPI),
