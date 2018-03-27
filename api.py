@@ -84,6 +84,16 @@ class MemberListAPI(webapp2.RequestHandler):
 		
 		# Get all users from the given semester
 		selected_semester = self.request.get('semester')
+
+		# By default only grab members who have paid and wish to be listed publicly
+		show_all = self.request.get('all')
+		if show_all:
+			if show_all.lower() == 'true':
+				show_all = True
+			else: 
+				show_all = False
+		else: 
+			show_all = False
 		
 		if selected_semester:
 			# Avoid throwing error 500 if a bad semester string is supplied.
@@ -92,9 +102,17 @@ class MemberListAPI(webapp2.RequestHandler):
 			except ValueError:
 				self.error(400)
 				return
-			members = Member.query(Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
+			if show_all: 
+				members = Member.query(Member.semesters_paid == selected_semester).order(Member.name).fetch(limit=None)
+			else:
+				members = Member.query(Member.semesters_paid == selected_semester, Member.never_paid == False, Member.show == True).order(Member.name).fetch(limit=None)
+
 		else:
-			members = Member.query().order(Member.name).fetch(limit=None)
+			if show_all:
+				members = Member.query().order(Member.name).fetch(limit=None)
+			else:
+				members = Member.query(Member.never_paid == False, Member.show == True).order(Member.name).fetch(limit=None)
+
 		
 		output = [format_member(member) for member in members]
 		
