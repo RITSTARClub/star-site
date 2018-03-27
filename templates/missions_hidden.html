@@ -14,6 +14,14 @@
 				<td class="missionTypeCol">{{ mission.type_name }}</td>
 				<td class="missionTitleCol"><a href="/missions/edit?id={{ mission.id }}"><strong>{{ mission.title or '[Untitled]' }}</strong></a></td>
 				<td class="missionSocialCol">
+					{% if admin %}
+						{% if mission.wave_url %}
+							<a href="{{ mission.wave_url }}" target="_blank" class="socialIcon rizzoma tiny">Mission wave</a>
+						{% endif %}
+						{% if mission.drive_url %}
+							<a href="{{ mission.drive_url }}" target="_blank" class="socialIcon gdrive tiny">Google Drive folder</a>
+						{% endif %}
+					{% endif %}
 					{% if mission.fb_url %}
 						<a href="{{ mission.fb_url }}" target="_blank" class="socialIcon fb tiny">Facebook</a>
 					{% endif %}
@@ -22,6 +30,9 @@
 					{% endif %}
 					{% if mission.the_link_url %}
 						<a href="{{ mission.the_link_url }}" target="_blank" class="socialIcon thelink tiny">The Link</a>
+					{% endif %}
+					{% if mission.youtube_url %}
+						<a href="{{ mission.youtube_url }}" target="_blank" class="socialIcon youtube tiny">YouTube video</a>
 					{% endif %}
 			</tr>
 		{% endfor %}
