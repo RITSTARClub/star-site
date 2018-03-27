@@ -11,6 +11,9 @@
 	<table class="bigListTable">
 		{% for mission in missions %}
 			<tr>
+				{% if admin %}
+					<td><a href="/missions/edit?id={{ mission.id }}" style="text-decoration: none;">&#x270e;</a></td>
+				{% endif %}
 				<td class="missionTypeCol">{{ mission.type_name }}</td>
 				<td class="missionTitleCol"><a href="/missions/edit?id={{ mission.id }}"><strong>{{ mission.title or '[Untitled]' }}</strong></a></td>
 				<td class="missionSocialCol">
