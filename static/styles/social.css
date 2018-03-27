@@ -385,7 +385,7 @@
 			background-position: -48px -144px;
 		}
 	.socialIcon.tiny.rizzoma {
-		background-position: 0 -144px;
+		background-position: 0 -168px;
 	}
 		.socialIcon.tiny.rizzoma:not(.missing):hover {
 			background-position: -24px -168px;
@@ -394,7 +394,7 @@
 			background-position: -48px -168px;
 		}
 	.socialIcon.tiny.gdrive {
-		background-position: 0 -144px;
+		background-position: 0 -192px;
 	}
 		.socialIcon.tiny.gdrive:not(.missing):hover {
 			background-position: -24px -192px;
