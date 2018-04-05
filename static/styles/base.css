@@ -138,13 +138,11 @@ aside {
 	float: right;
 }
 
-div.awesomplete{
+div.awesomplete {
 	width: 100%;
+	color:black;
 }
 
-ul#awesomplete_list_1{
-	color: black;
-}
 
 @media (max-width: 600px) {
 	aside.minor {

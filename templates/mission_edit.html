@@ -94,7 +94,8 @@
 					</label>
 				</td>
 				<td>
-					<input type="text" id="ajaxTest" class="awesomplete" name="runners" onkeyup="getMembers()"/>
+					<input type="text" id="ajaxTest" class="awesomplete" name="runners_vis" oninput="getMembers()"/>
+					<input type="text" id="runners_id" name="runners" hidden/>
 				</td>
 			</tr>
 			<tr>
@@ -224,9 +225,26 @@
 <script type="text/javascript" src="/static/scripts/mission_field_validation.js"></script>
 <script>
 						var input;
+						var hidden_input;
+						var awesomplete;
+						var current_members;
 						$(document).ready((function() {
 						    input = document.getElementsByClassName("awesomplete").item(1);
-							//console.log(input);
+						    hidden_input = document.getElementById("runners_id");
+						    awesomplete = new Awesomplete(input,{
+								filter: function(text, input) {
+								  return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
+								},
+								replace: function(text) {
+								    //places the name into the visible one
+								  var before = this.input.value.match(/^.+,\s*|/)[0];
+								  this.input.value = before + text + ", ";
+								  //adds the id number to the actual input
+								  addHiddenMemberID(text);
+								}
+							});
+						    console.log("ready!");
+							getMembers();
 						}));
 
 						function getMembers(){
@@ -237,24 +255,25 @@
 								  url: "/missions/search/",
 								  data: { search_query: query}
 								}).done(function( data ) {
-								    //console.log(JSON.parse(data));
-									console.log(data);
-									//remove old awesomeplte div
-//									var oldDiv = document.getElementsByClassName("awesomplete").item(0);
-//									if(awesomplete.list){
-//										awesomplete.list = JSON.parse(data);
-//									}else{
-//									   new Awesomplete(input, {
-//											list: JSON.parse(data)
-//										});
-//									}
-									 new Awesomplete(input, {
-										 list: JSON.parse(data)
-									 });
-
+									awesomplete.list = JSON.parse(data);
+									current_members = JSON.parse(data);
 								});
 							}
 							input.focus();
+						}
+
+						function addHiddenMemberID(textLabel){
+							current_members.forEach(function(member){
+							    //console.log("mLabel",member.label);
+							    if(textLabel.label === member.label){
+									if(hidden_input.value.length > 0 ){
+								    	console.log(hidden_input.value.length);
+								    	hidden_input.value = hidden_input.value + "," + member.value;
+									}else{
+										hidden_input.value = member.value;
+									}
+								}
+							});
 						}
 					</script>
 <br />

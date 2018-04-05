@@ -194,8 +194,8 @@ class SearchHandler(webapp2.RequestHandler):
 			member = Member.query(Member.id == result._doc_id).get()
 			if member and (member.show or show_private):
 				members.append({
-					'name': str(member.name),
-					'u_id': str(member.id)
+					'label': str(member.name),
+					'value': str(member.id)
 				})
 
 		self.response.out.write(json.dumps(members, sort_keys=True))
