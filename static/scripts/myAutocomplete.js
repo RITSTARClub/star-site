@@ -28,7 +28,7 @@ var input;
                             }else{
 						        query = input.value;
                             }
-						    if(input.value.length > 2){
+						    if(input.value.length >= 2){
 								$.ajax({
 								  type: "GET",
 								  url: "/missions/search/",
