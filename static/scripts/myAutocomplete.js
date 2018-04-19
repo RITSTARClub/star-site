@@ -4,6 +4,7 @@ var awesomplete;
 var current_members;
 $(document).ready((function() {
 	input = document.getElementsByClassName("awesomplete").item(1);
+	input.value = input.value.substring(0,input.value.length-1); //removes the last comma
 	hidden_input = document.getElementById("runners_id");
 	awesomplete = new Awesomplete(input,{
 		filter: function(text, input) {
@@ -40,6 +41,21 @@ function getMembers(){
 		});
 	}
 	input.focus();
+}
+
+function removeMembers(){
+	var seenValArray = input.value.split(",");
+	var hiddenValArray = hidden_input.value.split(",");
+	var seenLength = seenValArray.length;
+	var hiddenLength = hidden_input.value.length;
+
+	if(seenLength !== hiddenValArray.length){
+		var remove = hiddenValArray.pop();
+		hidden_input.value = hidden_input.value.replace(remove,"");
+		if(hidden_input.value[hiddenLength -1] === ","){
+			hidden_input.value = hidden_input.value.substr(0,hiddenLength - 1);
+		}
+	}
 }
 
 function addHiddenMemberID(textLabel){
