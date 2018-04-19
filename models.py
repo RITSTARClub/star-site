@@ -108,6 +108,7 @@ class Member(ndb.Model):
 
 
 class BridgeCrew(ndb.Model):
+	id = ndb.StringProperty()
 	start = ndb.DateTimeProperty()
 	end = ndb.DateTimeProperty()
 	admiral = ndb.StringProperty() # Bridge crew member entries are member UUIDs
@@ -141,6 +142,12 @@ class BridgeCrew(ndb.Model):
 		engi_member = Member.query(Member.id == self.engi).get()
 		return engi_member.name
 	
+	def get_start_str(self):
+		return date_str(self.start)
+	
+	def get_end_str(self):
+		return date_str(self.end)
+	
 	def get_year_str(self):
 		return year_str(self.start.year, self.end.year)
 	
@@ -150,6 +157,8 @@ class BridgeCrew(ndb.Model):
 	ops_name = property(get_ops_name)
 	comms_name = property(get_comms_name)
 	engi_name = property(get_engi_name)
+	start_str = property(get_start_str)
+	end_str = property(get_end_str)
 	year_str = property(get_year_str)
 
 
@@ -182,10 +191,10 @@ class Mission(ndb.Model):
 	
 	def get_start_str(self):
 		return date_str(self.start)
-
+	
 	def get_end_str(self):
 		return date_str(self.end)
-
+	
 	def get_pretty_date(self):
 		return pretty_date(self.start, self.end)
 	

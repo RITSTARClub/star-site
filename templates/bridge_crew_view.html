@@ -27,12 +27,20 @@
 			<td><strong>Chief Engineer</strong></td>
 			<td>{{ current_crew.engi_name }}</td>
 		</tr>
+		{% if admin %}
+			<tr>
+				<td colspan="2"><a href="/bridgecrew/edit?id={{ current_crew.id }}" style="text-decoration: none;">&#x270e; Edit</a></td>
+			</tr>
+		{% endif %}
 	</table>
 </section>
 <section style="max-width: 1024px;">
 	<h2>Past Bridge Crews</h2>
 	<table class="bigListTable" style="width: 100%;">
 		<tr>
+			{% if admin %}
+				<td></td>
+			{% endif %}
 			<th>Year</th>
 			<th>Admiral</th>
 			<th>Captain</th>
@@ -43,6 +51,9 @@
 		</tr>
 		{% for crew in past_crews %}
 			<tr>
+				{% if admin %}
+					<td><a href="/bridgecrew/edit?id={{ crew.id }}" style="text-decoration: none;">&#x270e;</a></td>
+				{% endif %}
 				<td>{{ crew.year_str }}</td>
 				<td>{{ crew.admiral_name }}</td>
 				<td>{{ crew.captain_name }}</td>

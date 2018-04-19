@@ -1,0 +1,113 @@
+{% include 'head.html' %}
+
+<section>
+	<h1>Edit Bridge Crew</h1>
+	<form action="" method="POST">
+		<table class="formTable" style="width: 100%;">
+			<tr>
+				<td>
+					System ID
+				</td>
+				<td>
+					<input type="text" value="{{ crew.id }}" disabled="disabled" />
+					<input type="hidden" name="id" value="{{ crew.id }}" />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<hr />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="start">
+						Start date/time
+						<br />
+						<small>When the Changing Of The Guard mission ended and this crew took command</small>
+					</label>
+				</td>
+				<td>
+					<label for="start">
+						<input type="datetime-local" name="start" value="{{ crew.start_str or '' }}" />
+						<br />
+						<small>yyyy-mm-ddThh:mm</small>
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="end">
+						End date/time
+						<br />
+						<small>When the Changing Of The Guard mission started and this crew was releived</small>
+					</label>
+				</td>
+				<td>
+					<label for="end">
+						<input type="datetime-local" name="end" value="{{ crew.end_str or '' }}" />
+						<br />
+						<small>yyyy-mm-ddThh:mm</small>
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<hr />
+				</td>
+			</tr>
+			<tr>
+				<td>Admiral</td>
+				<td>
+					<input type="text" name="admiral" value="{{ crew.admiral or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>Captain</td>
+				<td>
+					<input type="text" name="captain" value="{{ crew.captain or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>First Officer</td>
+				<td>
+					<input type="text" name="first_officer" value="{{ crew.first_officer or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>Chief Operations Officer</td>
+				<td>
+					<input type="text" name="ops" value="{{ crew.ops or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>Chief Communications Officer</td>
+				<td>
+					<input type="text" name="comms" value="{{ crew.comms or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td>Chief Engineer</td>
+				<td>
+					<input type="text" name="engi" value="{{ crew.engi or '' }}" />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<hr />
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit">Save</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</section>
+<br />
+
+{% include 'foot.html' %}
