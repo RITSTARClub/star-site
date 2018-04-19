@@ -143,6 +143,16 @@ aside {
 	}
 }
 
+.col2 {
+	display: inline-block;
+	width: 48%;
+}
+@media (max-width: 600px) {
+	.col2 {
+		width: 100%;
+	}
+}
+
 .streamPlayer {
 	display: block;
 	width: 100%;
