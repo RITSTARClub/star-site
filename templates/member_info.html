@@ -1,12 +1,17 @@
 {% include 'head.html' %}
 
+<link rel="stylesheet" type="text/css" href="/static/styles/member.css" />
+
 <section>
 	<h1>{{ member.name }}</h1>
 	<div>
 		Current rank: {{ member.get_rank_name() }}
 	</div>
+	<iframe class="id-card" src="/cards/single/{{ member.id }}"
+		onload="this.contentDocument.querySelector('.card').style.margin = '0'; this.contentDocument.body.style.overflow = 'hidden';"></iframe>
 	
-	<div class="col2">
+	
+	<div class="member-info-column">
 		{% if member.missions %}
 			<h3>Missions run:</h3>
 			<ul>
@@ -19,7 +24,7 @@
 		{% endif %}
 	</div>
 	
-	<div class="col2">
+	<div class="member-info-column">
 	<h3>Was a member:</h3>
 		<ul>
 		{% for semester in member.get_semesters_paid_pretty() %}

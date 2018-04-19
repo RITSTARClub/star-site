@@ -1,0 +1,24 @@
+section {
+	min-height: 86mm;
+}
+
+.id-card {
+	display: block;
+	border: 0 none;
+	width: 54mm;
+	height: 86mm;
+	margin-top: 1em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@media (min-width: 600px) {
+	.id-card {
+		float: right;
+		margin-top: -6em;
+	}
+	.member-info-column {
+		display: inline-block;
+		width: 35%;
+	}
+}
