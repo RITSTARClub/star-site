@@ -94,8 +94,8 @@
 					</label>
 				</td>
 				<td>
-					<input type="text" id="ajaxTest" class="awesomplete" name="runners_vis" oninput="getMembers()"/>
-					<input type="text" id="runners_id" name="runners" hidden/>
+					<input type="text" id="ajaxTest" class="awesomplete" name="runners_vis" oninput="getMembers()" value="{% for runner in mission.runners_list %}{{ runner.name or runner.id or '' }},{% endfor %}"/>
+					<input type="text" id="runners_id" name="runners" value="{{ mission.runners_str or '' }}" hidden/>
 				</td>
 			</tr>
 			<tr>
