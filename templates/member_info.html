@@ -10,9 +10,8 @@
 	<iframe class="id-card" src="/cards/single/{{ member.id }}"
 		onload="this.contentDocument.querySelector('.card').style.margin = '0'; this.contentDocument.body.style.overflow = 'hidden';"></iframe>
 	
-	
-	<div class="member-info-column">
-		{% if member.missions %}
+	{% if member.missions %}
+		<div class="member-info-column">
 			<h3>Missions run:</h3>
 			<ul>
 				{% for mission in member.missions %}
@@ -21,8 +20,8 @@
 					</li>
 				{% endfor %}
 			</ul>
-		{% endif %}
-	</div>
+		</div>
+	{% endif %}
 	
 	<div class="member-info-column">
 	<h3>Was a member:</h3>
