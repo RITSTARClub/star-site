@@ -7,8 +7,10 @@
 	<div>
 		Current rank: {{ member.get_rank_name() }}
 	</div>
+	{% if member.get_rank() <= 6 %}
 	<iframe class="id-card" src="/cards/single/{{ member.id }}"
 		onload="this.contentDocument.querySelector('.card').style.margin = '0'; this.contentDocument.body.style.overflow = 'hidden';"></iframe>
+	{% endif %}
 	
 	{% if member.missions %}
 		<div class="member-info-column">
