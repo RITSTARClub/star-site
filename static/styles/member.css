@@ -15,7 +15,7 @@ section {
 @media (min-width: 600px) {
 	.id-card {
 		float: right;
-		margin-top: -6em;
+		margin-top: -5em;
 	}
 	.member-info-column {
 		display: inline-block;
