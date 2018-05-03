@@ -94,8 +94,8 @@
 					</label>
 				</td>
 				<td>
-					<input type="text" id="ajaxTest" class="awesomplete" name="runners_vis" oninput="getMembers();removeMembers();" value="{% for runner in mission.runners_list %}{{ runner.name or runner.id or '' }},{% endfor %}"/>
-					<input type="text" id="runners_id" name="runners" value="{{ mission.runners_str or '' }}" hidden/>
+					<input type="search" id="search_members" class="awesomplete" name="runners_vis" oninput="getMembers();" placeholder="Search members"/>
+                    <textarea id="runners" name="runners">{{ mission.runners_str or '' }}</textarea>
 				</td>
 			</tr>
 			<tr>

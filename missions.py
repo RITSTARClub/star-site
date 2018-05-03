@@ -164,6 +164,9 @@ class MissionEditPage(webapp2.RequestHandler):
 		req_runners = self.request.get('runners')
 		if req_runners:
 			req_runners = req_runners.replace(' ','').split(',')
+			for index, runner in enumerate(req_runners):
+				if "<" in runner:
+					req_runners[index] = runner[runner.find("<")+1:runner.find(">")]
 			mission.runners = req_runners
 		else:
 			mission.runners = []

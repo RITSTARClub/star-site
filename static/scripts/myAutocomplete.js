@@ -1,5 +1,5 @@
 var input;
-var hidden_input;
+var members_textarea;
 var awesomplete;
 var current_members;
 
@@ -9,18 +9,16 @@ var current_members;
  */
 $(document).ready((function() {
 	input = document.getElementsByClassName("awesomplete").item(1);
-	input.value = input.value.substring(0,input.value.length-1); //removes the last comma from the input value
-	hidden_input = document.getElementById("runners_id");
+	members_textarea = document.getElementById("runners");
 	awesomplete = new Awesomplete(input,{
 		filter: function(text, input) {
 		  return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
 		},
 		replace: function(text) {
-			//places the name into the visible one
-		  var before = this.input.value.match(/^.+,\s*|/)[0];
-		  this.input.value = before + text + ", ";
+			//clears input
+		  this.input.value = "";
 		  //adds the id number to the actual input
-		  addHiddenMemberID(text);
+		  addMembers(text);
 		}
 	});
 	getMembers();
@@ -55,33 +53,33 @@ function getMembers(){
  * Removal functionality so that both the visible and hidden inputs are in sync.
  * Removes the values that are split by the commas. Also removes the free flowing comma in the hidden input if applicable.
  */
-function removeMembers(){
-	var seenValArray = input.value.split(",");
-	var hiddenValArray = hidden_input.value.split(",");
-	var seenLength = seenValArray.length;
-	var hiddenLength = hidden_input.value.length;
-
-	if(seenLength !== hiddenValArray.length){
-		var remove = hiddenValArray.pop();
-		hidden_input.value = hidden_input.value.replace(remove,"");
-		if(hidden_input.value[hiddenLength -1] === ","){
-			hidden_input.value = hidden_input.value.substr(0,hiddenLength - 1);
-		}
-	}
-}
+// function removeMembers(){
+// 	var seenValArray = input.value.split(",");
+// 	var hiddenValArray = hidden_input.value.split(",");
+// 	var seenLength = seenValArray.length;
+// 	var hiddenLength = hidden_input.value.length;
+//
+// 	if(seenLength !== hiddenValArray.length){
+// 		var remove = hiddenValArray.pop();
+// 		hidden_input.value = hidden_input.value.replace(remove,"");
+// 		if(hidden_input.value[hiddenLength -1] === ","){
+// 			hidden_input.value = hidden_input.value.substr(0,hiddenLength - 1);
+// 		}
+// 	}
+// }
 
 /**
  * Adds member if to the hidden input.
  * @param textLabel
  */
-function addHiddenMemberID(textLabel){
+function addMembers(textLabel){
 	current_members.forEach(function(member){
-		//console.log("mLabel",member.label);
 		if(textLabel.label === member.label){
-			if(hidden_input.value.length > 0 ){
-				hidden_input.value = hidden_input.value + "," + member.value;
+			var member_info = member.label + "<" + member.value + ">";
+			if(members_textarea.value.length > 0 ){
+				members_textarea.value = members_textarea.value + "," + member_info;
 			}else{
-				hidden_input.value = member.value;
+				members_textarea.value = member_info;
 			}
 		}
 	});
