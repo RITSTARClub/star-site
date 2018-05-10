@@ -65,14 +65,11 @@ class BridgeCrewEditPage(webapp2.RequestHandler):
 		self.response.write(template.render(template_vals))
 	
 	def post(self, args):
-		import logging
-		logging.debug('SNTHOISNTHOISNT')
 		if not require_admin(self):
 			return
 		
-		logging.debug('UPDATE RECEIVED!')
 		req_id = self.request.get('id')
-		logging.debug('ID = ' + req_id)
+		
 		if not req_id:
 			self.error(422)
 			return
