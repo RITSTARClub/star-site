@@ -28,7 +28,8 @@ def format_member(member):
 		'currentStudent': member.current_student,
 		'email': member.email,
 		'semestersPaid': member.semesters_paid,
-		'missionIds': member.mission_ids,
+		'missionIds': [mission.id for mission in Mission.query(
+			Mission.runners == member.id).order(Mission.start).fetch(limit=None)],
 		'committeeRank': member.committee_rank,
 		'meritRank1': member.merit_rank1,
 		'meritRank2': member.merit_rank2,
@@ -57,7 +58,7 @@ def format_mission(mission):
 		'youtubeUrl': mission.youtube_url
 	}
 
-def format_bridgecrew(crew):
+def format_bridge_crew(crew):
 	return {
 		'yearStr': crew.year_str,
 		'start': str(crew.start),
@@ -210,9 +211,9 @@ class BridgeCrewListAPI(webapp2.RequestHandler):
 	def get(self):
 		if not check_authentication(self):
 			return
-		bridgecrews = BridgeCrew.query().fetch(limit=None)
+		bridge_crews = BridgeCrew.query().fetch(limit=None)
 
-		output = [format_bridgecrew(crew) for crew in bridgecrews]
+		output = [format_bridge_crew(crew) for crew in bridgecrews]
 
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.write(json.dumps(output))
@@ -224,12 +225,12 @@ class BridgeCrewAPI(webapp2.RequestHandler):
 
 		# Only link latest bridge crew for now, don't see a reason to send anything besides the current one or all of them.
 		if crew == 'current':
-			bridgecrew = BridgeCrew.query().order(-BridgeCrew.start).get()
+			bridge_crew = BridgeCrew.query().order(-BridgeCrew.start).get()
 		else:
 			self.error(404)
 			return
 
-		output = format_bridgecrew(bridgecrew)
+		output = format_bridge_crew(bridgecrew)
 
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.write(json.dumps(output))
@@ -243,8 +244,8 @@ app = webapp2.WSGIApplication([
 	('/api/members/?', MemberListAPI),
 	('/api/rank/([a-zA-Z0-9]+)', RankAPI),
 	('/api/missions/?', MissionListAPI),
-	('/api/mission/([a-z0-9]+)', MissionAPI),
+	('/api/mission/([a-zA-Z0-9]+)', MissionAPI),
 	('/api/bridgecrews/?', BridgeCrewListAPI),
-	('/api/bridgecrew/([a-z0-9]+)?', BridgeCrewAPI),
+	('/api/bridgecrew/([a-zA-Z0-9]+)?', BridgeCrewAPI),
 	('/api/?(\?.*)?', APIFail)
 ])
