@@ -19,5 +19,6 @@ def generate_base_template_vals(handler):
 
 def generate_plain_404(handler, message=''):
 	handler.error(404)
-	handler.response.headers['Content-Type'] = 'text/plain'
+	handler.response.headers['Content-Type'] = 'text/plain; charset=utf-8'
+	message = message.encode('utf-8')
 	handler.response.write(message)
