@@ -16,3 +16,8 @@ def generate_base_template_vals(handler):
 		'login_url': users.create_login_url(handler.request.uri),
 		'admin': users.is_current_user_admin()
 	}
+
+def generate_plain_404(handler, message=''):
+	handler.error(404)
+	handler.response.headers['Content-Type'] = 'text/plain'
+	handler.response.write(message)
