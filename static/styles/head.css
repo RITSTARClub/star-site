@@ -57,13 +57,14 @@
 
 #nav {
 	border-bottom: 12px solid #ffcc99;
+	text-align: center;
 }
 	#nav a {
 		display: inline-block;
 		position: relative;
 		
-		margin: -4px 8px -12px;
-		border-bottom: 12px solid transparent;
+		margin: -4px 8px 0;
+		border-bottom: 0 none transparent;
 		padding: 2px 0;
 		
 		font-family: 'Roboto Condensed', 'Helvetica Neue Condensed', 'Helvetica Condensed', 'Arial Narrow', sans-serif;
@@ -73,25 +74,6 @@
 		text-decoration: none;
 		white-space: nowrap;
 	}
-		#nav a::before,
-		#nav a::after {
-			content: '';
-			display: block;
-			position: absolute;
-			top: 0;
-			bottom: -12px;
-			width: 6px;
-			background-color: black;
-		}
-			#nav a::before {
-				left: -6px;
-			}
-			#nav a::after {
-				right: -6px;
-			}
-		#nav a:first-child {
-			margin-left: 32px;
-		}
 		#nav a:focus,
 		#nav a:hover,
 		#nav a.active {
@@ -104,33 +86,46 @@
 	#nav .extra-link {
 		float: right;
 		text-transform: none;
-	}
-
-@media (max-width: 820px) {
-	#nav .extra-link:last-child {
 		display: none;
 	}
-}
-@media (max-width: 680px) {
-	#nav .extra-link {
-		display: none;
-	}
-}
 
-@media (max-width: 560px) {
+@media (min-width: 560px) {
+	/* Fancy LCARS navigation bar style on wider windows. */
 	#nav {
-		text-align: center;
+		text-align: left;
 	}
 		#nav a {
-			border-bottom: 0 none transparent;
-			margin-bottom: 0;
+			border-bottom: 12px solid transparent;
+			margin-bottom: -12px;
 		}
 			#nav a::before,
 			#nav a::after {
-				display: none;
-				content: none;
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				bottom: -12px;
+				width: 6px;
+				background-color: black;
 			}
+				#nav a::before {
+					left: -6px;
+				}
+				#nav a::after {
+					right: -6px;
+				}
 			#nav a:first-child {
-				margin-left: 8px;
+				margin-left: 32px;
 			}
+}
+@media (min-width: 680px) {
+	/* Show STARfest but not STARchive on medium width windows. */
+	#nav .extra-link:not(:last-child) {
+		display: inline-block;
+	}
+}
+@media (min-width: 820px) {
+	#nav .extra-link {
+		display: inline-block;
+	}
 }
