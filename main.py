@@ -32,7 +32,22 @@ class HomePage(webapp2.RequestHandler):
 		template_vals['missions'] = Mission.query(Mission.start >= today).order(Mission.start).fetch(limit=5)
 		
 		# Pick an end quote.
+		template_vals['greeting'] = choice([
+			'Greetings from Earth!',
+			'Greetings, program!',
+			'Hello there!',
+			'Welcome aboard!'
+		])
+		template_vals['groups_call_to_action'] = choice([
+			'Boldly chat where some have chatted before',
+			'Come chat with us',
+			'Explore strange new groups',
+			'Join our groups',
+			'Join the collective',
+			'Join the conversation'
+		])
 		template_vals['end_quote'] = choice([
+			'Excelsior!',
 			'Live long and prosper.',
 			'May the Force be with you.',
 			'Never give up!  Never surrender!'

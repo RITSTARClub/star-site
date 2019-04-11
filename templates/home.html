@@ -1,7 +1,7 @@
 {% include 'head.html' %}
 
 <section>
-	<h1>Greetings, program!</h1>
+	<h1>{{ greeting }}</h1>
 	{{ home_html|safe }}
 </section>
 
@@ -28,7 +28,7 @@
 </section>
 
 <section style="text-align: center;">
-	<h2 style="margin-bottom: 0;">Join our groups</h2>
+	<h2 style="margin-bottom: 0;">{{ groups_call_to_action }}</h2>
 	<a href="https://www.facebook.com/groups/STARIT" target="_blank" class="socialIcon large fb">Facebook group</a>
 	<a href="https://ritstar.slack.com" target="_blank" class="socialIcon large slack">Slack team</a>
 	<a href="https://discordapp.com/invite/nrU6wxW" target="_blank" class="socialIcon large discord">Discord server</a>
