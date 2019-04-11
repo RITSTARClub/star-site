@@ -77,12 +77,12 @@
 		text-transform: none;
 	}
 
-@media (max-width: 760px) {
+@media (max-width: 820px) {
 	#nav .extra-link:last-child {
 		display: none;
 	}
 }
-@media (max-width: 660px) {
+@media (max-width: 680px) {
 	#nav .extra-link {
 		display: none;
 	}
