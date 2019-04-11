@@ -72,13 +72,18 @@
 			border-bottom-color: #cc99ff;
 		}
 		
-	#nav #starfestLink {
+	#nav .extra-link {
 		float: right;
 		text-transform: none;
 	}
 
+@media (max-width: 760px) {
+	#nav .extra-link:last-child {
+		display: none;
+	}
+}
 @media (max-width: 660px) {
-	#nav #starfestLink {
+	#nav .extra-link {
 		display: none;
 	}
 }
