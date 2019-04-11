@@ -15,6 +15,20 @@
 	#header img {
 		height: 107px;
 	}
+	#header .star-name {
+		display: none;
+		
+		position: absolute;
+		
+		font-family: 'Roboto Condensed', 'Helvetica Neue Condensed', 'Helvetica Condensed', 'Arial Narrow', sans-serif;
+		font-weight: bold;
+		text-transform: uppercase;
+		
+		color: #ffcc99;
+		
+		transition-duration: 0.15s;
+		transition-property: font-size, left, top;
+	}
 
 @media (max-width: 417px) {
 	#header {
@@ -24,6 +38,21 @@
 			width: 100%;
 			height: auto;
 		}
+}
+@media (min-width: 660px) {
+	#header .star-name {
+		display: block;
+		left: 324px;
+		top: 66px;
+		font-size: 24px;
+	}
+}
+@media (min-width: 1024px) {
+	#header .star-name {
+		left: 356px;
+		top: 22px;
+		font-size: 48px;
+	}
 }
 
 #nav {
