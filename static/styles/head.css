@@ -4,16 +4,13 @@
 	margin-top: 4px;
 	padding: 0;
 	
-	background-color: #080808;
-	background-image: url('/static/images/header_logo_line.png');
-	background-repeat: repeat-x;
-	background-size: 8px 107px;
 }
 	#header a {
 		text-decoration: none;
 	}
 	#header img {
-		height: 107px;
+		width: 100%;
+		height: auto;
 	}
 	#header .star-name {
 		display: none;
@@ -30,13 +27,16 @@
 		transition-property: font-size, left, top;
 	}
 
-@media (max-width: 417px) {
+@media (min-width: 417px) {
 	#header {
-		background-image: none;
+		background-color: #080808;
+		background-image: url('/static/images/header_logo_line.png');
+		background-repeat: repeat-x;
+		background-size: 8px 107px;
 	}
 		#header img {
-			width: 100%;
-			height: auto;
+			width: 417px;
+			height: 107px;
 		}
 }
 @media (min-width: 660px) {
