@@ -11,7 +11,7 @@
 	overflow: hidden;
 	
 	background-image: url('/static/images/social_icons.png');
-	background-size: 144px 432px;
+	background-size: 144px 480px;
 }
 	.socialIcon.missing::after {
 		content: '?';
@@ -126,7 +126,7 @@
 			background-position: -96px -336px;
 		}
 	.socialIcon.gdrive {
-		background-position: 0 -288px;
+		background-position: 0 -384px;
 	}
 		.socialIcon.gdrive:not(.missing):hover {
 			background-position: -48px -384px;
@@ -134,11 +134,20 @@
 		.socialIcon.gdrive:not(.missing):active {
 			background-position: -96px -384px;
 		}
+	.socialIcon.discord {
+		background-position: 0 -432px;
+	}
+		.socialIcon.discord:not(.missing):hover {
+			background-position: -48px -432px;
+		}
+		.socialIcon.discord:not(.missing):active {
+			background-position: -96px -432px;
+		}
 
 .socialIcon.large {
 	width: 96px;
 	height: 96px;
-	background-size: 288px 864px;
+	background-size: 288px 960px;
 }
 	.socialIcon.large.missing::after {
 		font-size: 48px;
@@ -224,11 +233,20 @@
 		.socialIcon.large.gdrive:not(.missing):active {
 			background-position: -192px -768px;
 		}
+	.socialIcon.large.discord {
+		background-position: 0 -864px;
+	}
+		.socialIcon.large.discord:not(.missing):hover {
+			background-position: -96px -864px;
+		}
+		.socialIcon.large.discord:not(.missing):active {
+			background-position: -192px -864px;
+		}
 
 .socialIcon.small {
 	width: 36px;
 	height: 36px;
-	background-size: 108px 324px;
+	background-size: 108px 360px;
 }
 	.socialIcon.small.missing::after {
 		font-size: 18px;
@@ -314,11 +332,20 @@
 		.socialIcon.small.gdrive:not(.missing):active {
 			background-position: -72px -288px;
 		}
+	.socialIcon.small.discord {
+		background-position: 0 -324px;
+	}
+		.socialIcon.small.discord:not(.missing):hover {
+			background-position: -36px -324px;
+		}
+		.socialIcon.small.discord:not(.missing):active {
+			background-position: -72px -324px;
+		}
 
 .socialIcon.tiny {
 	width: 24px;
 	height: 24px;
-	background-size: 72px 216px;
+	background-size: 72px 240px;
 }
 	.socialIcon.tiny.missing::after {
 		font-size: 12px;
@@ -403,4 +430,13 @@
 		}
 		.socialIcon.tiny.gdrive:not(.missing):active {
 			background-position: -48px -192px;
+		}
+	.socialIcon.tiny.discord {
+		background-position: 0 -216px;
+	}
+		.socialIcon.tiny.discord:not(.missing):hover {
+			background-position: -24px -216px;
+		}
+		.socialIcon.tiny.discord:not(.missing):active {
+			background-position: -48px -216px;
 		}
