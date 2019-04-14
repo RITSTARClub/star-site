@@ -97,7 +97,11 @@
 		{% endif %}
 		<ul style="list-style-type: none;">
 			{% for runner in mission.runners_list %}
-				{% if runner.show %}<li>{{ runner.name or runner.id }}</li>{% endif %}
+				{% if runner.show %}
+					<li>
+						<a href="/members/{{ runner.id }}">{{ runner.name or runner.id }}</a>
+					</li>
+				{% endif %}
 			{% endfor %}
 		</ul>
 	{% endif %}
