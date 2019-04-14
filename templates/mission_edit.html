@@ -82,7 +82,29 @@
 					<label for="location">Location</label>
 				</td>
 				<td>
-					<input type="text" name="location" value="{{ mission.location or '' }}" />
+					<input type="text" name="location" value="{{ mission.location or '' }}" list="rooms" />
+					<datalist id="rooms">
+						<option value="Campus Center 1000"></option>
+						<option value="Campus Center 1010"></option>
+						<option value="Campus Center 1015"></option>
+						<option value="Campus Center 1010+1015"></option>
+						<option value="Campus Center 2610 (Bamboo Room)"></option>
+						<option value="Campus Center 2650 (Bamboo Room)"></option>
+						<option value="Campus Center 2610+2650 (Bamboo Room)"></option>
+						<option value="Campus Center 2050 (Reading Room)"></option>
+						<option value="Campus Center 2740"></option>
+						<option value="Campus Center Fireside Lounge"></option>
+						<option value="Cinemark Tinseltown USA and IMAX"></option>
+						<option value="Gosnell 1250"></option>
+						<option value="Liberal Arts A205"></option>
+						<option value="Regal Henrietta 18"></option>
+						<option value="SAU 1300 (Davis Room)"></option>
+						<option value="SAU 1500 (Alumni Room)"></option>
+						<option value="SAU 1510 (1829 Room)"></option>
+						<option value="SAU 1740 (Kathy Hall Conference Room)"></option>
+						<option value="SAU 2510 (MOSAIC/Clark B)"></option>
+						<option value="SAU 2520 (Clark A)"></option>
+					</datalist>
 				</td>
 			</tr>
 			<tr>
