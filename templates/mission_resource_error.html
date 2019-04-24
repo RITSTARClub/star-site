@@ -1,0 +1,114 @@
+{% include 'head.html' %}
+
+<section>
+	<h1>Oh no!</h1>
+	
+	{% if not mission %}
+		<p>No mission exists with the ID &ldquo;{{ req_id }}&rdquo;.</p>
+	{% else %}
+		<p>
+			{% if mission.title %}
+				{{ mission.title }} (ID: {{ mission.id}})
+			{% else %}
+				Mission &ldquo;{{ mission.id }}&rdquo;
+			{% endif %}
+			
+			does not have
+			
+			{% if resource_name == 'wave' and not mission.wave_url %}
+				a wave URL.
+			{% elif (resource_name == 'gdrive' or resource_name == 'drive') and not mission.drive_url %}
+				a Drive URL.
+			{% elif resource_name == 'intro' and not mission.intro_url %}
+				an intro. presentation URL.
+			{% elif (resource_name == 'presentation' or resource_name == 'pres') and not mission.pres_url %}
+				a mission presentation URL.
+			{% elif resource_name == 'signin' and not mission.sign_in_url %}
+				a sign-in form URL.
+			{% elif (resource_name == 'facebook' or resource_name == 'fb') and not mission.fb_url %}
+				a Facebook event URL.
+			{% elif (resource_name == 'gplus' or resource_name == 'google' or resource_name == 'google+' or resource_name == 'googleplus') and not mission.gplus_url %}
+				a Google+ event URL.
+			{% elif resource_name == 'thelink' and not mission.the_link_url %}
+				a The Link event URL.
+			{% elif (resource_name == 'youtube' or resource_name == 'yt') and not mission.youtube_url %}
+				a YouTube stream URL.
+			{% else %}
+				a link for &ldquo;{{ resource_name }}&rdquo;.
+			{% endif %}
+		</p>
+		<p>
+			{% if mission.wave_url or mission.drive_url or mission.intro_url or mission.pres_url or mission.sign_in_url or mission.fb_url or mission.gplus_url or mission.the_link_url or mission.youtube_url %}
+				The links it does have are:
+				<ul>
+					{% if mission.wave_url %}
+						<li>A wave (<a href="{{ mission.wave_url }}" target="_blank">/missions/{{ mission.id }}/wave</a>)</li>
+					{% endif %}
+					{% if mission.drive_url %}
+						<li>A Drive folder (<a href="{{ mission.drive_url }}" target="_blank">/missions/{{ mission.id }}/gdrive</a>, or <a href="{{ mission.drive_url }}" target="_blank">/drive</a>)</li>
+					{% endif %}
+					{% if mission.intro_url %}
+						<li>An intro. presentation (<a href="{{ mission.intro_url }}" target="_blank">/missions/{{ mission.id }}/intro</a>)</li>
+					{% endif %}
+					{% if mission.pres_url %}
+						<li>A mission presentation (<a href="{{ mission.pres_url }}" target="_blank">/missions/{{ mission.id }}/presentation</a>, or <a href="{{ mission.pres_url }}" target="_blank">/pres</a>)</li>
+					{% endif %}
+					{% if mission.sign_in_url %}
+						<li>A sign-in form (<a href="{{ mission.sign_in_url }}" target="_blank">/missions/{{ mission.id }}/signin</a>)</li>
+					{% endif %}
+					{% if mission.fb_url %}
+						<li>A Facebook event (<a href="{{ mission.fb_url }}" target="_blank">/missions/{{ mission.id }}/facebook</a>, or <a href="{{ mission.fb_url }}" target="_blank">/fb</a>)</li>
+					{% endif %}
+					{% if mission.gplus_url %}
+						<li>A Google+ event (<a href="{{ mission.gplus_url }}" target="_blank">/missions/{{ mission.id }}/gplus</a>, or <a href="{{ mission.gplus_url }}" target="_blank">/google</a>)</li>
+					{% endif %}
+					{% if mission.the_link_url %}
+						<li>A The Link event (<a href="{{ mission.the_link_url }}" target="_blank">/missions/{{ mission.id }}/thelink</a>)</li>
+					{% endif %}
+					{% if mission.youtube_url %}
+						<li>A YouTube stream (<a href="{{ mission.youtube_url }}" target="_blank">/missions/{{ mission.id }}/youtube</a>, or <a href="{{ mission.youtube_url }}" target="_blank">/yt</a>)</li>
+					{% endif %}
+				</ul>
+			{% else %}
+				It does not currently have any mission resource links.
+			{% endif %}
+		</p>
+		<p>
+			{% if not (mission.wave_url and mission.drive_url and mission.intro_url and mission.pres_url and mission.sign_in_url and mission.fb_url and mission.youtube_url) %}
+				The Bridge Crew may choose to later add:
+				<ul>
+					{% if not mission.wave_url %}
+						<li>A wave (/missions/{{ mission.id }}/wave)</li>
+					{% endif %}
+					{% if not mission.drive_url %}
+						<li>A Drive folder (/missions/{{ mission.id }}/gdrive, or /drive)</a></li>
+					{% endif %}
+					{% if not mission.intro_url and mission.type == 0 %}
+						<li>An intro. presentation (/missions/{{ mission.id }}/intro)</a></li>
+					{% endif %}
+					{% if not mission.pres_url and mission.type == 0 %}
+						<li>A mission presentation (/missions/{{ mission.id }}/presentation, or /pres)</a></li>
+					{% endif %}
+					{% if not mission.sign_in_url and mission.type == 0 %}
+						<li>A sign-in form (/missions/{{ mission.id }}/signin)</a></li>
+					{% endif %}
+					{% if not mission.fb_url %}
+						<li>A Facebook event (/missions/{{ mission.id }}/facebook, or /fb)</a></li>
+					{% endif %}
+					{% if not mission.youtube_url and mission.type == 0 %}
+						<li>A YouTube stream (/missions/{{ mission.id }}/youtube, or /yt)</a></li>
+					{% endif %}
+				</ul>
+				{% if admin %}
+					You are signed in as an admin and can <a href="/missions/edit?id={{ mission.id }}">add more links right now</a>.
+				{% endif %}
+			{% endif %}
+		</p>
+		<p>
+			Find more information about STAR's URL shortcuts in <a href="https://rizzoma.com/topic/4d586e6857823b7295baa10be943b1d7/0_b_9c4t_9c90j/" target="_blank">the Webmaster Committee documentation</a>.
+		</p>
+	{% endif %}
+</section>
+<br />
+
+{% include 'foot.html' %}

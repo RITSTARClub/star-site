@@ -181,68 +181,52 @@ class MissionResourceRedirect(webapp2.RequestHandler):
 			return
 		
 		mission = Mission.query(Mission.id == req_id).get()
-		if not mission:
-			# 404 if a nonexistent mission is specified.
-			generate_plain_404(self, u'No mission exists with the ID \u201c%s\u201d.' % req_id)
-			return
+		if mission:
+			if resource_name == 'wave' and mission.wave_url:
+				self.redirect(mission.wave_url.encode('utf-8'))
+				return
+				
+			elif (resource_name == 'gdrive' or resource_name == 'drive') and mission.drive_url:
+				self.redirect(mission.drive_url.encode('utf-8'))
+				return
+				
+			elif resource_name == 'intro' and mission.intro_url:
+				self.redirect(mission.intro_url.encode('utf-8'))
+				return
+				
+			elif (resource_name == 'presentation' or resource_name == 'pres') and mission.pres_url:
+				self.redirect(mission.pres_url.encode('utf-8'))
+				return
+				
+			elif resource_name == 'signin' and mission.sign_in_url:
+				self.redirect(mission.sign_in_url.encode('utf-8'))
+				return
+				
+			elif (resource_name == 'facebook' or resource_name == 'fb') and mission.fb_url:
+				self.redirect(mission.fb_url.encode('utf-8'))
+				return
+				
+			elif (resource_name == 'gplus' or resource_name == 'google' or resource_name == 'google+' or resource_name == 'googleplus') and mission.gplus_url:
+				self.redirect(mission.gplus_url.encode('utf-8'))
+				return
+				
+			elif resource_name == 'thelink' and mission.the_link_url:
+				self.redirect(mission.the_link_url.encode('utf-8'))
+				return
+				
+			elif (resource_name == 'youtube' or resource_name == 'yt') and mission.youtube_url:
+				self.redirect(mission.youtube_url.encode('utf-8'))
+				return
+			
+		# If there was no mission found or a missing link for the redirect, show the error page.
+		template_vals = generate_base_template_vals(self)
+		template_vals['req_id'] = req_id
+		template_vals['resource_name'] = resource_name
+		template_vals['mission'] = mission
+		template_vals['title'] = 'Oh no!'
 		
-		if resource_name == 'wave':
-			if not mission.wave_url:
-				generate_plain_404(self, u'Mission \u201c%s\u201d does not have a wave URL.' % req_id)
-				return
-			self.redirect(mission.wave_url.encode('utf-8'))
-			
-		elif resource_name == 'gdrive' or resource_name == 'drive':
-			if not mission.drive_url:
-				generate_plain_404(self, u'Mission \u201c%s\u201d does not have a Drive URL.' % req_id)
-				return
-			self.redirect(mission.drive_url.encode('utf-8'))
-			
-		elif resource_name == 'intro':
-			if not mission.intro_url:
-				generate_plain_404(self, u'Mission \u201c%s\u201d does not have an intro. presentation URL.' % req_id)
-				return
-			self.redirect(mission.intro_url.encode('utf-8'))
-			
-		elif resource_name == 'presentation' or resource_name == 'pres':
-			if not mission.pres_url:
-				generate_plain_404(self, u'Mission \u201c%s\u201d does not have a mission presentation URL.' % req_id)
-				return
-			self.redirect(mission.pres_url.encode('utf-8'))
-			
-		elif resource_name == 'signin':
-			if not mission.sign_in_url:
-				generate_plain_404(self, u'Mission \u201c%s\u201d does not have a sign-in form URL.' % req_id)
-				return
-			self.redirect(mission.sign_in_url.encode('utf-8'))
-			
-		elif resource_name == 'facebook' or resource_name == 'fb':
-			if not mission.fb_url:
-				generate_plain_404(self, u'Mission \u201c%s\u201d does not have a Facebook event URL.' % req_id)
-				return
-			self.redirect(mission.fb_url.encode('utf-8'))
-			
-		elif resource_name == 'gplus' or resource_name == 'google' or resource_name == 'google+' or resource_name == 'googleplus':
-			if not mission.gplus_url:
-				generate_plain_404(self, u'Mission \u201c%s\u201d does not have a Google+ event URL.' % req_id)
-				return
-			self.redirect(mission.gplus_url.encode('utf-8'))
-			
-		elif resource_name == 'thelink':
-			if not mission.the_link_url:
-				generate_plain_404(self, u'Mission \u201c%s\u201d does not have a The Link event URL.' % req_id)
-				return
-			self.redirect(mission.the_link_url.encode('utf-8'))
-			
-		elif resource_name == 'youtube' or resource_name == 'yt':
-			if not mission.youtube_url:
-				generate_plain_404(self, u'Mission \u201c%s\u201d does not have a YouTube stream URL.' % req_id)
-				return
-			self.redirect(mission.youtube_url.encode('utf-8'))
-			
-		else:
-			generate_plain_404(self, u'Mission \u201c%s\u201d does not have a \u201c%s\u201d URL.\n\nThe links a mission might have are:\n\u2022 wave\n\u2022 gdrive (or drive)\n\u2022 intro\n\u2022 presentation (or pres)\n\u2022 signin\n\u2022 facebook (or fb)\n\u2022 gplus (or google)\n\u2022 thelink\n\u2022 youtube (or yt)' % (req_id, resource_name))
-			return
+		template = JINJA_ENVIRONMENT.get_template('mission_resource_error.html')
+		self.response.write(template.render(template_vals))
 
 app = webapp2.WSGIApplication([
 	('/missions/?(\?.*)?', MissionListPage),
