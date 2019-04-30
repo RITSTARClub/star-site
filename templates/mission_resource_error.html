@@ -42,31 +42,31 @@
 				The links it does have are:
 				<ul>
 					{% if mission.wave_url %}
-						<li>A wave (<a href="{{ mission.wave_url }}" target="_blank">/missions/{{ mission.id }}/wave</a>)</li>
+						<li>A wave (<a href="/missions/{{ mission.id }}/wave" target="_blank">/missions/{{ mission.id }}/wave</a>)</li>
 					{% endif %}
 					{% if mission.drive_url %}
-						<li>A Drive folder (<a href="{{ mission.drive_url }}" target="_blank">/missions/{{ mission.id }}/gdrive</a>, or <a href="{{ mission.drive_url }}" target="_blank">/drive</a>)</li>
+						<li>A Drive folder (<a href="/missions/{{ mission.id }}/gdrive" target="_blank">/missions/{{ mission.id }}/gdrive</a>, or <a href="/missions/{{ mission.id }}/drive" target="_blank">/drive</a>)</li>
 					{% endif %}
 					{% if mission.intro_url %}
-						<li>An intro. presentation (<a href="{{ mission.intro_url }}" target="_blank">/missions/{{ mission.id }}/intro</a>)</li>
+						<li>An intro. presentation (<a href="/missions/{{ mission.id }}/intro" target="_blank">/missions/{{ mission.id }}/intro</a>)</li>
 					{% endif %}
 					{% if mission.pres_url %}
-						<li>A mission presentation (<a href="{{ mission.pres_url }}" target="_blank">/missions/{{ mission.id }}/presentation</a>, or <a href="{{ mission.pres_url }}" target="_blank">/pres</a>)</li>
+						<li>A mission presentation (<a href="/missions/{{ mission.id }}/presentation" target="_blank">/missions/{{ mission.id }}/presentation</a>, or <a href="/missions/{{ mission.id }}/pres" target="_blank">/pres</a>)</li>
 					{% endif %}
 					{% if mission.sign_in_url %}
-						<li>A sign-in form (<a href="{{ mission.sign_in_url }}" target="_blank">/missions/{{ mission.id }}/signin</a>)</li>
+						<li>A sign-in form (<a href="/missions/{{ mission.id }}/signin" target="_blank">/missions/{{ mission.id }}/signin</a>)</li>
 					{% endif %}
 					{% if mission.fb_url %}
-						<li>A Facebook event (<a href="{{ mission.fb_url }}" target="_blank">/missions/{{ mission.id }}/facebook</a>, or <a href="{{ mission.fb_url }}" target="_blank">/fb</a>)</li>
+						<li>A Facebook event (<a href="/missions/{{ mission.id }}/facebook" target="_blank">/missions/{{ mission.id }}/facebook</a>, or <a href="/missions/{{ mission.id }}/fb" target="_blank">/fb</a>)</li>
 					{% endif %}
 					{% if mission.gplus_url %}
-						<li>A Google+ event (<a href="{{ mission.gplus_url }}" target="_blank">/missions/{{ mission.id }}/gplus</a>, or <a href="{{ mission.gplus_url }}" target="_blank">/google</a>)</li>
+						<li>A Google+ event (<a href="/missions/{{ mission.id }}/gplus" target="_blank">/missions/{{ mission.id }}/gplus</a>, or <a href="/missions/{{ mission.id }}/google" target="_blank">/google</a>)</li>
 					{% endif %}
 					{% if mission.the_link_url %}
-						<li>A The Link event (<a href="{{ mission.the_link_url }}" target="_blank">/missions/{{ mission.id }}/thelink</a>)</li>
+						<li>A The Link event (<a href="/missions/{{ mission.id }}/thelink" target="_blank">/missions/{{ mission.id }}/thelink</a>)</li>
 					{% endif %}
 					{% if mission.youtube_url %}
-						<li>A YouTube stream (<a href="{{ mission.youtube_url }}" target="_blank">/missions/{{ mission.id }}/youtube</a>, or <a href="{{ mission.youtube_url }}" target="_blank">/yt</a>)</li>
+						<li>A YouTube stream (<a href="/missions/{{ mission.id }}/youtube" target="_blank">/missions/{{ mission.id }}/youtube</a>, or <a href="/missions/{{ mission.id }}/yt" target="_blank">/yt</a>)</li>
 					{% endif %}
 				</ul>
 			{% else %}
