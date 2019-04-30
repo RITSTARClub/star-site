@@ -99,13 +99,11 @@
 						<li>A YouTube stream (/missions/{{ mission.id }}/youtube, or /yt)</a></li>
 					{% endif %}
 				</ul>
+				{% if admin %}
+					You are signed in as an admin and can <a href="/missions/edit?id={{ mission.id }}">add more links right now</a>.
+				{% endif %}
 			{% endif %}
 		</p>
-		{% if admin %}
-			<p>
-				You are signed in as an admin and can <a href="/missions/edit?id={{ mission.id }}">add/edit these links</a>.
-			</p>
-		{% endif %}
 		<p>
 			Find more information about STAR's URL shortcuts in <a href="https://rizzoma.com/topic/4d586e6857823b7295baa10be943b1d7/0_b_9c4t_9c90j/" target="_blank">the Webmaster Committee documentation</a>.
 		</p>
