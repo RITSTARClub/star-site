@@ -15,9 +15,9 @@
 				<td>
 					{% if mission.id %}
 						<input type="hidden" name="id" value="{{ mission.id }}" />
-						<input type="text" name="id" value="{{ mission.id }}" disabled="disabled" />
+						<input type="text" name="id" id="mission_id" value="{{ mission.id }}" disabled="disabled" />
 					{% else %}
-						<input type="text" name="id" required="required" pattern="[a-z0-9\-]+" />
+						<input type="text" name="id" id="mission_id" required="required" pattern="[a-z0-9]+" />
 					{% endif %}
 				</td>
 			</tr>

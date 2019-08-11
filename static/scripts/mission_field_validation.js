@@ -28,11 +28,13 @@ window.addEventListener('load', function () {
 	var weekNumberRow = document.getElementById('weekNumberRow'),
 		carpoolStartRow = document.getElementById('carpoolStartRow'),
 		carpoolEndRow = document.getElementById('carpoolEndRow'),
-		carpoolLocationRow = document.getElementById('carpoolLocationRow');
+		carpoolLocationRow = document.getElementById('carpoolLocationRow'),
+		missionIdInput = document.getElementById('mission_id');
 	
 	// Set up showing fields depending on the mission type.
 	var typeSelect = document.getElementById('type');
 	typeSelect.onchange = handleTypeChange;
+	missionIdInput.oninput = checkIdValidation;
 	handleTypeChange.call(typeSelect);
 	
 	// Set up fields with custom format validation.
@@ -60,11 +62,40 @@ window.addEventListener('load', function () {
 		weekNumberRow.style.display =
 			(this.value === '0') ? null : 'none';
 		
+		// Only require a numeric ID for weekly missions.
+		missionIdInput.pattern =
+			(this.value === '0') ? '[1-9][0-9]*' : '[a-z0-9]*[a-z][a-z0-9]*';
+		checkIdValidation.call(missionIdInput);
+		
 		// Only show carpool fields for away missions.
 		carpoolStartRow.style.display =
 			carpoolEndRow.style.display =
 			carpoolLocationRow.style.display =
 				(this.value === '2') ? null : 'none';
+	}
+	
+	function checkIdValidation () {
+		// If there is no problem, then no message is needed.
+		if (!this.validity || !(this.validity.typeMismatch || this.validity.patternMismatch)) {
+			this.setCustomValidity('');
+			return;
+		}
+		
+		if (typeSelect.value === '0') {
+			if (this.value.charAt(0) === '0') {
+				this.setCustomValidity('Please do not precede the mission number with a 0.');
+			} else {
+				// If the issue was not the ID starting with a 0, assume illegal characters were used.
+				this.setCustomValidity('Weekly missions have numeric IDs that count up week to week.');
+			}
+		} else {
+			if (this.value.match(/^[0-9]+$/)) {
+				this.setCustomValidity('Only weekly missions have numeric IDs.');
+			} else {
+				// If the issue was not the ID being numeric, assume illegal characters were used.
+				this.setCustomValidity('Please only use numbers and lowercase letters.');
+			}
+		}
 	}
 	
 	function checkFieldValidation() {
