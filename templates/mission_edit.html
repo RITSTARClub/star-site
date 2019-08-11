@@ -250,6 +250,18 @@
 			</tr>
 			<tr>
 				<td>
+					<label for="cover_photo_url">
+						Cover photo
+						<br />
+						<small>GDrive link to the PNG or JPEG</small>
+					</label>
+				</td>
+				<td>
+					<input type="url" id="cover_photo_url" name="cover_photo_url" value="{{ mission.cover_photo_url or '' }}" placeholder="https://drive.google.com/file/d/XXXXXXXX...XXXXXXXX/view" pattern="https://drive.google.com/file/d/[A-Za-z0-9_\-]+(/view|/edit)?" />
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<label for="fb_url">Facebook event</label>
 				</td>
 				<td>

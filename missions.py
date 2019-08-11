@@ -139,7 +139,7 @@ class MissionEditPage(webapp2.RequestHandler):
 				setattr(mission, int_param, req_val)
 		
 		# Update string values.
-		for str_param in ['title', 'description', 'location', 'carpool_location', 'wave_url', 'drive_url', 'intro_url', 'pres_url', 'sign_in_url', 'fb_url', 'gplus_url', 'the_link_url', 'youtube_url']:
+		for str_param in ['title', 'description', 'location', 'carpool_location', 'wave_url', 'drive_url', 'intro_url', 'pres_url', 'sign_in_url', 'cover_photo_url', 'fb_url', 'gplus_url', 'the_link_url', 'youtube_url']:
 			req_val = self.request.get(str_param)
 			if req_val or req_val == '':
 				req_val = urllib2.unquote(req_val)

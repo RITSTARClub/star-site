@@ -41,6 +41,7 @@ window.addEventListener('load', function () {
 		'#drive_url,' +
 		'#intro_url,' +
 		'#sign_in_url,' +
+		'#cover_photo_url,' +
 		'#fb_url,' +
 		'#youtube_url,' +
 		'#gplus_url,' +

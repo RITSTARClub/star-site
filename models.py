@@ -188,6 +188,7 @@ class Mission(ndb.Model):
 	pres_url = ndb.StringProperty()
 	sign_in_url = ndb.StringProperty()
 	
+	cover_photo_url = ndb.StringProperty()
 	fb_url = ndb.StringProperty()
 	gplus_url = ndb.StringProperty()
 	the_link_url = ndb.StringProperty()
