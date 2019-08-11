@@ -16,7 +16,7 @@ from PyQRNative import QRErrorCorrectLevel
 from PyQRNativeGAE import QRCode
 
 from constants import MEMBER_SEARCH_INDEX_NAME
-from dates import year_str, date_str, pretty_date
+from dates import year_str, date_str, pretty_date, pretty_time
 from semesters import get_current_semester
 
 class Member(ndb.Model):
@@ -208,6 +208,9 @@ class Mission(ndb.Model):
 	def get_pretty_date(self):
 		return pretty_date(self.start, self.end)
 	
+	def get_pretty_carpool_time(self):
+		return pretty_time(self.carpool_start)
+	
 	def get_runners_str(self):
 		return ','.join(self.runners)
 	
@@ -236,6 +239,7 @@ class Mission(ndb.Model):
 	carpool_start_str = property(get_carpool_start_str)
 	carpool_end_str = property(get_carpool_end_str)
 	pretty_date = property(get_pretty_date)
+	pretty_carpool_time = property(get_pretty_carpool_time)
 	runners_str = property(get_runners_str)
 	runners_list = property(get_runners_list)
 	type_name = property(get_type_name)

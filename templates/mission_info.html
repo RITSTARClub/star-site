@@ -21,6 +21,11 @@
 		</tr>
 	</table>
 	
+	{% if mission.type == 2 and mission.carpool_start %}
+		<!-- Carpool information for away mission -->
+		<p style="font-weight: bold;">Carpool leaves {{ mission.carpool_location or '' }} at {{ mission.pretty_carpool_time }}</p>
+	{% endif %}
+	
 	<p>
 		{% if mission.description %}
 			{{ mission.html_description|safe }}
