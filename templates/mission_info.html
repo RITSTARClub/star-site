@@ -5,7 +5,10 @@
 		<iframe class="streamPlayer" src="{{ mission.youtube_embed_url }}" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 	{% endif %}
 	<aside class="minor" style="margin-top: {% if mission.youtube_url %}1.5em{% else %}0.5em{% endif %};">{{ mission.type_name }}</aside>
-	<h1>{{ mission.title }}</h1>
+	<h1>
+		{% if mission.type == 0 %}Week {{ mission.week_number }} - {% endif %}
+		{{ mission.title }}
+	</h1>
 	
 	<table class="simpleTable" style="margin-left: 0;">
 		<tr>

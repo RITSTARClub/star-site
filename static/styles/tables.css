@@ -33,6 +33,9 @@
 		max-width: 6em;
 	}
 
+.bigListTable .missionTitleCol {
+	font-weight: bold;
+}
 .bigListTable .missionSocialCol {
 	white-space: nowrap;
 }
