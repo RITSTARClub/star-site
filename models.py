@@ -226,6 +226,13 @@ class Mission(ndb.Model):
 	def get_type_name(self):
 		return Mission.TYPES[self.type] + ' Mission'
 	
+	def get_cover_photo_embed_url(self):
+		if not self.cover_photo_url:
+			return None
+		return self.cover_photo_url.replace('http://', 'https://').replace('drive.google.com/file/d/', 'drive.google.com/uc?export=view&id=').replace('/view', '').replace('/edit', '')
+		#https://drive.google.com/file/d/1d-fS7_D2_-EGqqFWFUhZ7VQxDpygG-Tz/view
+		#http://drive.google.com/uc?export=view&id=PASTE YOU ID HERE
+	
 	def get_youtube_embed_url(self):
 		if not self.youtube_url:
 			return None
@@ -244,6 +251,7 @@ class Mission(ndb.Model):
 	runners_str = property(get_runners_str)
 	runners_list = property(get_runners_list)
 	type_name = property(get_type_name)
+	cover_photo_embed_url = property(get_cover_photo_embed_url)
 	youtube_embed_url = property(get_youtube_embed_url)
 	html_description = property(get_html_description)
 

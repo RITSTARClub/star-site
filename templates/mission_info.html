@@ -3,6 +3,8 @@
 <section>
 	{% if mission.youtube_url %}
 		<iframe class="streamPlayer" src="{{ mission.youtube_embed_url }}" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+	{% elif mission.cover_photo_url %}
+		<img class="coverPhoto" src="{{ mission.cover_photo_embed_url }}" alt="Mission cover photo." />
 	{% endif %}
 	<aside class="minor" style="margin-top: {% if mission.youtube_url %}1.5em{% else %}0.5em{% endif %};">{{ mission.type_name }}</aside>
 	<h1>
