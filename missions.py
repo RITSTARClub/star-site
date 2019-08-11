@@ -132,14 +132,14 @@ class MissionEditPage(webapp2.RequestHandler):
 			mission.id = req_id
 		
 		# Update int values.
-		for int_param in ['type']:
+		for int_param in ['type', 'week_number']:
 			req_val = self.request.get(int_param)
 			if req_val or req_val == 0:
 				req_val = int(req_val)
 				setattr(mission, int_param, req_val)
 		
 		# Update string values.
-		for str_param in ['title', 'description', 'location', 'wave_url', 'drive_url', 'intro_url', 'pres_url', 'sign_in_url', 'fb_url', 'gplus_url', 'the_link_url', 'youtube_url']:
+		for str_param in ['title', 'description', 'location', 'carpool_location', 'wave_url', 'drive_url', 'intro_url', 'pres_url', 'sign_in_url', 'fb_url', 'gplus_url', 'the_link_url', 'youtube_url']:
 			req_val = self.request.get(str_param)
 			if req_val or req_val == '':
 				req_val = urllib2.unquote(req_val)
@@ -147,7 +147,7 @@ class MissionEditPage(webapp2.RequestHandler):
 				setattr(mission, str_param, req_val)
 		
 		# Update date values.
-		for date_param in ['start', 'end']:
+		for date_param in ['start', 'end', 'carpool_start', 'carpool_end']:
 			req_val = self.request.get(date_param)
 			if req_val:
 				req_val = urllib2.unquote(req_val)

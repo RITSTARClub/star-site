@@ -9,7 +9,7 @@
 					<label for="id">
 						Mission number
 						<br />
-						<small>Or unique identifier (numbers and lowercase letters) for special missions</small>
+						<small>or unique identifier (numbers and lowercase letters) for special missions</small>
 					</label>
 				</td>
 				<td>
@@ -26,11 +26,25 @@
 					<label for="type">Type</label>
 				</td>
 				<td>
-					<select name="type">
+					<select name="type" id="type">
 						<option value="0"{% if mission.type == 0 %} selected="selected"{% endif %}>Weekly (Standard)</option>
 						<option value="1"{% if mission.type == 1 %} selected="selected"{% endif %}>Special</option>
 						<option value="2"{% if mission.type == 2 %} selected="selected"{% endif %}>Away</option>
 					</select>
+				</td>
+			</tr>
+			<tr id="weekNumberRow">
+				<td>
+					<label for="week_number">
+						RIT week number
+						<br />
+						<small>in the current semester</small>
+						<br />
+						<small>(Only for weekly missions)</small>
+					</label>
+				</td>
+				<td>
+					<input type="number" name="week_number" value="{{ mission.week_number or '' }}" />
 				</td>
 			</tr>
 			<tr>
@@ -50,7 +64,67 @@
 					</label>
 				</td>
 				<td>
-					<textarea name="description">{{ mission.description or '' }}</textarea>
+					<textarea name="description" rows="6">{{ mission.description or '' }}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="runners">
+						Runners
+						<br />
+						<small>Use comma-separated UUIDs for now</small>
+					</label>
+				</td>
+				<td>
+					<textarea name="runners">{{ mission.runners_str or '' }}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<hr />
+				</td>
+			</tr>
+			<tr id="carpoolStartRow">
+				<td>
+					<label for="carpool_start">
+						Carpool start time
+						<br />
+						<small>yyyy-mm-ddThh:mm</small>
+						<br />
+						<small>(Only for away missions)</small>
+					</label>
+				</td>
+				<td>
+					<input type="datetime-local" name="carpool_start" value="{{ mission.carpool_start_str or '' }}" />
+				</td>
+			</tr>
+			<tr id="carpoolEndRow">
+				<td>
+					<label for="carpool_end">
+						Carpool end time
+						<br />
+						<small>yyyy-mm-ddThh:mm</small>
+						<br />
+						<small>(Only for away missions)</small>
+					</label>
+				</td>
+				<td>
+					<input type="datetime-local" name="carpool_end" value="{{ mission.carpool_end_str or '' }}" />
+				</td>
+			</tr>
+			<tr id="carpoolLocationRow">
+				<td>
+					<label for="carpool_location">Carpool location</label>
+						<br />
+						<small>(Only for away missions)</small>
+				</td>
+				<td>
+					<input type="text" name="carpool_location" value="{{ mission.carpool_location or '' }}" list="carpool_location_suggestions" />
+					<datalist id="carpool_location_suggestions">
+						<option value="SAU Lobby"></option>
+						<option value="The Sentinel"></option>
+					</datalist>
 				</td>
 			</tr>
 			<tr>
@@ -82,8 +156,8 @@
 					<label for="location">Location</label>
 				</td>
 				<td>
-					<input type="text" name="location" value="{{ mission.location or '' }}" list="rooms" />
-					<datalist id="rooms">
+					<input type="text" name="location" value="{{ mission.location or '' }}" list="location_suggestions" />
+					<datalist id="location_suggestions">
 						<option value="Campus Center 1000"></option>
 						<option value="Campus Center 1010"></option>
 						<option value="Campus Center 1015"></option>
@@ -108,18 +182,6 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<label for="runners">
-						Runners
-						<br />
-						<small>Use comma-separated UUIDs for now</small>
-					</label>
-				</td>
-				<td>
-					<textarea name="runners">{{ mission.runners_str or '' }}</textarea>
-				</td>
-			</tr>
-			<tr>
 				<td></td>
 				<td>
 					<hr />
@@ -130,7 +192,7 @@
 					<label for="wave_url">
 						Mission wave
 						<br />
-						<small>Only shown to admins</small>
+						<small>(Only shown to admins)</small>
 					</label>
 				</td>
 				<td>
@@ -142,7 +204,7 @@
 					<label for="drive_url">
 						Google Drive folder
 						<br />
-						<small>Only shown to admins</small>
+						<small>(Only shown to admins)</small>
 					</label>
 				</td>
 				<td>

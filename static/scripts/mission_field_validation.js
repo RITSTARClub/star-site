@@ -24,6 +24,47 @@ window.addEventListener('load', function () {
 			}
 		];
 	
+	// Get type dependent fields.
+	var weekNumberRow = document.getElementById('weekNumberRow'),
+		carpoolStartRow = document.getElementById('carpoolStartRow'),
+		carpoolEndRow = document.getElementById('carpoolEndRow'),
+		carpoolLocationRow = document.getElementById('carpoolLocationRow');
+	
+	// Set up showing fields depending on the mission type.
+	var typeSelect = document.getElementById('type');
+	typeSelect.onchange = handleTypeChange;
+	handleTypeChange.call(typeSelect);
+	
+	// Set up fields with custom format validation.
+	var fieldsToValidate = document.querySelectorAll(
+		'#wave_url,' +
+		'#drive_url,' +
+		'#intro_url,' +
+		'#sign_in_url,' +
+		'#fb_url,' +
+		'#youtube_url,' +
+		'#gplus_url,' +
+		'#the_link_url');
+	
+	fieldsToValidate = Array.prototype.slice.call(fieldsToValidate);
+	fieldsToValidate.forEach(function (field) {
+		field.oninput = checkFieldValidation;
+	});
+	
+	/**
+	 * Show/hide fields when the mission type changes.
+	 */
+	function handleTypeChange() {
+		// Only show the week number for weekly missions.
+		weekNumberRow.style.display =
+			(this.value === '0') ? null : 'none';
+		
+		// Only show carpool fields for away missions.
+		carpoolStartRow.style.display =
+			carpoolEndRow.style.display =
+			carpoolLocationRow.style.display =
+				(this.value === '2') ? null : 'none';
+	}
 	
 	function checkFieldValidation() {
 		// If there is no problem, then no message is needed.
@@ -49,20 +90,4 @@ window.addEventListener('load', function () {
 		// Fall back to the default if nothing else.
 		this.setCustomValidity(DEFAULT_MESSAGE);
 	}
-	
-	var fields = document.querySelectorAll(
-		'#wave_url,' +
-		'#drive_url,' +
-		'#intro_url,' +
-		'#sign_in_url,' +
-		'#fb_url,' +
-		'#youtube_url,' +
-		'#gplus_url,' +
-		'#the_link_url');
-	
-	fields = Array.prototype.slice.call(fields);
-	
-	fields.forEach(function (field) {
-		field.oninput = checkFieldValidation;
-	});
 }, false);

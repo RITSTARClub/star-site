@@ -171,11 +171,15 @@ class Mission(ndb.Model):
 	
 	id = ndb.StringProperty() # Mission number (or special identifier for non-standard mission)
 	type = ndb.IntegerProperty()
+	week_number = ndb.IntegerProperty()
 	title = ndb.StringProperty()
 	description = ndb.TextProperty()
 	start = ndb.DateTimeProperty()
 	end = ndb.DateTimeProperty()
 	location = ndb.StringProperty()
+	carpool_start = ndb.DateTimeProperty()
+	carpool_end = ndb.DateTimeProperty()
+	carpool_location = ndb.StringProperty()
 	runners = ndb.StringProperty(repeated=True) # Member UUIDs
 	wave_url = ndb.StringProperty()
 	drive_url = ndb.StringProperty()
@@ -194,6 +198,12 @@ class Mission(ndb.Model):
 	
 	def get_end_str(self):
 		return date_str(self.end)
+	
+	def get_carpool_start_str(self):
+		return date_str(self.carpool_start)
+	
+	def get_carpool_end_str(self):
+		return date_str(self.carpool_end)
 	
 	def get_pretty_date(self):
 		return pretty_date(self.start, self.end)
@@ -223,6 +233,8 @@ class Mission(ndb.Model):
 	
 	start_str = property(get_start_str)
 	end_str = property(get_end_str)
+	carpool_start_str = property(get_carpool_start_str)
+	carpool_end_str = property(get_carpool_end_str)
 	pretty_date = property(get_pretty_date)
 	runners_str = property(get_runners_str)
 	runners_list = property(get_runners_list)
