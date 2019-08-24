@@ -39,15 +39,35 @@
 	<p style="font-size: larger;">
 		{% if admin %}
 			{% if mission.wave_url %}
-				<a href="{{ mission.wave_url }}" target="_blank" class="socialIcon rizzoma small">Mission wave</a>
+				<a href="{{ mission.wave_url }}" target="_blank"><!--
+					--><svg role="img" class="icon small" viewBox="0 0 24 24">
+						<title>Mission wave</title>
+						<use xlink:href="/static/images/icons/rizzoma.svg#icon" href="/static/images/icons/rizzoma.svg#icon"></use>
+					</svg><!--
+				--></a>
 			{% else %}
-				<a href="/missions/edit?id={{ mission.id }}" class="socialIcon rizzoma small missing">No mission wave link</a>
+				<a href="/missions/edit?id={{ mission.id }}" class="missing small"><!--
+					--><svg role="img" class="icon small missing" viewBox="0 0 24 24">
+						<title>No mission wave link</title>
+						<use xlink:href="/static/images/icons/rizzoma.svg#icon" href="/static/images/icons/rizzoma.svg#icon"></use>
+					</svg><!--
+				--></a>
 			{% endif %}
 			
 			{% if mission.drive_url %}
-				<a href="{{ mission.drive_url }}" target="_blank" class="socialIcon gdrive small">Google Drive folder</a>
+				<a href="{{ mission.drive_url }}" target="_blank"><!--
+					--><svg role="img" class="icon small" viewBox="0 0 24 24">
+						<title>Google Drive folder</title>
+						<use xlink:href="/static/images/icons/gdrive.svg#icon" href="/static/images/icons/gdrive.svg#icon"></use>
+					</svg><!--
+				--></a>
 			{% else %}
-				<a href="/missions/edit?id={{ mission.id }}" class="socialIcon gdrive small missing">No Google Drive link</a>
+				<a href="/missions/edit?id={{ mission.id }}" class="missing small"><!--
+					--><svg role="img" class="icon small missing" viewBox="0 0 24 24">
+						<title>No Google Drive link</title>
+						<use xlink:href="/static/images/icons/gdrive.svg#icon" href="/static/images/icons/gdrive.svg#icon"></use>
+					</svg><!--
+				--></a>
 			{% endif %}
 			
 			&nbsp;&nbsp;&nbsp;&nbsp;
@@ -55,13 +75,29 @@
 		{% endif %}
 		
 		{% if mission.fb_url %}
-			<a href="{{ mission.fb_url }}" target="_blank" class="socialIcon fb small">Facebook event</a>
+			<a href="{{ mission.fb_url }}" target="_blank"><!--
+				--><svg role="img" class="icon small" viewBox="0 0 24 24">
+					<title>Facebook event</title>
+					<use xlink:href="/static/images/icons/facebook.svg#icon" href="/static/images/icons/facebook.svg#icon"></use>
+				</svg><!--
+			--></a>
 		{% elif admin %}
-			<a href="/missions/edit?id={{ mission.id }}" class="socialIcon fb small missing">No Facebook link</a>
+			<a href="/missions/edit?id={{ mission.id }}" class="missing small"><!--
+				--><svg role="img" class="icon small missing" viewBox="0 0 24 24">
+					<title>No Facebook link</title>
+					<use xlink:href="/static/images/icons/facebook.svg#icon" href="/static/images/icons/facebook.svg#icon"></use>
+				</svg><!--
+			--></a>
 		{% endif %}
 		
 		{% if mission.gplus_url %}
-			<a href="{{ mission.gplus_url }}" target="_blank" class="socialIcon gplus small">Google+ event</a>
+			<a href="{{ mission.gplus_url }}" target="_blank"><!--
+				--><svg role="img" class="icon small" viewBox="0 0 24 24">
+					<title>Google+ event</title>
+					<use xlink:href="/static/images/icons/gplus.svg#icon" href="/static/images/icons/gplus.svg#icon"></use>
+				</svg><!--
+			--></a>
+
 		{% endif %}
 		
 		{% if mission.the_link_url %}
@@ -69,9 +105,19 @@
 		{% endif %}
 		
 		{% if mission.youtube_url %}
-			<a href="{{ mission.youtube_url }}" target="_blank" class="socialIcon youtube small">YouTube video</a>
+			<a href="{{ mission.youtube_url }}" target="_blank"><!--
+				--><svg role="img" class="icon small" viewBox="0 0 24 24">
+					<title>YouTube video</title>
+					<use xlink:href="/static/images/icons/youtube.svg#icon" href="/static/images/icons/youtube.svg#icon"></use>
+				</svg><!--
+			--></a>
 		{% elif admin and mission.type == 0 %}
-			<a href="/missions/edit?id={{ mission.id }}" class="socialIcon youtube small missing">No YouTube link</a>
+				<a href="/missions/edit?id={{ mission.id }}" class="missing small"><!--
+					--><svg role="img" class="icon small missing" viewBox="0 0 24 24">
+						<title>No YouTube link</title>
+						<use xlink:href="/static/images/icons/youtube.svg#icon" href="/static/images/icons/youtube.svg#icon"></use>
+					</svg><!--
+				--></a>
 		{% endif %}
 	</p>
 	{% if admin %}
