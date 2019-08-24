@@ -6,7 +6,7 @@
 	{% elif mission.cover_photo_url %}
 		<img class="coverPhoto" src="{{ mission.cover_photo_embed_url }}" alt="Mission cover photo." />
 	{% endif %}
-	{% if not mission.cover_photo_url and admin %}
+	{% if not mission.cover_photo_url and not mission.youtube_url and admin %}
 		<br />
 		<a href="/missions/edit?id={{ mission.id }}" class="hasIcon missing tiny">
 			<svg role="img" class="icon tiny missing" viewBox="0 0 24 24" aria-hidden="true">
