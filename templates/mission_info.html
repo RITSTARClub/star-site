@@ -30,20 +30,32 @@
 		{{ mission.title }}
 	</h1>
 	
-	<table class="simpleTable" style="margin-left: 0;">
-		<tr>
-			<td><strong>Time</strong></td>
-			<td>{{ mission.pretty_date|safe }}</td>
-		</tr>
-		<tr>
-			<td><strong>Location</strong></td>
-			<td>{{ mission.location }}</td>
-		</tr>
-	</table>
+	<div class="hasIcon">
+		<svg role="img" class="icon tiny" viewBox="0 0 24 24">
+			<title>Time</title>
+			<use xlink:href="/static/images/icons/time.svg#icon" href="/static/images/icons/time.svg#icon"></use>
+		</svg>
+		{{ mission.pretty_date|safe }}
+	</div>
+	<br />
+	<div class="hasIcon">
+		<svg role="img" class="icon tiny" viewBox="0 0 24 24">
+			<title>Location</title>
+			<use xlink:href="/static/images/icons/location.svg#icon" href="/static/images/icons/location.svg#icon"></use>
+		</svg>
+		{{ mission.location }}
+	</div>
 	
 	{% if mission.type == 2 and mission.carpool_start %}
 		<!-- Carpool information for away mission -->
-		<p style="font-weight: bold;">Carpool leaves {{ mission.carpool_location or '' }} at {{ mission.pretty_carpool_time }}</p>
+		<br />
+		<div class="hasIcon" style="font-weight: bold;">
+			<svg role="img" class="icon tiny" viewBox="0 0 24 24" aria-hidden="true">
+				<title>Carpool</title>
+				<use xlink:href="/static/images/icons/car.svg#icon" href="/static/images/icons/car.svg#icon"></use>
+			</svg>
+			Carpool leaves {{ mission.carpool_location or '' }} at {{ mission.pretty_carpool_time }}
+		</div>
 	{% endif %}
 	
 	<p>
