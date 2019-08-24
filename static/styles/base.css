@@ -29,6 +29,10 @@ body {
 	
 }
 
+svg[role="img"] {
+	fill: currentColor;
+}
+
 a {
 	color: #9999cc;
 }
@@ -142,6 +146,66 @@ aside {
 		display: none;
 	}
 }
+
+.icon {
+	width: 48px;
+	height: 48px;
+}
+	.icon.tiny {
+		width: 24px;
+		height: 24px;
+	}
+	.icon.small {
+		width: 36px;
+		height: 36px;
+	}
+	.icon.large {
+		width: 96px;
+		height: 96px;
+	}
+
+.missing {
+	position: relative;
+}
+	.missing::after {
+		content: '?';
+		display: block;
+		position: absolute;
+		right: 0;
+		top: 0;
+		
+		font-weight: bold;
+		font-size: 24px;
+		color: #ff8e8e;
+		text-shadow: 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+					 
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+					 
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+					 
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808,
+		             0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808, 0 0 4px #080808;
+	}
+		.missing.tiny::after {
+			font-size: 12px;
+		}
+		.missing.small::after {
+			font-size: 18px;
+		}
+		.missing.large::after {
+			font-size: 48px;
+		}
 
 .coverPhoto,
 .streamPlayer {
