@@ -6,6 +6,24 @@
 	{% elif mission.cover_photo_url %}
 		<img class="coverPhoto" src="{{ mission.cover_photo_embed_url }}" alt="Mission cover photo." />
 	{% endif %}
+	{% if not mission.cover_photo_url and admin %}
+		<br />
+		<a href="/missions/edit?id={{ mission.id }}" class="hasIcon missing tiny">
+			<svg role="img" class="icon tiny missing" viewBox="0 0 24 24" aria-hidden="true">
+				<use xlink:href="/static/images/icons/image.svg#icon" href="/static/images/icons/image.svg#icon"></use>
+			</svg>
+			No cover photo link
+		</a>
+	{% endif %}
+	{% if not mission.youtube_url and admin and mission.type == 0 %}
+		<br />
+		<a href="/missions/edit?id={{ mission.id }}" class="hasIcon missing tiny">
+			<svg role="img" class="icon tiny missing" viewBox="0 0 24 24" aria-hidden="true">
+				<use xlink:href="/static/images/icons/youtube.svg#icon" href="/static/images/icons/youtube.svg#icon"></use>
+			</svg>
+			No YouTube stream link
+		</a>
+	{% endif %}
 	<aside class="minor" style="margin-top: {% if mission.youtube_url %}1.5em{% else %}0.5em{% endif %};">{{ mission.type_name }}</aside>
 	<h1>
 		{% if mission.type == 0 %}Week {{ mission.week_number }} - {% endif %}
@@ -39,114 +57,124 @@
 	<p>
 		{% if mission.fb_url %}
 			<a href="{{ mission.fb_url }}" target="_blank" class="button callToAction hasIcon">
-				<svg role="img" class="icon small" viewBox="0 0 24 24" aria-label="Facebook.">
+				<svg role="img" class="icon small" viewBox="0 0 24 24" aria-label="Facebook">
 					<use xlink:href="/static/images/icons/facebook.svg#icon" href="/static/images/icons/facebook.svg#icon"></use>
 				</svg>
 				RSVP and view details
 			</a>
 		{% elif admin %}
-			<a href="/missions/edit?id={{ mission.id }}" class="missing small hasIcon">
-				<svg role="img" class="icon small missing" viewBox="0 0 24 24" aria-label="Facebook.">
+			<a href="/missions/edit?id={{ mission.id }}" class="hasIcon missing small" style="font-size: larger;">
+				<svg role="img" class="icon small missing" viewBox="0 0 24 24" aria-label="Facebook">
 					<use xlink:href="/static/images/icons/facebook.svg#icon" href="/static/images/icons/facebook.svg#icon"></use>
 				</svg>
-				No Facebook link
+				No Facebook event link
 			</a>
 		{% endif %}
 	</p>
 	
-	<p style="font-size: larger;">
-		{% if admin %}
-			{% if mission.wave_url %}
-				<a href="{{ mission.wave_url }}" target="_blank"><!--
+	{% if mission.gplus_url or mission.the_link_url %}
+		<fieldset style="text-align: center;">
+			<legend>Legacy event links</legend>
+			{% if mission.gplus_url %}
+				<a href="{{ mission.gplus_url }}" target="_blank"><!--
 					--><svg role="img" class="icon small" viewBox="0 0 24 24">
-						<title>Mission wave</title>
-						<use xlink:href="/static/images/icons/rizzoma.svg#icon" href="/static/images/icons/rizzoma.svg#icon"></use>
-					</svg><!--
-				--></a>
-			{% else %}
-				<a href="/missions/edit?id={{ mission.id }}" class="missing small"><!--
-					--><svg role="img" class="icon small missing" viewBox="0 0 24 24">
-						<title>No mission wave link</title>
-						<use xlink:href="/static/images/icons/rizzoma.svg#icon" href="/static/images/icons/rizzoma.svg#icon"></use>
+						<title>Google+ event</title>
+						<use xlink:href="/static/images/icons/gplus.svg#icon" href="/static/images/icons/gplus.svg#icon"></use>
 					</svg><!--
 				--></a>
 			{% endif %}
 			
-			{% if mission.drive_url %}
-				<a href="{{ mission.drive_url }}" target="_blank"><!--
-					--><svg role="img" class="icon small" viewBox="0 0 24 24">
-						<title>Google Drive folder</title>
-						<use xlink:href="/static/images/icons/gdrive.svg#icon" href="/static/images/icons/gdrive.svg#icon"></use>
-					</svg><!--
-				--></a>
-			{% else %}
-				<a href="/missions/edit?id={{ mission.id }}" class="missing small"><!--
-					--><svg role="img" class="icon small missing" viewBox="0 0 24 24">
-						<title>No Google Drive link</title>
-						<use xlink:href="/static/images/icons/gdrive.svg#icon" href="/static/images/icons/gdrive.svg#icon"></use>
-					</svg><!--
-				--></a>
+			{% if mission.the_link_url %}
+				<a href="{{ mission.the_link_url }}" target="_blank" class="socialIcon thelink small">The Link event</a>
 			{% endif %}
-			
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;
-		{% endif %}
-		
-		
-		{% if mission.gplus_url %}
-			<a href="{{ mission.gplus_url }}" target="_blank"><!--
-				--><svg role="img" class="icon small" viewBox="0 0 24 24">
-					<title>Google+ event</title>
-					<use xlink:href="/static/images/icons/gplus.svg#icon" href="/static/images/icons/gplus.svg#icon"></use>
-				</svg><!--
-			--></a>
-
-		{% endif %}
-		
-		{% if mission.the_link_url %}
-			<a href="{{ mission.the_link_url }}" target="_blank" class="socialIcon thelink small">The Link event</a>
-		{% endif %}
-		
-		{% if mission.youtube_url %}
-			<a href="{{ mission.youtube_url }}" target="_blank"><!--
-				--><svg role="img" class="icon small" viewBox="0 0 24 24">
-					<title>YouTube video</title>
-					<use xlink:href="/static/images/icons/youtube.svg#icon" href="/static/images/icons/youtube.svg#icon"></use>
-				</svg><!--
-			--></a>
-		{% elif admin and mission.type == 0 %}
-				<a href="/missions/edit?id={{ mission.id }}" class="missing small"><!--
-					--><svg role="img" class="icon small missing" viewBox="0 0 24 24">
-						<title>No YouTube link</title>
-						<use xlink:href="/static/images/icons/youtube.svg#icon" href="/static/images/icons/youtube.svg#icon"></use>
-					</svg><!--
-				--></a>
-		{% endif %}
-	</p>
+		</fieldset>
+	{% endif %}
+	
 	{% if admin %}
-		{# Only require these links for standard missions. #}
-		
-		<p style="font-size: larger;">
-			{% if mission.intro_url %}
-				<a href="{{ mission.intro_url }}" target="_blank">Intro. presentation</a>
-			{% elif mission.type == 0 %}
-				<a href="/missions/edit?id={{ mission.id }}" style="color: #ff8e8e;">No intro. presentation link</a>
+		<fieldset>
+			<legend>Admin links</legend>
+			{% if mission.wave_url %}
+				<a href="{{ mission.wave_url }}" target="_blank" class="hasIcon" style="font-size: larger;">
+					<svg role="img" class="icon small" viewBox="0 0 24 24" aria-label="Rizzoma">
+						<use xlink:href="/static/images/icons/rizzoma.svg#icon" href="/static/images/icons/rizzoma.svg#icon"></use>
+					</svg>
+					Full mission plan
+				</a>
+			{% else %}
+				<a href="/missions/edit?id={{ mission.id }}" class="hasIcon missing small" style="font-size: larger;">
+					<svg role="img" class="icon small missing" viewBox="0 0 24 24" aria-label="Rizzoma">
+						<use xlink:href="/static/images/icons/rizzoma.svg#icon" href="/static/images/icons/rizzoma.svg#icon"></use>
+					</svg>
+					No mission wave link
+				</a>
 			{% endif %}
+			
 			<br />
 			
-			{% if mission.pres_url %}
-				<a href="{{ mission.pres_url }}" target="_blank">Mission presentation</a>
+			{% if mission.drive_url %}
+				<a href="{{ mission.drive_url }}" target="_blank" class="hasIcon" style="font-size: larger;">
+					<svg role="img" class="icon small" viewBox="0 0 24 24" aria-label="Google Drive">
+						<use xlink:href="/static/images/icons/gdrive.svg#icon" href="/static/images/icons/gdrive.svg#icon"></use>
+					</svg>
+					Mission files
+				</a>
+			{% else %}
+				<a href="/missions/edit?id={{ mission.id }}" class="hasIcon missing small" style="font-size: larger;">
+					<svg role="img" class="icon small missing" viewBox="0 0 24 24" aria-label="Google Drive">
+						<use xlink:href="/static/images/icons/gdrive.svg#icon" href="/static/images/icons/gdrive.svg#icon"></use>
+					</svg>
+					No Google Drive link
+				</a>
+			{% endif %}
+			
+			{# Only require these links for standard missions. #}
+			{% if mission.intro_url %}
 				<br />
+				<a href="{{ mission.intro_url }}" target="_blank" class="hasIcon">
+					<svg role="img" class="icon tiny" viewBox="0 0 24 24" aria-hidden="true">
+						<use xlink:href="/static/images/icons/presentation.svg#icon" href="/static/images/icons/presentation.svg#icon"></use>
+					</svg>
+					Intro. presentation
+				</a>
+			{% elif mission.type == 0 %}
+				<br />
+				<a href="/missions/edit?id={{ mission.id }}" class="hasIcon missing tiny">
+					<svg role="img" class="icon tiny missing" viewBox="0 0 24 24" aria-label="Google Drive">
+						<use xlink:href="/static/images/icons/presentation.svg#icon" href="/static/images/icons/presentation.svg#icon"></use>
+					</svg>
+					No intro. presentation link
+				</a>
+			{% endif %}
+			
+			{% if mission.pres_url %}
+				<br />
+				<a href="{{ mission.pres_url }}" target="_blank" class="hasIcon">
+					<svg role="img" class="icon tiny" viewBox="0 0 24 24" aria-hidden="true">
+						<use xlink:href="/static/images/icons/presentation.svg#icon" href="/static/images/icons/presentation.svg#icon"></use>
+					</svg>
+					Mission presentation
+				</a>
 			{% endif %}
 			
 			{% if mission.sign_in_url %}
-				<a href="{{ mission.sign_in_url }}" target="_blank">Sign-in form</a>
+				<br />
+				<a href="{{ mission.sign_in_url }}" target="_blank" class="hasIcon">
+					<svg role="img" class="icon tiny" viewBox="0 0 24 24" aria-hidden="true">
+						<use xlink:href="/static/images/icons/document.svg#icon" href="/static/images/icons/document.svg#icon"></use>
+					</svg>
+					Sign-in form
+				</a>
 			{% elif mission.type == 0 %}
-				<a href="/missions/edit?id={{ mission.id }}" style="color: #ff8e8e;">No sign-in form link</a>
+				<br />
+				<a href="/missions/edit?id={{ mission.id }}" class="hasIcon missing tiny">
+					<svg role="img" class="icon tiny missing" viewBox="0 0 24 24" aria-hidden="true">
+						<use xlink:href="/static/images/icons/document.svg#icon" href="/static/images/icons/document.svg#icon"></use>
+					</svg>
+					No sign-in form link
+				</a>
 			{% endif %}
-		</p>
+		</fieldset>
 	{% endif %}
-	
 	
 	{% if mission.runners %}
 		{% if mission.type == 0 %}
