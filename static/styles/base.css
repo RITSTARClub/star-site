@@ -29,10 +29,6 @@ body {
 	
 }
 
-svg[role="img"] {
-	fill: currentColor;
-}
-
 a {
 	color: #9999cc;
 }
@@ -148,6 +144,10 @@ aside {
 }
 
 .icon {
+	fill: currentColor;
+	vertical-align: top;
+	
+	display: inline-block;
 	width: 48px;
 	height: 48px;
 }
@@ -171,7 +171,7 @@ aside {
 		content: '?';
 		display: block;
 		position: absolute;
-		right: 0;
+		left: 0;
 		top: 0;
 		
 		font-weight: bold;
@@ -206,6 +206,26 @@ aside {
 		.missing.large::after {
 			font-size: 48px;
 		}
+
+.hasIcon,
+button.hasIcon,
+a[role="button"].hasIcon,
+.button.hasIcon {
+	display: inline-flex;
+	align-items: center;
+}
+	.hasIcon .icon,
+	button.hasIcon .icon,
+	a[role="button"].hasIcon .icon,
+	.button.hasIcon .icon {
+		margin-right: 0.25em;
+	}
+
+button.callToAction,
+a[role="button"].callToAction,
+.button.callToAction {
+	font-size: 150%;
+}
 
 .coverPhoto,
 .streamPlayer {

@@ -36,6 +36,24 @@
 		{% endif %}
 	</p>
 	
+	<p>
+		{% if mission.fb_url %}
+			<a href="{{ mission.fb_url }}" target="_blank" class="button callToAction hasIcon">
+				<svg role="img" class="icon small" viewBox="0 0 24 24" aria-label="Facebook.">
+					<use xlink:href="/static/images/icons/facebook.svg#icon" href="/static/images/icons/facebook.svg#icon"></use>
+				</svg>
+				RSVP and view details
+			</a>
+		{% elif admin %}
+			<a href="/missions/edit?id={{ mission.id }}" class="missing small hasIcon">
+				<svg role="img" class="icon small missing" viewBox="0 0 24 24" aria-label="Facebook.">
+					<use xlink:href="/static/images/icons/facebook.svg#icon" href="/static/images/icons/facebook.svg#icon"></use>
+				</svg>
+				No Facebook link
+			</a>
+		{% endif %}
+	</p>
+	
 	<p style="font-size: larger;">
 		{% if admin %}
 			{% if mission.wave_url %}
@@ -74,21 +92,6 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;
 		{% endif %}
 		
-		{% if mission.fb_url %}
-			<a href="{{ mission.fb_url }}" target="_blank"><!--
-				--><svg role="img" class="icon small" viewBox="0 0 24 24">
-					<title>Facebook event</title>
-					<use xlink:href="/static/images/icons/facebook.svg#icon" href="/static/images/icons/facebook.svg#icon"></use>
-				</svg><!--
-			--></a>
-		{% elif admin %}
-			<a href="/missions/edit?id={{ mission.id }}" class="missing small"><!--
-				--><svg role="img" class="icon small missing" viewBox="0 0 24 24">
-					<title>No Facebook link</title>
-					<use xlink:href="/static/images/icons/facebook.svg#icon" href="/static/images/icons/facebook.svg#icon"></use>
-				</svg><!--
-			--></a>
-		{% endif %}
 		
 		{% if mission.gplus_url %}
 			<a href="{{ mission.gplus_url }}" target="_blank"><!--
